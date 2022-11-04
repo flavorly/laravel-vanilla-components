@@ -2,9 +2,7 @@
 
 namespace VanillaComponents\Core\Components;
 
-use VanillaComponents\Core\Components\Concerns;
-
-class RichSelect  extends BaseComponent
+class RichSelect extends BaseComponent
 {
     use Concerns\CanBeSearchable;
     use Concerns\HasOptions;
@@ -22,7 +20,7 @@ class RichSelect  extends BaseComponent
             'loadingMoreResultsText' => trans('vanilla-components-laravel::translations.select.loadingMoreResultsText'),
         ]);
 
-        return array_merge(parent::toArray(),[
+        return array_merge(parent::toArray(), [
             'options' => $this->getOptionsToArray(),
         ]);
     }

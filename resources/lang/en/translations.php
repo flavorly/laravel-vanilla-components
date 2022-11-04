@@ -1,4 +1,5 @@
 <?php
+
 return [
     'confirmation' => [
         'title' => 'Confirm action',
@@ -13,5 +14,5 @@ return [
         'searchingText' => 'Loading... please wait',
         'loadingClosedPlaceholder' => 'Loading... please wait',
         'loadingMoreResultsText' => 'Loading more results...',
-    ]
+    ],
 ];
