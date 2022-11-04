@@ -27,8 +27,19 @@ class Action implements CoreContracts\HasToArray
 
     protected function ensureDefaults()
     {
+        // Polling
         $polling =  PollingOptions::make()->enabled(false);
-        $confirmation = Confirmation::make()->enabled();
+
+        // Default
+        $confirmation = Confirmation::make()
+            ->enabled()
+            ->buttons(
+                trans('vanilla-components-laravel::translations.confirmation.confirm'),
+                trans('vanilla-components-laravel::translations.confirmation.cancel'),
+            )
+            ->raw(false)
+            ->title($this->getName())
+            ->text(trans('vanilla-components-laravel::translations.confirmation.text'));
 
         $this->after['clearSelected'] = $this->getShouldClearSelectionAfterAction() ?? true;
         $this->after['resetFilters'] = $this->getShouldClearFiltersAfterAction() ?? false;
