@@ -11,6 +11,7 @@ trait CanBeSelectable
     public function selectable(bool | Closure $condition = true): static
     {
         $this->isSelectable = $condition;
+
         return $this;
     }
 

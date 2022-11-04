@@ -11,6 +11,7 @@ trait CanBeStopped
     public function stopOnDataChange(bool | Closure $condition = true): static
     {
         $this->stopWhenDataChanges = $condition;
+
         return $this;
     }
 

@@ -11,6 +11,7 @@ trait CanManageSettings
     public function manageSettings(bool | Closure $condition = true): static
     {
         $this->isSettingsManaged = $condition;
+
         return $this;
     }
 

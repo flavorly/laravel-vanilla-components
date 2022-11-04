@@ -2,10 +2,8 @@
 
 namespace VanillaComponents\Core\Confirmation;
 
-use VanillaComponents\Core\Confirmation\Concerns;
-use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Core\Concerns as CoreConcerns;
-
+use VanillaComponents\Core\Contracts as CoreContracts;
 
 class Confirmation implements CoreContracts\HasToArray
 {
@@ -32,7 +30,7 @@ class Confirmation implements CoreContracts\HasToArray
             'cancelButton' => $this->getCancelButtonText(),
             'safe' => $this->isRaw(),
             'level' => $this->getLevel(),
-            'classes' => $this->getClasses()
+            'classes' => $this->getClasses(),
         ];
     }
 }

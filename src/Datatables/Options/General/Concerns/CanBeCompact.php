@@ -11,6 +11,7 @@ trait CanBeCompact
     public function compact(bool | Closure $condition = true): static
     {
         $this->isCompact = $condition;
+
         return $this;
     }
 

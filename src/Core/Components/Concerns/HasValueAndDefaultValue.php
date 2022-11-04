@@ -5,17 +5,20 @@ namespace VanillaComponents\Core\Components\Concerns;
 trait HasValueAndDefaultValue
 {
     protected mixed $value = null;
+
     protected mixed $defaultValue = null;
 
     public function value(mixed $condition = null): static
     {
         $this->value = $condition;
+
         return $this;
     }
 
     public function defaultValue(mixed $condition = null): static
     {
         $this->defaultValue = $condition;
+
         return $this;
     }
 

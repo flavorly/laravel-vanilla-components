@@ -11,6 +11,7 @@ trait HasFields
     public function fields(array $fields): static
     {
         $this->fields = $fields;
+
         return $this;
     }
 

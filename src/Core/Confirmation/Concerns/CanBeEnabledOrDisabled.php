@@ -11,6 +11,7 @@ trait CanBeEnabledOrDisabled
     public function enabled(bool | Closure $condition = true): static
     {
         $this->isEnabled = $condition;
+
         return $this;
     }
 

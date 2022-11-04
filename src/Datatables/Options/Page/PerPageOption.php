@@ -2,10 +2,9 @@
 
 namespace VanillaComponents\Datatables\Options\Page;
 
+use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Datatables\Concerns as BaseConcerns;
-use VanillaComponents\Datatables\Options\Page\Concerns;
-use VanillaComponents\Core\Concerns as CoreConcerns;
 
 class PerPageOption implements CoreContracts\HasToArray
 {

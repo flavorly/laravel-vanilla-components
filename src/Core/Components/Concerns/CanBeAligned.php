@@ -9,6 +9,7 @@ trait CanBeAligned
     public function align(mixed $condition = null): static
     {
         $this->align = $condition;
+
         return $this;
     }
 
@@ -16,5 +17,4 @@ trait CanBeAligned
     {
         return $this->evaluate($this->align);
     }
-
 }

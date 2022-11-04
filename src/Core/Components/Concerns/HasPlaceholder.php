@@ -3,7 +3,6 @@
 namespace VanillaComponents\Core\Components\Concerns;
 
 use Closure;
-use Illuminate\Support\Str;
 
 trait HasPlaceholder
 {

@@ -24,26 +24,27 @@ trait HasFilters
 
     protected function filtersToArray(): array
     {
-        if(!empty($this->filters)) {
+        if (! empty($this->filters)) {
             return collect($this->filters)
-                ->map(function($filter){
-
-                    if($filter instanceof Filter) {
+                ->map(function ($filter) {
+                    if ($filter instanceof Filter) {
                         return $filter->toArray();
                     }
 
-                    if(is_a($filter,BaseComponent::class)) {
+                    if (is_a($filter, BaseComponent::class)) {
                         return $filter->toArray();
                     }
 
-                    if(is_array($filter)){
+                    if (is_array($filter)) {
                         return $filter;
                     }
+
                     return [];
                 })
-                ->filter(fn($filter) => !empty($filter))
+                ->filter(fn ($filter) => ! empty($filter))
                 ->toArray();
         }
+
         return [];
     }
 }

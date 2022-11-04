@@ -2,10 +2,9 @@
 
 namespace VanillaComponents\Core\Polling;
 
+use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Datatables\Concerns as BaseConcerns;
-use VanillaComponents\Core\Polling\Concerns;
-use VanillaComponents\Core\Concerns as CoreConcerns;
 
 class PollingOptions implements CoreContracts\HasToArray
 {
@@ -22,7 +21,7 @@ class PollingOptions implements CoreContracts\HasToArray
             'enable' => $this->isEnabled(),
             'interval' => $this->getPoolEvery(),
             'during' => $this->getPoolDuring(),
-            'stopWhenDataChanges' => $this->shouldStopWhenDateChanges()
+            'stopWhenDataChanges' => $this->shouldStopWhenDateChanges(),
         ];
     }
 }

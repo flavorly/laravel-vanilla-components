@@ -11,6 +11,7 @@ trait CanBeRefreshable
     public function refreshable(bool | Closure $condition = true): static
     {
         $this->isRefreshable = $condition;
+
         return $this;
     }
 

@@ -2,12 +2,11 @@
 
 namespace VanillaComponents\Datatables\Actions;
 
+use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Confirmation\Confirmation;
 use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Core\Polling\PollingOptions;
-use VanillaComponents\Datatables\Actions\Concerns;
 use VanillaComponents\Datatables\Concerns as BaseConcerns;
-use VanillaComponents\Core\Concerns as CoreConcerns;
 
 class Action implements CoreContracts\HasToArray
 {
@@ -27,7 +26,7 @@ class Action implements CoreContracts\HasToArray
 
     protected function ensureDefaults()
     {
-        $polling =  PollingOptions::make()->enabled(false);
+        $polling = PollingOptions::make()->enabled(false);
         $confirmation = Confirmation::make()->enabled();
 
         $this->after['clearSelected'] = $this->getShouldClearSelectionAfterAction() ?? true;
@@ -38,15 +37,15 @@ class Action implements CoreContracts\HasToArray
 
     public function toArray(): array
     {
-       $this->ensureDefaults();
+        $this->ensureDefaults();
 
-       return [
-           'name' => $this->getName(),
-           'label' => $this->getLabel(),
-           'permissions' => [],
-           'fields' => collect($this->getFields())->map->toArray()->toArray(),
-           'before' => $this->getBeforeToArray(),
-           'after' => $this->getAfterToArray(),
-       ];
+        return [
+            'name' => $this->getName(),
+            'label' => $this->getLabel(),
+            'permissions' => [],
+            'fields' => collect($this->getFields())->map->toArray()->toArray(),
+            'before' => $this->getBeforeToArray(),
+            'after' => $this->getAfterToArray(),
+        ];
     }
 }

@@ -2,7 +2,6 @@
 
 namespace VanillaComponents\Core\Components;
 
-use VanillaComponents\Core\Components\Concerns;
 use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts as CoreContracts;
 

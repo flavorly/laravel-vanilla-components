@@ -17,6 +17,7 @@ trait CanBeSearchable
     public function searchableTranslations(array|Closure $translations = null): static
     {
         $this->searchableTranslations = $translations;
+
         return $this;
     }
 
@@ -24,5 +25,4 @@ trait CanBeSearchable
     {
         return $this->evaluate($this->searchableTranslations);
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace VanillaComponents\Core\Components;
 
-use VanillaComponents\Core\Components\Concerns;
 class CheckboxGroup extends BaseComponent
 {
     use Concerns\HasOptions;
@@ -11,7 +10,7 @@ class CheckboxGroup extends BaseComponent
 
     public function toArray(): array
     {
-        return array_merge(parent::toArray(),[
+        return array_merge(parent::toArray(), [
             'options' => $this->getOptionsToArray(),
         ]);
     }

@@ -8,10 +8,9 @@ class ToggleGroup extends BaseComponent
 
     protected string $component = 'VanillaToggleGroup';
 
-
     public function toArray(): array
     {
-        return array_merge(parent::toArray(),[
+        return array_merge(parent::toArray(), [
             'options' => $this->getOptionsToArray(),
         ]);
     }

@@ -2,8 +2,8 @@
 
 namespace VanillaComponents\Datatables\Columns;
 
-use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Core\Concerns as CoreConcerns;
+use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Datatables\Concerns as BaseConcerns;
 
 class Column implements CoreContracts\HasToArray
