@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace VanillaComponents;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use VanillaComponents\Commands\VanillaComponentsCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class VanillaComponentsServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +16,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('vanilla-components-laravel')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_skeleton_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasTranslations()
+            ->hasMigration('create_vanilla-components-laravel_table')
+            ->hasCommand(VanillaComponentsCommand::class);
     }
 }

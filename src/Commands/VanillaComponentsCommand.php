@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace VanillaComponents\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class VanillaComponentsCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'vanilla-components-laravel';
 
     public $description = 'My command';
 
