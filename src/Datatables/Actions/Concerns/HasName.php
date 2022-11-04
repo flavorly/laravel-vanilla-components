@@ -6,7 +6,7 @@ use Closure;
 
 trait HasName
 {
-    protected string | Closure $name;
+    protected string | Closure | null $name = null;
 
     public function name(string | Closure $name): static
     {
@@ -15,7 +15,7 @@ trait HasName
         return $this;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->evaluate($this->name);
     }

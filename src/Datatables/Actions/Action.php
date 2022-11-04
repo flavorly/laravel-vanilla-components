@@ -27,6 +27,17 @@ class Action implements CoreContracts\HasToArray
     use Concerns\CanBeConfirmed;
     use Concerns\CanResetFilters;
 
+    public function __construct()
+    {
+        $this->setup();
+        $this->ensureDefaults();
+    }
+
+    protected function setup()
+    {
+        // Nothing in here, override to add your own setup
+    }
+
     protected function ensureDefaults()
     {
         // Polling
@@ -52,8 +63,6 @@ class Action implements CoreContracts\HasToArray
 
     public function toArray(): array
     {
-        $this->ensureDefaults();
-
         return [
             'name' => $this->getName(),
             'label' => $this->getLabel(),
