@@ -6,7 +6,7 @@ use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Datatables\Concerns as BaseConcerns;
 
-class PollingOptions implements CoreContracts\HasToArray
+class Polling implements CoreContracts\HasToArray
 {
     use CoreConcerns\EvaluatesClosures;
     use CoreConcerns\Makable;

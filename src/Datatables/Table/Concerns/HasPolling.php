@@ -2,26 +2,26 @@
 
 namespace VanillaComponents\Datatables\Table\Concerns;
 
-use VanillaComponents\Core\Polling\PollingOptions;
+use VanillaComponents\Core\Polling\Polling;
 
 trait HasPolling
 {
     /** @var array */
-    protected array $poolingOptions = [];
+    protected array $pollingOptions = [];
 
-    public function polling(): array | PollingOptions
+    public function polling(): array | Polling
     {
-        return PollingOptions::make();
+        return Polling::make();
     }
 
     protected function setupPolling(): void
     {
         $pollingOptions = $this->polling();
-        $this->poolingOptions = $pollingOptions instanceof PollingOptions ? $pollingOptions->toArray() : $pollingOptions;
+        $this->pollingOptions = $pollingOptions instanceof Polling ? $pollingOptions->toArray() : $pollingOptions;
     }
 
     protected function pollingToArray(): array
     {
-        return collect($this->poolingOptions)->toArray();
+        return collect($this->pollingOptions)->toArray();
     }
 }

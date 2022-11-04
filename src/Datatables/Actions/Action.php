@@ -4,7 +4,7 @@ namespace VanillaComponents\Datatables\Actions;
 
 use VanillaComponents\Core\Confirmation\Confirmation;
 use VanillaComponents\Core\Contracts as CoreContracts;
-use VanillaComponents\Core\Polling\PollingOptions;
+use VanillaComponents\Core\Polling\Polling;
 use VanillaComponents\Datatables\Actions\Concerns;
 use VanillaComponents\Datatables\Concerns as BaseConcerns;
 use VanillaComponents\Core\Concerns as CoreConcerns;
@@ -21,6 +21,7 @@ class Action implements CoreContracts\HasToArray
     use Concerns\HasBefore;
     use Concerns\HasAfter;
     use Concerns\HasPolling;
+    use Concerns\HasPermissions;
     use Concerns\CanClearSelected;
     use Concerns\CanBeConfirmed;
     use Concerns\CanResetFilters;
@@ -28,7 +29,7 @@ class Action implements CoreContracts\HasToArray
     protected function ensureDefaults()
     {
         // Polling
-        $polling =  PollingOptions::make()->enabled(false);
+        $polling =  Polling::make()->enabled(false);
 
         // Default
         $confirmation = Confirmation::make()
@@ -41,6 +42,7 @@ class Action implements CoreContracts\HasToArray
             ->title($this->getName())
             ->text(trans('vanilla-components-laravel::translations.confirmation.text'));
 
+        // Other stuff
         $this->after['clearSelected'] = $this->getShouldClearSelectionAfterAction() ?? true;
         $this->after['resetFilters'] = $this->getShouldClearFiltersAfterAction() ?? false;
         $this->after['polling'] = $this->getPolling() ?? $polling;
@@ -54,7 +56,7 @@ class Action implements CoreContracts\HasToArray
        return [
            'name' => $this->getName(),
            'label' => $this->getLabel(),
-           'permissions' => [],
+           'permissions' => $this->getPermissionsToArray(),
            'fields' => collect($this->getFields())->map->toArray()->toArray(),
            'before' => $this->getBeforeToArray(),
            'after' => $this->getAfterToArray(),
