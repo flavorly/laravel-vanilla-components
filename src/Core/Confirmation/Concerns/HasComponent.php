@@ -8,7 +8,7 @@ trait HasComponent
 {
     protected string|Closure|null $component = null;
 
-    public function component(string|\Closure $name): static
+    public function component(string|Closure $name): static
     {
         $this->component = $name;
 

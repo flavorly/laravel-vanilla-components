@@ -7,24 +7,29 @@ use Closure;
 trait CanShowDetailedPagination
 {
     protected bool | Closure $showTotalNumberOfItems = true;
+
     protected bool | Closure $showCurrentPage = true;
+
     protected bool | Closure $showNextPages = true;
 
     public function showTotalNumberOfItems(bool | Closure $condition = true): static
     {
         $this->showTotalNumberOfItems = $condition;
+
         return $this;
     }
 
     public function showCurrentPage(bool | Closure $condition = true): static
     {
         $this->showCurrentPage = $condition;
+
         return $this;
     }
 
     public function showNextPages(bool | Closure $condition = true): static
     {
         $this->showNextPages = $condition;
+
         return $this;
     }
 

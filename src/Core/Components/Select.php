@@ -2,7 +2,7 @@
 
 namespace VanillaComponents\Core\Components;
 
-class Select  extends BaseComponent
+class Select extends BaseComponent
 {
     use Concerns\HasOptions;
 
@@ -10,7 +10,7 @@ class Select  extends BaseComponent
 
     public function toArray(): array
     {
-        return array_merge(parent::toArray(),[
+        return array_merge(parent::toArray(), [
             'options' => $this->getOptionsToArray(),
         ]);
     }

@@ -11,6 +11,7 @@ trait CanBeSearchable
     public function searchable(bool | Closure $condition = true): static
     {
         $this->isSearchable = $condition;
+
         return $this;
     }
 

@@ -5,17 +5,20 @@ namespace VanillaComponents\Core\Components\Concerns;
 trait HasCheckedAndUncheckedValue
 {
     protected mixed $checkedValue = null;
+
     protected mixed $uncheckedValue = null;
 
     public function checkedValue(mixed $condition = null): static
     {
         $this->checkedValue = $condition;
+
         return $this;
     }
 
     public function uncheckedValue(mixed $condition = null): static
     {
         $this->uncheckedValue = $condition;
+
         return $this;
     }
 

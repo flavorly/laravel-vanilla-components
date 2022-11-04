@@ -18,26 +18,26 @@ class Option implements HasToArray
 
     public function fromArray(array|Collection $array): array
     {
-        if(is_array($array)){
+        if (is_array($array)) {
             $array = collect($array);
         }
 
         return $array
-            ->map(fn($option) => $this->fromArrayToOption($option))
+            ->map(fn ($option) => $this->fromArrayToOption($option))
             ->toArray();
     }
 
     protected function fromArrayToOption(array|Collection|Option $array)
     {
-        if(is_array($array)){
+        if (is_array($array)) {
             $array = collect($array);
         }
 
-        if($array instanceof Option){
+        if ($array instanceof Option) {
             $array = $array->toArray();
         }
 
-        if($array instanceof Option) {
+        if ($array instanceof Option) {
             return $array;
         }
 
@@ -51,11 +51,11 @@ class Option implements HasToArray
     public function toArray(): array
     {
         return collect([
-                $this->labelKey => $this->getLabel(),
-                $this->valueKey => $this->getValue(),
-                $this->disabledKey => $this->isDisabled(),
-                $this->childrenKey => $this->getChildrenToArray(),
-            ])
+            $this->labelKey => $this->getLabel(),
+            $this->valueKey => $this->getValue(),
+            $this->disabledKey => $this->isDisabled(),
+            $this->childrenKey => $this->getChildrenToArray(),
+        ])
             ->toArray();
     }
 }

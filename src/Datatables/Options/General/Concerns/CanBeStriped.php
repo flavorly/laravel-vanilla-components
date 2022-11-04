@@ -11,6 +11,7 @@ trait CanBeStriped
     public function striped(bool|Closure $condition = true): static
     {
         $this->isStriped = $condition;
+
         return $this;
     }
 

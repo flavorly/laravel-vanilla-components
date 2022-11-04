@@ -3,11 +3,9 @@
 namespace VanillaComponents\Datatables\Filters;
 
 use Illuminate\Support\Arr;
-use VanillaComponents\Datatables\Concerns as BaseConcerns;
-use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Core\Concerns as CoreConcerns;
-use VanillaComponents\Datatables\Filters\Concerns;
-
+use VanillaComponents\Core\Contracts as CoreContracts;
+use VanillaComponents\Datatables\Concerns as BaseConcerns;
 
 class Filter implements CoreContracts\HasToArray
 {

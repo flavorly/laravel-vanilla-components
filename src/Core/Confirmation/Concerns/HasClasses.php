@@ -15,6 +15,7 @@ trait HasClasses
     public function classes(array | Closure $classes): static
     {
         $this->classes = $classes;
+
         return $this;
     }
 

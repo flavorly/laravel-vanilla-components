@@ -2,9 +2,7 @@
 
 namespace VanillaComponents\Core\Components;
 
-use VanillaComponents\Core\Components\Concerns;
-
-class PhoneInput  extends BaseComponent
+class PhoneInput extends BaseComponent
 {
     use Concerns\CanBeSearchable;
 

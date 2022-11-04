@@ -12,6 +12,7 @@ trait HasOptions
     public function options(array | Closure $optionsOrClosure): static
     {
         $this->options = Option::make()->fromArray($this->evaluate($optionsOrClosure));
+
         return $this;
     }
 
@@ -23,20 +24,22 @@ trait HasOptions
     public function getOptionsToArray(): array
     {
         $options = $this->getOptions();
-        if(!empty($options)) {
+        if (! empty($options)) {
             return collect($options)
-                ->map(function($option){
-                    if($option instanceof Option) {
+                ->map(function ($option) {
+                    if ($option instanceof Option) {
                         return $option->toArray();
                     }
-                    if(is_array($option)){
+                    if (is_array($option)) {
                         return $option;
                     }
+
                     return [];
                 })
-                ->filter(fn($option) => $option !== null)
+                ->filter(fn ($option) => $option !== null)
                 ->toArray();
         }
+
         return [];
     }
 }

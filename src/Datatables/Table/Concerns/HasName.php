@@ -2,8 +2,6 @@
 
 namespace VanillaComponents\Datatables\Table\Concerns;
 
-use VanillaComponents\Datatables\Columns\Column;
-
 trait HasName
 {
     protected ?string $name = null;

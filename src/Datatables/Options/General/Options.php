@@ -2,10 +2,9 @@
 
 namespace VanillaComponents\Datatables\Options\General;
 
+use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Datatables\Concerns as BaseConcerns;
-use VanillaComponents\Datatables\Options\General\Concerns;
-use VanillaComponents\Core\Concerns as CoreConcerns;
 
 class Options implements CoreContracts\HasToArray
 {

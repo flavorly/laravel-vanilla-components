@@ -11,6 +11,7 @@ trait CanBeDefault
     public function default(bool | Closure $condition = true): static
     {
         $this->isDefault = $condition;
+
         return $this;
     }
 

@@ -17,7 +17,9 @@ abstract class Datatable
     use Concerns\HasPageOptions;
     use Concerns\HasName;
 
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
     protected function setup(): void
     {

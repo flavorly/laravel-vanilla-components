@@ -21,20 +21,22 @@ trait HasColumns
 
     protected function columnsToArray(): array
     {
-        if(!empty($this->columns)) {
+        if (! empty($this->columns)) {
             return collect($this->columns)
-            ->map(function($column){
-                if($column instanceof Column) {
+            ->map(function ($column) {
+                if ($column instanceof Column) {
                     return $column->toArray();
                 }
-                if(is_array($column)){
+                if (is_array($column)) {
                     return $column;
                 }
+
                 return [];
             })
-            ->filter(fn($column) => !empty($column))
+            ->filter(fn ($column) => ! empty($column))
             ->toArray();
         }
+
         return [];
     }
 }

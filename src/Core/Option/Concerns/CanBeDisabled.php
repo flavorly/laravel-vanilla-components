@@ -7,11 +7,13 @@ use Closure;
 trait CanBeDisabled
 {
     protected string $disabledKey = 'disabled';
+
     protected bool | Closure $isDisabled = false;
 
     public function disabled(bool|Closure $condition = true): static
     {
         $this->isDisabled = $condition;
+
         return $this;
     }
 
