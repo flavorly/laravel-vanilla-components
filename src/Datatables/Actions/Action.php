@@ -22,6 +22,8 @@ class Action implements CoreContracts\HasToArray
     use Concerns\HasAfter;
     use Concerns\HasPolling;
     use Concerns\HasPermissions;
+    use Concerns\HasHooks;
+    use Concerns\CanBeExecuted;
     use Concerns\CanClearSelected;
     use Concerns\CanBeConfirmed;
     use Concerns\CanResetFilters;
