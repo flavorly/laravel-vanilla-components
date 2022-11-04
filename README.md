@@ -1,9 +1,9 @@
 # Vanilla Components Integration with Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/indigitpt/vanilla-components-laravel.svg?style=flat-square)](https://packagist.org/packages/indigitpt/vanilla-components-laravel)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/indigitpt/vanilla-components-laravel/run-tests?label=tests)](https://github.com/indigitpt/vanilla-components-laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/indigitpt/vanilla-components-laravel/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/indigitpt/vanilla-components-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/indigitpt/vanilla-components-laravel.svg?style=flat-square)](https://packagist.org/packages/indigitpt/vanilla-components-laravel)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/indigit/vanilla-components-laravel.svg?style=flat-square)](https://packagist.org/packages/indigit/vanilla-components-laravel)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/indigit/vanilla-components-laravel/run-tests?label=tests)](https://github.com/indigit/vanilla-components-laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/indigit/vanilla-components-laravel/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/indigit/vanilla-components-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/indigit/vanilla-components-laravel.svg?style=flat-square)](https://packagist.org/packages/indigit/vanilla-components-laravel)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
@@ -20,7 +20,7 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require indigitpt/vanilla-components-laravel
+composer require indigit/vanilla-components-laravel
 ```
 
 You can publish and run the migrations with:
@@ -76,7 +76,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [indigit](https://github.com/indigitpt)
+- [indigit](https://github.com/indigit)
 - [All Contributors](../../contributors)
 
 ## License

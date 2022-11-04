@@ -1,12 +1,12 @@
 {
-    "name": "indigitpt/vanilla-components-laravel",
+    "name": "indigit/vanilla-components-laravel",
     "description": "Vanilla Components Integration with Laravel",
     "keywords": [
-        "indigitpt",
+        "indigit",
         "laravel",
         "vanilla-components-laravel"
     ],
-    "homepage": "https://github.com/indigitpt/vanilla-components-laravel",
+    "homepage": "https://github.com/indigit/vanilla-components-laravel",
     "license": "MIT",
     "authors": [
         {
@@ -57,10 +57,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VanillaComponents\\VanillaComponents\\VanillaComponentsServiceProvider"
+                "VanillaComponents\\VanillaComponentsServiceProvider"
             ],
             "aliases": {
-                "VanillaComponents": "VanillaComponents\\VanillaComponents\\Facades\\VanillaComponents"
+                "VanillaComponents": "VanillaComponents\\Facades\\VanillaComponents"
             }
         }
     },
