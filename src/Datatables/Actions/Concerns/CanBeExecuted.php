@@ -12,6 +12,7 @@ trait CanBeExecuted
     public function executeUsing(Closure|null|string $closureOrInvokable = null): static
     {
         $this->executeUsing = $closureOrInvokable;
+
         return $this;
     }
 
@@ -22,18 +23,18 @@ trait CanBeExecuted
 
     public function execute(Collection|null|array $ids = null): void
     {
-        if($this->executeUsing === null){
+        if ($this->executeUsing === null) {
             return;
         }
 
-        if($this->getExecuteUsing() instanceof Closure) {
+        if ($this->getExecuteUsing() instanceof Closure) {
             app()->call($this->getExecuteUsing(), [
                 'action' => $this,
                 'ids' => $ids,
             ]);
         }
 
-        if(is_string($this->getExecuteUsing())) {
+        if (is_string($this->getExecuteUsing())) {
             app()->call($this->getExecuteUsing(), [
                 'action' => $this,
                 'ids' => $ids,
