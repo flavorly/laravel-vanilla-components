@@ -8,12 +8,14 @@ use Illuminate\Support\Collection;
 trait CanBeExecuted
 {
     protected null | Closure | string $executeUsing = null;
+
     protected ?string $executeUsingMethod = null;
 
-    public function executeUsing(Closure|null|string $closureOrInvokable = null, ?string $method = null): static
+    public function executeUsing(Closure|null|string $closureOrInvokable = null, ?string $method = '__invoke'): static
     {
         $this->executeUsing = $closureOrInvokable;
         $this->executeUsingMethod = $method;
+
         return $this;
     }
 
@@ -24,69 +26,57 @@ trait CanBeExecuted
 
     public function execute(?Collection $ids = null): void
     {
-
-        // Execute the before Hook
-        if(class_implements($this,HasHooks::class) && $this->onBefore !== null){
+        // Hook: Before
+        if (class_implements($this, HasHooks::class) && $this->onBefore !== null) {
             app()->call($this->onBefore, [
                 'action' => $this,
                 'ids' => $ids,
-            ], $this->executeUsingMethod);
+            ]);
         }
 
-        try{
-
+        try {
             // Do nothing
-            if($this->executeUsing === null){
-
-            }
-            elseif(method_exists($this,'handle')){
-                app()->call([$this,'handle'], [
-                    'action' => $this,
-                    'ids' => $ids,
-                ], $this->executeUsingMethod);
+            if ($this->executeUsing === null) {
+            } elseif (method_exists($this, 'handle')) {
+                app()->call([$this, 'handle'], ['action' => $this, 'ids' => $ids]);
             }
             // Action should be executed as a closure
-            elseif($this->getExecuteUsing() instanceof Closure) {
-                app()->call($this->getExecuteUsing(), [
-                    'action' => $this,
-                    'ids' => $ids,
-                ], $this->executeUsingMethod);
+            elseif ($this->getExecuteUsing() instanceof Closure) {
+                app()->call($this->getExecuteUsing(), ['action' => $this, 'ids' => $ids]);
             }
-
             // Action is a class, lets invoke
-            elseif(is_string($this->getExecuteUsing())) {
-                app()->call($this->getExecuteUsing(), [
-                    'action' => $this,
-                    'ids' => $ids,
-                ],$this->executeUsingMethod);
+            elseif (is_string($this->getExecuteUsing())) {
+                // Method __invoke or chosen method does not exists on the class
+                if (! method_exists($this->getExecuteUsing(), $this->executeUsingMethod)) {
+                    throw new \Exception(sprintf('Method %s does not exist on Action [%s]', $this->executeUsingMethod, $this::class));
+                }
+
+                // Call the action using the choosen method, defaults to __invoke
+                app()->call($this->getExecuteUsing(), ['action' => $this, 'ids' => $ids], $this->executeUsingMethod);
             }
 
-            // Execute the After Hook
-            if(class_implements($this,HasHooks::class) && $this->onAfter !== null){
-                app()->call($this->onAfter, [
-                    'action' => $this,
-                    'ids' => $ids,
-                ], $this->executeUsingMethod);
+            // Hook: After
+            if (class_implements($this, HasHooks::class) && $this->onAfter !== null) {
+                app()->call($this->onAfter, ['action' => $this, 'ids' => $ids]);
             }
-
-        }catch (\Exception $e){
-
-            // Execute on Exception/Failed
-            if(class_implements($this,HasHooks::class) && $this->onFailed !== null){
+        } catch (\Exception $e) {
+            // Hook: Exception
+            if (class_implements($this, HasHooks::class) && $this->onFailed !== null) {
                 app()->call($this->onFailed, [
                     'action' => $this,
                     'ids' => $ids,
                     'exception' => $e,
-                ], $this->executeUsingMethod);
+                ]);
             }
 
+            throw $e;
         } finally {
-            // Execute the before Hook
-            if(class_implements($this,HasHooks::class) && $this->onFinished !== null){
+            // Hook: Finally / Finished
+            if (class_implements($this, HasHooks::class) && $this->onFinished !== null) {
                 app()->call($this->onFinished, [
                     'action' => $this,
                     'ids' => $ids,
-                ], $this->executeUsingMethod);
+                ]);
             }
         }
     }
