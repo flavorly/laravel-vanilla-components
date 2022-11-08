@@ -4,6 +4,11 @@ namespace VanillaComponents\Datatables\Actions\Concerns;
 
 use Closure;
 use Illuminate\Support\Collection;
+use Illuminate\Auth\Events\Verified;
+use VanillaComponents\Events\DatatableActionExecuted;
+use VanillaComponents\Events\DatatableActionFailed;
+use VanillaComponents\Events\DatatableActionFinished;
+use VanillaComponents\Events\DatatableActionStarted;
 
 trait CanBeExecuted
 {
@@ -34,6 +39,8 @@ trait CanBeExecuted
             ]);
         }
 
+        event(new DatatableActionStarted($this, $ids));
+
         try {
             // Do nothing
             if ($this->executeUsing === null) {
@@ -59,6 +66,9 @@ trait CanBeExecuted
             if (class_implements($this, HasHooks::class) && $this->onAfter !== null) {
                 app()->call($this->onAfter, ['action' => $this, 'ids' => $ids]);
             }
+
+            event(new DatatableActionExecuted($this, $ids));
+
         } catch (\Exception $e) {
             // Hook: Exception
             if (class_implements($this, HasHooks::class) && $this->onFailed !== null) {
@@ -69,6 +79,8 @@ trait CanBeExecuted
                 ]);
             }
 
+            event(new DatatableActionFailed($this, $ids, $e));
+
             throw $e;
         } finally {
             // Hook: Finally / Finished
@@ -78,6 +90,8 @@ trait CanBeExecuted
                     'ids' => $ids,
                 ]);
             }
+
+            event(new DatatableActionFinished($this, $ids));
         }
     }
 }
