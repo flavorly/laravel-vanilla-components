@@ -12,6 +12,7 @@ class BaseEvent
     use Dispatchable, SerializesModels;
 
     protected ?Action $action = null;
+
     protected ?Collection $ids = null;
 
     public function __construct(Action $action, Collection $ids = null)

@@ -4,7 +4,6 @@ namespace VanillaComponents\Datatables\Actions\Concerns;
 
 use Closure;
 use Illuminate\Support\Collection;
-use Illuminate\Auth\Events\Verified;
 use VanillaComponents\Events\DatatableActionExecuted;
 use VanillaComponents\Events\DatatableActionFailed;
 use VanillaComponents\Events\DatatableActionFinished;
@@ -68,7 +67,6 @@ trait CanBeExecuted
             }
 
             event(new DatatableActionExecuted($this, $ids));
-
         } catch (\Exception $e) {
             // Hook: Exception
             if (class_implements($this, HasHooks::class) && $this->onFailed !== null) {
