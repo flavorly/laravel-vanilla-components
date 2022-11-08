@@ -2,6 +2,7 @@
 
 namespace VanillaComponents\Datatables\Columns;
 
+use Illuminate\Support\Traits\Macroable;
 use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Datatables\Concerns as BaseConcerns;
@@ -17,6 +18,7 @@ class Column implements CoreContracts\HasToArray
     use Concerns\HasLabel;
     use Concerns\HasName;
     use Concerns\HasKey;
+    use Macroable;
 
     public function toArray(): array
     {

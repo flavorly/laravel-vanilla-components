@@ -2,6 +2,7 @@
 
 namespace VanillaComponents\Datatables;
 
+use Illuminate\Support\Traits\Macroable;
 use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Datatables\Table\Concerns;
 
@@ -16,6 +17,7 @@ abstract class Datatable
     use Concerns\HasPolling;
     use Concerns\HasPageOptions;
     use Concerns\HasName;
+    use Macroable;
 
     public function __construct()
     {

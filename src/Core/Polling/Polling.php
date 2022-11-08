@@ -2,6 +2,7 @@
 
 namespace VanillaComponents\Core\Polling;
 
+use Illuminate\Support\Traits\Macroable;
 use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Datatables\Concerns as BaseConcerns;
@@ -14,6 +15,7 @@ class Polling implements CoreContracts\HasToArray
     use Concerns\CanBeToggled;
     use Concerns\CanBeStopped;
     use Concerns\HasInterval;
+    use Macroable;
 
     public function toArray(): array
     {

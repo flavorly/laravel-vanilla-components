@@ -2,6 +2,7 @@
 
 namespace VanillaComponents\Datatables\Actions;
 
+use Illuminate\Support\Traits\Macroable;
 use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Confirmation\Confirmation;
 use VanillaComponents\Core\Contracts as CoreContracts;
@@ -26,6 +27,7 @@ class Action implements CoreContracts\HasToArray
     use Concerns\CanClearSelected;
     use Concerns\CanBeConfirmed;
     use Concerns\CanResetFilters;
+    use Macroable;
 
     public function __construct()
     {

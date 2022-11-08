@@ -2,6 +2,7 @@
 
 namespace VanillaComponents\Datatables\Options\General;
 
+use Illuminate\Support\Traits\Macroable;
 use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Datatables\Concerns as BaseConcerns;
@@ -18,6 +19,7 @@ class Options implements CoreContracts\HasToArray
     use Concerns\CanShowDetailedPagination;
     use Concerns\CanBeCompact;
     use Concerns\CanBeStriped;
+    use Macroable;
 
     public function toArray(): array
     {

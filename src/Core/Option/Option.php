@@ -4,6 +4,7 @@ namespace VanillaComponents\Core\Option;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Traits\Macroable;
 use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts\HasToArray;
 use VanillaComponents\Core\Option\Concerns as BaseConcerns;
@@ -15,6 +16,7 @@ class Option implements HasToArray
     use BaseConcerns\HasChildren;
     use CoreConcerns\Makable;
     use CoreConcerns\EvaluatesClosures;
+    use Macroable;
 
     public function fromArray(array|Collection $array): array
     {

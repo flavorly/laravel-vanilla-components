@@ -2,6 +2,7 @@
 
 namespace VanillaComponents\Core\Confirmation;
 
+use Illuminate\Support\Traits\Macroable;
 use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts as CoreContracts;
 
@@ -18,6 +19,7 @@ class Confirmation implements CoreContracts\HasToArray
     use Concerns\HasLevel;
     use Concerns\CanBeRaw;
     use Concerns\CanBeEnabledOrDisabled;
+    use Macroable;
 
     public function toArray(): array
     {

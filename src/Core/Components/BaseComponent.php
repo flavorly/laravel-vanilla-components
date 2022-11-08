@@ -2,6 +2,7 @@
 
 namespace VanillaComponents\Core\Components;
 
+use Illuminate\Support\Traits\Macroable;
 use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts as CoreContracts;
 
@@ -15,6 +16,7 @@ abstract class BaseComponent implements CoreContracts\HasToArray
     use Concerns\HasPlaceholder;
     use CoreConcerns\EvaluatesClosures;
     use CoreConcerns\Makable;
+    use Macroable;
 
     public function __construct(string $name = null, string $label = null)
     {

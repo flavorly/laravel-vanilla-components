@@ -3,6 +3,7 @@
 namespace VanillaComponents\Datatables\Filters;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Macroable;
 use VanillaComponents\Core\Concerns as CoreConcerns;
 use VanillaComponents\Core\Contracts as CoreContracts;
 use VanillaComponents\Datatables\Concerns as BaseConcerns;
@@ -19,6 +20,7 @@ class Filter implements CoreContracts\HasToArray
     use Concerns\HasValueAndDefaultValue;
     use Concerns\HasComponentTypes;
     use Concerns\InteractsWithTableQuery;
+    use Macroable;
 
     public function toArray(): array
     {
