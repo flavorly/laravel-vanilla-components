@@ -2,11 +2,14 @@
 
 namespace VanillaComponents\Datatables\Http\Resources;
 
+use VanillaComponents\Core\Concerns\InteractsWithPagination;
 use VanillaComponents\Datatables\Paginator\PaginatedResourceResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class DatatableResource extends ResourceCollection
 {
+    use InteractsWithPagination;
+
     public function toArray($request)
     {
         return [
@@ -22,6 +25,10 @@ class DatatableResource extends ResourceCollection
             $this->resource->appends($this->queryParameters);
         }
 
-        return (new PaginatedResourceResponse($this))->toResponse($request);
+        return (new PaginatedResourceResponse($this))
+            ->leftSideMaximumPages($this->leftSideMaximumPages, $this->leftSideMaximumPagesOnLong)
+            ->rightSideMaximumPages($this->rightSideMaximumPages, $this->rightSideMaximumPagesOnLong)
+            ->centerMaximumPages($this->rightSideMaximumPages, $this->rightSideMaximumPagesOnLong)
+            ->toResponse($request);
     }
 }

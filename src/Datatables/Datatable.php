@@ -9,6 +9,7 @@ use VanillaComponents\Datatables\Table\Concerns;
 abstract class Datatable
 {
     use CoreConcerns\Makable;
+    use CoreConcerns\EvaluatesClosures;
     use Concerns\HasActions;
     use Concerns\HasOptions;
     use Concerns\HasColumns;
@@ -18,6 +19,7 @@ abstract class Datatable
     use Concerns\HasPageOptions;
     use Concerns\HasName;
     use Concerns\HasEndpoint;
+    use Concerns\InteractsWithQueryBuilder;
     use Macroable;
 
     public function __construct()
@@ -40,7 +42,6 @@ abstract class Datatable
 
     public function toArray(): array
     {
-        //$this->setup();
         return [
             'fetchEndpoint' => $this->getFetchEndpoint(),
             'name' => $this->getName(),
