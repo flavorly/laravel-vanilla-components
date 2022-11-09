@@ -17,15 +17,18 @@ abstract class Datatable
     use Concerns\HasPolling;
     use Concerns\HasPageOptions;
     use Concerns\HasName;
+    use Concerns\HasEndpoint;
     use Macroable;
 
     public function __construct()
     {
+        $this->setup();
     }
 
     protected function setup(): void
     {
         $this->setupName();
+        $this->setupEndpoints();
         $this->setupActions();
         $this->setupOptions();
         $this->setupColumns();
@@ -37,9 +40,9 @@ abstract class Datatable
 
     public function toArray(): array
     {
-        $this->setup();
-
+        //$this->setup();
         return [
+            'fetchEndpoint' => $this->getFetchEndpoint(),
             'name' => $this->getName(),
             'actions' => $this->actionsToArray(),
             'columns' => $this->columnsToArray(),
