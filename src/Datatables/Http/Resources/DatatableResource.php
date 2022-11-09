@@ -2,8 +2,8 @@
 
 namespace VanillaComponents\Datatables\Http\Resources;
 
-use VanillaComponents\Datatables\Paginator\PaginatedResourceResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use VanillaComponents\Datatables\Paginator\PaginatedResourceResponse;
 
 class DatatableResource extends ResourceCollection
 {

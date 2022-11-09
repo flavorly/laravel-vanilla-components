@@ -1,6 +1,7 @@
 <?php
 
 namespace VanillaComponents\Datatables\Paginator;
+
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Resources\Json\PaginatedResourceResponse as BasePaginator;
 use Illuminate\Pagination\UrlWindow;
@@ -10,16 +11,22 @@ use Illuminate\Support\Collection;
 class PaginatedResourceResponse extends BasePaginator
 {
     protected int $rightSideMaximumPages = 2;
+
     protected int $rightSideMaximumPagesOnLong = 1;
+
     protected int $leftSideMaximumPages = 2;
+
     protected int $leftSideMaximumPagesOnLong = 1;
+
     protected int $centerMaximumPages = 2;
+
     protected int $centerMaximumPagesOnLong = 3;
 
     public function rightSideMaximumPages(int $pages = 2, int $whenIsLongPaginated = 1): static
     {
         $this->rightSideMaximumPages = $pages;
         $this->rightSideMaximumPagesOnLong = $whenIsLongPaginated;
+
         return $this;
     }
 
@@ -27,6 +34,7 @@ class PaginatedResourceResponse extends BasePaginator
     {
         $this->leftSideMaximumPages = $pages;
         $this->leftSideMaximumPagesOnLong = $whenIsLongPaginated;
+
         return $this;
     }
 
@@ -34,6 +42,7 @@ class PaginatedResourceResponse extends BasePaginator
     {
         $this->centerMaximumPages = $pages;
         $this->centerMaximumPagesOnLong = $whenIsLongPaginated;
+
         return $this;
     }
 
@@ -67,7 +76,6 @@ class PaginatedResourceResponse extends BasePaginator
 
     protected function getCustomPaginatorLinks(LengthAwarePaginator $paginator): Collection
     {
-
         $paginator->onEachSide = 1;
         $window = UrlWindow::make($paginator);
 
@@ -75,17 +83,16 @@ class PaginatedResourceResponse extends BasePaginator
 
         // First limit the items
         $windowTruncated = collect($window)
-            ->map(function ($item,$key) use($isLongPagination) {
-
-                if($key == 'first'){
+            ->map(function ($item, $key) use ($isLongPagination) {
+                if ($key == 'first') {
                     return collect($item)->slice(0, $isLongPagination ? $this->leftSideMaximumPagesOnLong : $this->leftSideMaximumPages)->toArray();
                 }
 
-                if($key === 'last'){
+                if ($key === 'last') {
                     return collect($item)->slice(0, $isLongPagination ? $this->rightSideMaximumPagesOnLong : $this->rightSideMaximumPages)->toArray();
                 }
 
-                if($key === 'slider' && is_array($item)){
+                if ($key === 'slider' && is_array($item)) {
                     return collect($item)->slice(0, $isLongPagination ? $this->centerMaximumPagesOnLong : $this->centerMaximumPages)->toArray();
                 }
 
@@ -101,7 +108,7 @@ class PaginatedResourceResponse extends BasePaginator
             $windowTruncated['last'],
         ]);
 
-        return Collection::make($elements)->flatMap(function ($item) use($paginator) {
+        return Collection::make($elements)->flatMap(function ($item) use ($paginator) {
             if (is_array($item)) {
                 return Collection::make($item)->map(fn ($url, $page) => [
                     'url' => $url,
