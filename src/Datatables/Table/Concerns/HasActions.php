@@ -2,6 +2,7 @@
 
 namespace VanillaComponents\Datatables\Table\Concerns;
 
+use Illuminate\Support\Collection;
 use VanillaComponents\Datatables\Actions\Action;
 
 trait HasActions
@@ -17,6 +18,34 @@ trait HasActions
     protected function setupActions(): void
     {
         $this->actions = $this->actions();
+    }
+
+    protected function getActions(): Collection
+    {
+        if(empty($this->actions())){
+            return collect();
+        }
+
+        return collect($this->actions())
+            ->mapWithKeys(function ($action) {
+
+                if(is_string($action)){
+                    $action = app($action);
+                    return [$action->getName() => $action];
+                }
+
+                if (!$action instanceof Action) {
+                    return [];
+                }
+
+                return [$action->getName() => $action];
+            })
+            ->filter(fn ($action) => ! empty($action));
+    }
+
+    protected function getActionsKeys(): Collection
+    {
+        return collect($this->actions())->map(fn($action) => $action->getName());
     }
 
     protected function actionsToArray(): array
