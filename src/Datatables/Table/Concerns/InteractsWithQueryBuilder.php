@@ -5,8 +5,8 @@ namespace VanillaComponents\Datatables\Table\Concerns;
 use App\Models\User;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
-use Laravel\Scout\Builder as ScoutBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Builder as ScoutBuilder;
 use VanillaComponents\Datatables\Columns\Column;
 use VanillaComponents\Datatables\Filters\Filter;
 use VanillaComponents\Datatables\Http\Resources\DatatableResource;
@@ -19,10 +19,10 @@ trait InteractsWithQueryBuilder
     {
         // If the user has not provided a query or passed a string ( class ) we will try to
         // get the query from the model
-        if(is_string($queryOrModel)) {
+        if (is_string($queryOrModel)) {
             $queryOrModel = app($queryOrModel);
         }
-        if($queryOrModel instanceof Closure) {
+        if ($queryOrModel instanceof Closure) {
             $queryOrModel = $this->evaluate($queryOrModel);
         }
 
@@ -30,9 +30,8 @@ trait InteractsWithQueryBuilder
         return $queryOrModel instanceof Builder ? $queryOrModel : $queryOrModel->query();
     }
 
-    protected function dispatchAction():void
+    protected function dispatchAction(): void
     {
-
     }
 
     public function response(Builder|Model|string|Closure $queryOrModel = null): DatatableResource
@@ -48,7 +47,7 @@ trait InteractsWithQueryBuilder
 
         $paginator = User::search(
             request()->get('search') ?? '',
-            function (Builder $query) use($columns, $filters, $baseQuery) {
+            function (Builder $query) use ($columns, $filters, $baseQuery) {
                 $query
                     // Select columns
                     ->select(array_keys($columns->toArray()))
@@ -57,44 +56,48 @@ trait InteractsWithQueryBuilder
                     ->mergeConstraintsFrom($baseQuery)
 
                     // Perform sorting
-                    ->when(!empty(request()->input('sorting')), function (Builder|ScoutBuilder $subQuery) use($columns) {
+                    ->when(! empty(request()->input('sorting')), function (Builder|ScoutBuilder $subQuery) use ($columns) {
                         // Each column that needs to be sorted
                         collect(request()->input('sorting'))
                             // Filter the ones not present in the columns
-                            ->filter(function($sorting) use($columns){
-                                if(empty($sorting)){
+                            ->filter(function ($sorting) use ($columns) {
+                                if (empty($sorting)) {
                                     return false;
                                 }
                                 /** @var Column $column */
-                                $column = $columns?->first(fn($item,$key) => $key === $sorting['column']);
-                                if(empty($column)){
+                                $column = $columns?->first(fn ($item, $key) => $key === $sorting['column']);
+                                if (empty($column)) {
                                     return false;
                                 }
+
                                 return $column->isSortable();
                             })
                             // Apply Sorting
-                            ->each(fn ($sorting)  => $subQuery->orderBy($sorting['column'], $sorting['direction']));
+                            ->each(fn ($sorting) => $subQuery->orderBy($sorting['column'], $sorting['direction']));
+
                         return $subQuery;
                     })
 
                     // Filters
-                    ->when(!empty(request()->input('filters')), function (Builder|ScoutBuilder $subQuery) use($filters) {
+                    ->when(! empty(request()->input('filters')), function (Builder|ScoutBuilder $subQuery) use ($filters) {
                         // Each column that needs to be sorted
                         collect(request()->input('filters'))
                             // Filter the ones not present in the columns
-                            ->filter(fn($filterValue,$filterKey) => $filterValue !== null && $filters?->first(fn($item,$key) => $key === $filterKey))
+                            ->filter(fn ($filterValue, $filterKey) => $filterValue !== null && $filters?->first(fn ($item, $key) => $key === $filterKey))
 
                             // Apply Sorting
-                            ->each(function ($filterValue,$filterKey) use($subQuery,$filters) {
-                                $filter = $filters?->first(fn($item,$key) => $key === $filterKey);
-                                if($filter instanceof Filter){
-                                    $filter->apply($subQuery,$filterKey,$filterValue);
+                            ->each(function ($filterValue, $filterKey) use ($subQuery, $filters) {
+                                $filter = $filters?->first(fn ($item, $key) => $key === $filterKey);
+                                if ($filter instanceof Filter) {
+                                    $filter->apply($subQuery, $filterKey, $filterValue);
                                 }
                             });
+
                         return $subQuery;
                     });
 
                 $this->query = $query->clone();
+
                 return $query;
             }
         )

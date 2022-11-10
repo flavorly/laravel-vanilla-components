@@ -2,9 +2,9 @@
 
 namespace VanillaComponents\Datatables\Http\Resources;
 
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use VanillaComponents\Core\Concerns\InteractsWithPagination;
 use VanillaComponents\Datatables\Paginator\PaginatedResourceResponse;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class DatatableResource extends ResourceCollection
 {
