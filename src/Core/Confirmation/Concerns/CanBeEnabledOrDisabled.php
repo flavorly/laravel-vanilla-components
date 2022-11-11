@@ -6,7 +6,7 @@ use Closure;
 
 trait CanBeEnabledOrDisabled
 {
-    protected bool | Closure $isEnabled = false;
+    protected bool | Closure $isEnabled = true;
 
     public function enabled(bool | Closure $condition = true): static
     {

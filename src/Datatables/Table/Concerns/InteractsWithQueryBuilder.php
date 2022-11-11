@@ -35,7 +35,7 @@ trait InteractsWithQueryBuilder
 
     }
 
-    public function response(Builder|Model|string|Closure $queryOrModel = null): DatatableResource
+    public function response(Builder $queryOrModel = null): DatatableResource
     {
         // Attempt to always get a query builder
         $baseQuery = $this->resolveQueryOrModel($queryOrModel);
