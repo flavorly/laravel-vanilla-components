@@ -12,6 +12,8 @@ trait CanShowDetailedPagination
 
     protected bool | Closure $showNextPages = true;
 
+    protected bool | Closure $showPages = false;
+
     public function showTotalNumberOfItems(bool | Closure $condition = true): static
     {
         $this->showTotalNumberOfItems = $condition;
@@ -33,6 +35,13 @@ trait CanShowDetailedPagination
         return $this;
     }
 
+    public function showPages(bool | Closure $condition = true): static
+    {
+        $this->showPages = $condition;
+
+        return $this;
+    }
+
     public function isTotalNumberOfItemsVisible(): bool
     {
         return $this->evaluate($this->showTotalNumberOfItems);
@@ -46,5 +55,10 @@ trait CanShowDetailedPagination
     public function isNextPagesVisible(): bool
     {
         return $this->evaluate($this->showNextPages);
+    }
+
+    public function isShowingPages(): bool
+    {
+        return $this->evaluate($this->showPages);
     }
 }
