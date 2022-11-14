@@ -51,7 +51,6 @@ trait InteractsWithQueryBuilder
         // The default option per page
         $defaultPerPageOption = $perPageOptions->first(fn ($item, $key) => $key === request()->input('perPage'))->getValue() ?? $perPageOptions->first()->getValue();
 
-
         $paginator = User::search(
             request()->get('search') ?? '',
 
@@ -68,7 +67,6 @@ trait InteractsWithQueryBuilder
 
                     // Perform sorting
                     ->when(! empty(request()->input('sorting')), function (Builder|ScoutBuilder $subQuery) use ($columns) {
-
                         // Each column that needs to be sorted
                         collect(request()->input('sorting'))
 
@@ -94,7 +92,6 @@ trait InteractsWithQueryBuilder
 
                     // Filters
                     ->when(! empty(request()->input('filters')), function (Builder|ScoutBuilder $subQuery) use ($filters) {
-
                         // Each column that needs to be sorted
                         collect(request()->input('filters'))
 
@@ -114,12 +111,11 @@ trait InteractsWithQueryBuilder
 
                 // Save the current query, and clone it.
                 $this->query = $query->clone();
+
                 return $query;
             }
         )
         ->paginate($defaultPerPageOption);
-
-
 
         return (new DatatableResource($paginator))->rightSideMaximumPages(3);
     }

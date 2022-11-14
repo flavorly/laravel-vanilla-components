@@ -37,6 +37,7 @@ trait HasPageOptions
             ->mapWithKeys(function ($perPageOption) {
                 if (is_string($perPageOption)) {
                     $perPageOption = app($perPageOption);
+
                     return [$perPageOption->getValue() => $perPageOption];
                 }
 

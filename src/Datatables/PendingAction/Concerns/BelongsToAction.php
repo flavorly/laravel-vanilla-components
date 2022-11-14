@@ -11,6 +11,7 @@ trait BelongsToAction
     public function action(?Action $action): static
     {
         $this->action = $action;
+
         return $this;
     }
 

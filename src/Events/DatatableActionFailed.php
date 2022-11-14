@@ -3,8 +3,6 @@
 namespace VanillaComponents\Events;
 
 use Exception;
-use Illuminate\Support\Collection;
-use VanillaComponents\Datatables\Actions\Action;
 use VanillaComponents\Datatables\PendingAction\PendingAction;
 
 class DatatableActionFailed extends BaseEvent
