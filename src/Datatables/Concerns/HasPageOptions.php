@@ -1,7 +1,8 @@
 <?php
 
-namespace VanillaComponents\Datatables\Table\Concerns;
+namespace VanillaComponents\Datatables\Concerns;
 
+use Illuminate\Support\Collection;
 use VanillaComponents\Datatables\Options\Page\PerPageOption;
 
 trait HasPageOptions
@@ -24,6 +25,28 @@ trait HasPageOptions
         }
 
         return $options;
+    }
+
+    public function getPerPageOptions(): Collection
+    {
+        if (empty($this->perPageOptions())) {
+            return collect();
+        }
+
+        return collect($this->perPageOptions())
+            ->mapWithKeys(function ($perPageOption) {
+                if (is_string($perPageOption)) {
+                    $perPageOption = app($perPageOption);
+                    return [$perPageOption->getValue() => $perPageOption];
+                }
+
+                if (! $perPageOption instanceof PerPageOption) {
+                    return [];
+                }
+
+                return [$perPageOption->getValue() => $perPageOption];
+            })
+            ->filter(fn ($perPageOption) => ! empty($perPageOption));
     }
 
     protected function setupPerPageOptions(): void

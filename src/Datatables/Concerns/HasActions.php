@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Datatables\Table\Concerns;
+namespace VanillaComponents\Datatables\Concerns;
 
 use Illuminate\Support\Collection;
 use VanillaComponents\Datatables\Actions\Action;

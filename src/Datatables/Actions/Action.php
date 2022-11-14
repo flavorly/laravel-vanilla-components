@@ -14,7 +14,6 @@ class Action implements CoreContracts\HasToArray
     use CoreConcerns\EvaluatesClosures;
     use CoreConcerns\Makable;
     use BaseConcerns\BelongsToTable;
-    use BaseConcerns\BelongsToTable;
     use Concerns\HasName;
     use Concerns\HasLabel;
     use Concerns\HasFields;

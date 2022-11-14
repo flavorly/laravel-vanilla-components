@@ -4,7 +4,7 @@ namespace VanillaComponents\Datatables;
 
 use Illuminate\Support\Traits\Macroable;
 use VanillaComponents\Core\Concerns as CoreConcerns;
-use VanillaComponents\Datatables\Table\Concerns;
+use VanillaComponents\Datatables\Concerns;
 
 abstract class Datatable
 {

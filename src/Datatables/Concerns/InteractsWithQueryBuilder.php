@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Datatables\Table\Concerns;
+namespace VanillaComponents\Datatables\Concerns;
 
 use App\Models\User;
 use Closure;
@@ -45,8 +45,19 @@ trait InteractsWithQueryBuilder
         // Get the filters
         $filters = $this->getFilters();
 
+        // Get the possible options for per Page Options
+        $perPageOptions = $this->getPerPageOptions();
+
+        // The default option per page
+        $defaultPerPageOption = $perPageOptions->first(fn ($item, $key) => $key === request()->input('perPage'))->getValue() ?? $perPageOptions->first()->getValue();
+
+
         $paginator = User::search(
             request()->get('search') ?? '',
+
+            // We use scout for searching, the second argument we can modify the underlying query, so that we will be able to
+            // Control the actual results, the base query constraints are merged into this.
+
             function (Builder $query) use ($columns, $filters, $baseQuery) {
                 $query
                     // Select columns
@@ -57,8 +68,10 @@ trait InteractsWithQueryBuilder
 
                     // Perform sorting
                     ->when(! empty(request()->input('sorting')), function (Builder|ScoutBuilder $subQuery) use ($columns) {
+
                         // Each column that needs to be sorted
                         collect(request()->input('sorting'))
+
                             // Filter the ones not present in the columns
                             ->filter(function ($sorting) use ($columns) {
                                 if (empty($sorting)) {
@@ -72,6 +85,7 @@ trait InteractsWithQueryBuilder
 
                                 return $column->isSortable();
                             })
+
                             // Apply Sorting
                             ->each(fn ($sorting) => $subQuery->orderBy($sorting['column'], $sorting['direction']));
 
@@ -80,8 +94,10 @@ trait InteractsWithQueryBuilder
 
                     // Filters
                     ->when(! empty(request()->input('filters')), function (Builder|ScoutBuilder $subQuery) use ($filters) {
+
                         // Each column that needs to be sorted
                         collect(request()->input('filters'))
+
                             // Filter the ones not present in the columns
                             ->filter(fn ($filterValue, $filterKey) => $filterValue !== null && $filters?->first(fn ($item, $key) => $key === $filterKey))
 
@@ -96,14 +112,14 @@ trait InteractsWithQueryBuilder
                         return $subQuery;
                     });
 
+                // Save the current query, and clone it.
                 $this->query = $query->clone();
-
                 return $query;
             }
         )
-        ->paginate();
+        ->paginate($defaultPerPageOption);
 
-        ray(request()->all());
+
 
         return (new DatatableResource($paginator))->rightSideMaximumPages(3);
     }

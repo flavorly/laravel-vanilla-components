@@ -4,6 +4,7 @@ namespace VanillaComponents\Datatables\Actions\Concerns;
 
 use Closure;
 use Illuminate\Support\Collection;
+use VanillaComponents\Datatables\PendingAction\PendingAction;
 use VanillaComponents\Events\DatatableActionExecuted;
 use VanillaComponents\Events\DatatableActionFailed;
 use VanillaComponents\Events\DatatableActionFinished;
@@ -28,27 +29,29 @@ trait CanBeExecuted
         return $this->executeUsing;
     }
 
-    public function execute(?Collection $ids = null): void
+    public function execute(Collection $requestData): void
     {
+        $pendingAction = PendingAction::make()
+            ->rows($requestData->get('rows'))
+            ->allSelectedWhen($requestData->get('rows') === 'all')
+            ->action($this);
+
         // Hook: Before
         if (class_implements($this, HasHooks::class) && $this->onBefore !== null) {
-            app()->call($this->onBefore, [
-                'action' => $this,
-                'ids' => $ids,
-            ]);
+            app()->call($this->onBefore, ['pendingAction' => $pendingAction]);
         }
 
-        event(new DatatableActionStarted($this, $ids));
+        event(new DatatableActionStarted($pendingAction));
 
         try {
             // Do nothing
             if ($this->executeUsing === null) {
             } elseif (method_exists($this, 'handle')) {
-                app()->call([$this, 'handle'], ['action' => $this, 'ids' => $ids]);
+                app()->call([$this, 'handle'], ['pendingAction' => $pendingAction]);
             }
             // Action should be executed as a closure
             elseif ($this->getExecuteUsing() instanceof Closure) {
-                app()->call($this->getExecuteUsing(), ['action' => $this, 'ids' => $ids]);
+                app()->call($this->getExecuteUsing(), ['pendingAction' => $pendingAction]);
             }
             // Action is a class, lets invoke
             elseif (is_string($this->getExecuteUsing())) {
@@ -58,38 +61,31 @@ trait CanBeExecuted
                 }
 
                 // Call the action using the choosen method, defaults to __invoke
-                app()->call($this->getExecuteUsing(), ['action' => $this, 'ids' => $ids], $this->executeUsingMethod);
+                app()->call($this->getExecuteUsing(), ['pendingAction' => $pendingAction], $this->executeUsingMethod);
             }
 
             // Hook: After
             if (class_implements($this, HasHooks::class) && $this->onAfter !== null) {
-                app()->call($this->onAfter, ['action' => $this, 'ids' => $ids]);
+                app()->call($this->onAfter, ['pendingAction' => $pendingAction]);
             }
 
-            event(new DatatableActionExecuted($this, $ids));
+            event(new DatatableActionExecuted($pendingAction));
         } catch (\Exception $e) {
             // Hook: Exception
             if (class_implements($this, HasHooks::class) && $this->onFailed !== null) {
-                app()->call($this->onFailed, [
-                    'action' => $this,
-                    'ids' => $ids,
-                    'exception' => $e,
-                ]);
+                app()->call($this->onFailed, ['pendingAction' => $pendingAction]);
             }
 
-            event(new DatatableActionFailed($this, $ids, $e));
+            event(new DatatableActionFailed($pendingAction, $e));
 
             throw $e;
         } finally {
             // Hook: Finally / Finished
             if (class_implements($this, HasHooks::class) && $this->onFinished !== null) {
-                app()->call($this->onFinished, [
-                    'action' => $this,
-                    'ids' => $ids,
-                ]);
+                app()->call($this->onFinished, ['pendingAction' => $pendingAction]);
             }
 
-            event(new DatatableActionFinished($this, $ids));
+            event(new DatatableActionFinished($pendingAction));
         }
     }
 }
