@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Events;
+namespace Flavorly\VanillaComponents\Events;
 
 class DatatableActionStarted extends BaseEvent
 {

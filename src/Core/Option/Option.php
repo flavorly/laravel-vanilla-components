@@ -1,13 +1,13 @@
 <?php
 
-namespace VanillaComponents\Core\Option;
+namespace Flavorly\VanillaComponents\Core\Option;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Traits\Macroable;
-use VanillaComponents\Core\Concerns as CoreConcerns;
-use VanillaComponents\Core\Contracts\HasToArray;
-use VanillaComponents\Core\Option\Concerns as BaseConcerns;
+use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
+use Flavorly\VanillaComponents\Core\Contracts\HasToArray;
+use Flavorly\VanillaComponents\Core\Option\Concerns as BaseConcerns;
 
 class Option implements HasToArray
 {

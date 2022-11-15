@@ -1,10 +1,10 @@
 <?php
 
-namespace VanillaComponents\Datatables\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
 use Illuminate\Support\Collection;
-use VanillaComponents\Core\Components\BaseComponent;
-use VanillaComponents\Datatables\Filters\Filter;
+use Flavorly\VanillaComponents\Core\Components\BaseComponent;
+use Flavorly\VanillaComponents\Datatables\Filters\Filter;
 
 trait HasFilters
 {

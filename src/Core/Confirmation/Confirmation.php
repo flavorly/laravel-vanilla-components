@@ -1,10 +1,10 @@
 <?php
 
-namespace VanillaComponents\Core\Confirmation;
+namespace Flavorly\VanillaComponents\Core\Confirmation;
 
 use Illuminate\Support\Traits\Macroable;
-use VanillaComponents\Core\Concerns as CoreConcerns;
-use VanillaComponents\Core\Contracts as CoreContracts;
+use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
+use Flavorly\VanillaComponents\Core\Contracts as CoreContracts;
 
 class Confirmation implements CoreContracts\HasToArray
 {

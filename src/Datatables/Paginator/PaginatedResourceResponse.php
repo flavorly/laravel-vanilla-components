@@ -1,13 +1,13 @@
 <?php
 
-namespace VanillaComponents\Datatables\Paginator;
+namespace Flavorly\VanillaComponents\Datatables\Paginator;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Resources\Json\PaginatedResourceResponse as BasePaginator;
 use Illuminate\Pagination\UrlWindow;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use VanillaComponents\Core\Concerns\InteractsWithPagination;
+use Flavorly\VanillaComponents\Core\Concerns\InteractsWithPagination;
 
 class PaginatedResourceResponse extends BasePaginator
 {

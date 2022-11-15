@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Core\Option\Concerns;
+namespace Flavorly\VanillaComponents\Core\Option\Concerns;
 
 trait HasLabelAndValue
 {

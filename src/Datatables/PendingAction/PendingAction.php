@@ -1,8 +1,8 @@
 <?php
 
-namespace VanillaComponents\Datatables\PendingAction;
+namespace Flavorly\VanillaComponents\Datatables\PendingAction;
 
-use VanillaComponents\Core\Concerns as CoreConcerns;
+use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
 
 class PendingAction
 {

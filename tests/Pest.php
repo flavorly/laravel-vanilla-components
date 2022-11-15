@@ -1,5 +1,5 @@
 <?php
 
-use VanillaComponents\Tests\TestCase;
+use Flavorly\VanillaComponents\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

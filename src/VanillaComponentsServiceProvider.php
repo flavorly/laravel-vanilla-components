@@ -1,10 +1,10 @@
 <?php
 
-namespace VanillaComponents;
+namespace Flavorly\VanillaComponents;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VanillaComponents\Commands\VanillaComponentsCommand;
+use Flavorly\VanillaComponents\Commands\VanillaComponentsCommand;
 
 class VanillaComponentsServiceProvider extends PackageServiceProvider
 {

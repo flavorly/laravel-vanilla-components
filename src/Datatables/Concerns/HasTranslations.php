@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Datatables\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
 trait HasTranslations
 {

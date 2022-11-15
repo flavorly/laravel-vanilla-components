@@ -1,8 +1,8 @@
 <?php
 
-namespace VanillaComponents\Datatables\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
-use VanillaComponents\Datatables\Datatable;
+use Flavorly\VanillaComponents\Datatables\Datatable;
 
 trait BelongsToTable
 {

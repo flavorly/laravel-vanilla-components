@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Core\Contracts;
+namespace Flavorly\VanillaComponents\Core\Contracts;
 
 interface HasToArray
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Core\Polling\Concerns;
+namespace Flavorly\VanillaComponents\Core\Polling\Concerns;
 
 use Closure;
 

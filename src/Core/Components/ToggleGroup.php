@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Core\Components;
+namespace Flavorly\VanillaComponents\Core\Components;
 
 class ToggleGroup extends BaseComponent
 {

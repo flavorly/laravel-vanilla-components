@@ -1,8 +1,8 @@
 <?php
 
-namespace VanillaComponents\Datatables\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
-use VanillaComponents\Datatables\Options\General\Options;
+use Flavorly\VanillaComponents\Datatables\Options\General\Options;
 
 trait HasOptions
 {

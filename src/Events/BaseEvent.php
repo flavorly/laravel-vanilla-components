@@ -1,10 +1,10 @@
 <?php
 
-namespace VanillaComponents\Events;
+namespace Flavorly\VanillaComponents\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use VanillaComponents\Datatables\PendingAction\PendingAction;
+use Flavorly\VanillaComponents\Datatables\PendingAction\PendingAction;
 
 class BaseEvent
 {

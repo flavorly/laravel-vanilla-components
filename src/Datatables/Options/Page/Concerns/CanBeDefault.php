@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Datatables\Options\Page\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Options\Page\Concerns;
 
 use Closure;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents;
+namespace Flavorly\VanillaComponents;
 
 class VanillaComponents
 {

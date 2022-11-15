@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Datatables\Filters\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Filters\Concerns;
 
 trait HasComponentTypes
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Datatables\Columns\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Columns\Concerns;
 
 trait HasKey
 {

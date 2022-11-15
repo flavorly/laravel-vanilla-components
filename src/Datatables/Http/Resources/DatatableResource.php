@@ -1,10 +1,10 @@
 <?php
 
-namespace VanillaComponents\Datatables\Http\Resources;
+namespace Flavorly\VanillaComponents\Datatables\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use VanillaComponents\Core\Concerns\InteractsWithPagination;
-use VanillaComponents\Datatables\Paginator\PaginatedResourceResponse;
+use Flavorly\VanillaComponents\Core\Concerns\InteractsWithPagination;
+use Flavorly\VanillaComponents\Datatables\Paginator\PaginatedResourceResponse;
 
 class DatatableResource extends ResourceCollection
 {

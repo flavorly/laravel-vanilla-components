@@ -1,13 +1,13 @@
 <?php
 
-namespace VanillaComponents\Datatables\Actions;
+namespace Flavorly\VanillaComponents\Datatables\Actions;
 
 use Illuminate\Support\Traits\Macroable;
-use VanillaComponents\Core\Concerns as CoreConcerns;
-use VanillaComponents\Core\Confirmation\Confirmation;
-use VanillaComponents\Core\Contracts as CoreContracts;
-use VanillaComponents\Core\Polling\Polling;
-use VanillaComponents\Datatables\Concerns as BaseConcerns;
+use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
+use Flavorly\VanillaComponents\Core\Confirmation\Confirmation;
+use Flavorly\VanillaComponents\Core\Contracts as CoreContracts;
+use Flavorly\VanillaComponents\Core\Polling\Polling;
+use Flavorly\VanillaComponents\Datatables\Concerns as BaseConcerns;
 
 class Action implements CoreContracts\HasToArray
 {

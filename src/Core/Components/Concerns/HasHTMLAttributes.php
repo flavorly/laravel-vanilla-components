@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Core\Components\Concerns;
+namespace Flavorly\VanillaComponents\Core\Components\Concerns;
 
 use Closure;
 

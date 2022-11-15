@@ -1,9 +1,9 @@
 <?php
 
-namespace VanillaComponents\Datatables\Filters\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Filters\Concerns;
 
 use Closure;
-use VanillaComponents\Core\Option\Option;
+use Flavorly\VanillaComponents\Core\Option\Option;
 
 trait HasOptions
 {

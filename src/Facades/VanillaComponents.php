@@ -1,16 +1,16 @@
 <?php
 
-namespace VanillaComponents\Facades;
+namespace Flavorly\VanillaComponents\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \VanillaComponents\VanillaComponents
+ * @see \Flavorly\VanillaComponents\VanillaComponents
  */
 class VanillaComponents extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \VanillaComponents\VanillaComponents::class;
+        return \Flavorly\VanillaComponents\VanillaComponents::class;
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace VanillaComponents\Datatables\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
 use Illuminate\Support\Collection;
-use VanillaComponents\Datatables\Options\Page\PerPageOption;
+use Flavorly\VanillaComponents\Datatables\Options\Page\PerPageOption;
 
 trait HasPageOptions
 {

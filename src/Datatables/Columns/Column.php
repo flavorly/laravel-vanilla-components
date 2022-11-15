@@ -1,11 +1,11 @@
 <?php
 
-namespace VanillaComponents\Datatables\Columns;
+namespace Flavorly\VanillaComponents\Datatables\Columns;
 
 use Illuminate\Support\Traits\Macroable;
-use VanillaComponents\Core\Concerns as CoreConcerns;
-use VanillaComponents\Core\Contracts as CoreContracts;
-use VanillaComponents\Datatables\Concerns as BaseConcerns;
+use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
+use Flavorly\VanillaComponents\Core\Contracts as CoreContracts;
+use Flavorly\VanillaComponents\Datatables\Concerns as BaseConcerns;
 
 class Column implements CoreContracts\HasToArray
 {

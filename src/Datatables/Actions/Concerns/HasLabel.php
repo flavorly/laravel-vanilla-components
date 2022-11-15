@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Datatables\Actions\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Actions\Concerns;
 
 use Closure;
 use Illuminate\Support\Str;

@@ -1,9 +1,9 @@
 # Vanilla Components Integration with Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/indigit/vanilla-components-laravel.svg?style=flat-square)](https://packagist.org/packages/indigit/vanilla-components-laravel)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/indigit/vanilla-components-laravel/run-tests?label=tests)](https://github.com/indigit/vanilla-components-laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/indigit/vanilla-components-laravel/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/indigit/vanilla-components-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/indigit/vanilla-components-laravel.svg?style=flat-square)](https://packagist.org/packages/indigit/vanilla-components-laravel)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/flavorly/laravel-vanilla-components.svg?style=flat-square)](https://packagist.org/packages/flavorly/laravel-vanilla-components)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/flavorly/laravel-vanilla-components/run-tests?label=tests)](https://github.com/flavorly/laravel-vanilla-components/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/flavorly/laravel-vanilla-components/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/flavorly/laravel-vanilla-components/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/flavorly/laravel-vanilla-components.svg?style=flat-square)](https://packagist.org/packages/flavorly/laravel-vanilla-components)
 
 A package to integrate vanilla components into Laravel. Specially Datatables & other fields.
 
@@ -12,7 +12,7 @@ A package to integrate vanilla components into Laravel. Specially Datatables & o
 You can install the package via composer:
 
 ```bash
-composer require indigit/vanilla-components-laravel
+composer require flavorly/laravel-vanilla-components
 ```
 
 You can publish and run the migrations with:

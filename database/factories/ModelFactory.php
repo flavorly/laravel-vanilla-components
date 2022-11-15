@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Database\Factories;
+namespace Flavorly\VanillaComponents\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

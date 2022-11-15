@@ -1,8 +1,8 @@
 <?php
 
-namespace VanillaComponents\Datatables\PendingAction\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\PendingAction\Concerns;
 
-use VanillaComponents\Datatables\Actions\Action;
+use Flavorly\VanillaComponents\Datatables\Actions\Action;
 
 trait BelongsToAction
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace VanillaComponents\Datatables\Actions\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Actions\Concerns;
 
 use Illuminate\Support\Arr;
-use VanillaComponents\Core\Polling\Polling;
+use Flavorly\VanillaComponents\Core\Polling\Polling;
 
 trait HasPolling
 {

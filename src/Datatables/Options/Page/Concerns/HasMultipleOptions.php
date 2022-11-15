@@ -1,8 +1,8 @@
 <?php
 
-namespace VanillaComponents\Datatables\Options\Page\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Options\Page\Concerns;
 
-use VanillaComponents\Datatables\Options\Page\PerPageOption;
+use Flavorly\VanillaComponents\Datatables\Options\Page\PerPageOption;
 
 trait HasMultipleOptions
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace VanillaComponents\Core\Components\Concerns;
+namespace Flavorly\VanillaComponents\Core\Components\Concerns;
 
 use Closure;
-use VanillaComponents\Core\Option\Option;
+use Flavorly\VanillaComponents\Core\Option\Option;
 
 trait HasOptions
 {

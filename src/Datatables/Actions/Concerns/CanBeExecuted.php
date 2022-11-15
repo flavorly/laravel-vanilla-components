@@ -1,14 +1,14 @@
 <?php
 
-namespace VanillaComponents\Datatables\Actions\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Actions\Concerns;
 
 use Closure;
 use Illuminate\Support\Collection;
-use VanillaComponents\Datatables\PendingAction\PendingAction;
-use VanillaComponents\Events\DatatableActionExecuted;
-use VanillaComponents\Events\DatatableActionFailed;
-use VanillaComponents\Events\DatatableActionFinished;
-use VanillaComponents\Events\DatatableActionStarted;
+use Flavorly\VanillaComponents\Datatables\PendingAction\PendingAction;
+use Flavorly\VanillaComponents\Events\DatatableActionExecuted;
+use Flavorly\VanillaComponents\Events\DatatableActionFailed;
+use Flavorly\VanillaComponents\Events\DatatableActionFinished;
+use Flavorly\VanillaComponents\Events\DatatableActionStarted;
 
 trait CanBeExecuted
 {

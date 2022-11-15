@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Datatables\PendingAction\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\PendingAction\Concerns;
 
 use Closure;
 

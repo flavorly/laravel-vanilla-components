@@ -1,17 +1,17 @@
 {
-    "name": "indigit/vanilla-components-laravel",
+    "name": "flavorly/laravel-vanilla-components",
     "description": "Vanilla Components Integration with Laravel",
     "keywords": [
-        "indigit",
+        "flavorly",
         "laravel",
         "vanilla-components-laravel"
     ],
-    "homepage": "https://github.com/indigit/vanilla-components-laravel",
+    "homepage": "https://github.com/flavorly/laravel-vanilla-components",
     "license": "MIT",
     "authors": [
         {
-            "name": "indigit",
-            "email": "support@indigit.pt",
+            "name": "Flavorly",
+            "email": "hello@flavorly.com",
             "role": "Developer"
         }
     ],
@@ -31,13 +31,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VanillaComponents\\": "src",
-            "VanillaComponents\\Database\\Factories\\": "database/factories"
+            "Flavorly\\VanillaComponents\\": "src",
+            "Flavorly\\VanillaComponents\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VanillaComponents\\Tests\\": "tests"
+            "Flavorly\\VanillaComponents\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -57,10 +57,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VanillaComponents\\VanillaComponentsServiceProvider"
+                "Flavorly\\VanillaComponents\\VanillaComponentsServiceProvider"
             ],
             "aliases": {
-                "VanillaComponents": "VanillaComponents\\Facades\\VanillaComponents"
+                "VanillaComponents": "Flavorly\\VanillaComponents\\Facades\\VanillaComponents"
             }
         }
     },

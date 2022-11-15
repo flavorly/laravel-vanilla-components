@@ -1,10 +1,10 @@
 <?php
 
-namespace VanillaComponents\Tests;
+namespace Flavorly\VanillaComponents\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use VanillaComponentsServiceProvider;
+use Flavorly\VanillaComponentsServiceProvider;
 
 class TestCase extends Orchestra
 {

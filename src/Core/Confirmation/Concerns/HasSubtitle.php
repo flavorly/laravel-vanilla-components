@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Core\Confirmation\Concerns;
+namespace Flavorly\VanillaComponents\Core\Confirmation\Concerns;
 
 use Closure;
 

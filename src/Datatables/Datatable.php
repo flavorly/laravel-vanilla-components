@@ -1,9 +1,9 @@
 <?php
 
-namespace VanillaComponents\Datatables;
+namespace Flavorly\VanillaComponents\Datatables;
 
 use Illuminate\Support\Traits\Macroable;
-use VanillaComponents\Core\Concerns as CoreConcerns;
+use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
 
 abstract class Datatable
 {

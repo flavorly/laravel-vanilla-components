@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Commands;
+namespace Flavorly\VanillaComponents\Commands;
 
 use Illuminate\Console\Command;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace VanillaComponents\Datatables\Concerns;
+namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
 use Illuminate\Support\Collection;
-use VanillaComponents\Datatables\Actions\Action;
+use Flavorly\VanillaComponents\Datatables\Actions\Action;
 
 trait HasActions
 {

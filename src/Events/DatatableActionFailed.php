@@ -1,9 +1,9 @@
 <?php
 
-namespace VanillaComponents\Events;
+namespace Flavorly\VanillaComponents\Events;
 
 use Exception;
-use VanillaComponents\Datatables\PendingAction\PendingAction;
+use Flavorly\VanillaComponents\Datatables\PendingAction\PendingAction;
 
 class DatatableActionFailed extends BaseEvent
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace VanillaComponents\Core\Concerns;
+namespace Flavorly\VanillaComponents\Core\Concerns;
 
 trait Makable
 {
