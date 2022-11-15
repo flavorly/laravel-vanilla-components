@@ -3,7 +3,6 @@
 namespace Flavorly\VanillaComponents\Datatables\PendingAction;
 
 use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
-use Flavorly\VanillaComponents\Datatables\PendingAction\Concerns;
 
 class PendingAction
 {
