@@ -2,9 +2,9 @@
 
 namespace Flavorly\VanillaComponents\Core\Confirmation;
 
-use Illuminate\Support\Traits\Macroable;
 use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
 use Flavorly\VanillaComponents\Core\Contracts as CoreContracts;
+use Illuminate\Support\Traits\Macroable;
 
 class Confirmation implements CoreContracts\HasToArray
 {

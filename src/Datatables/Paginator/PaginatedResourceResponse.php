@@ -2,12 +2,12 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Paginator;
 
+use Flavorly\VanillaComponents\Core\Concerns\InteractsWithPagination;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Resources\Json\PaginatedResourceResponse as BasePaginator;
 use Illuminate\Pagination\UrlWindow;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Flavorly\VanillaComponents\Core\Concerns\InteractsWithPagination;
 
 class PaginatedResourceResponse extends BasePaginator
 {

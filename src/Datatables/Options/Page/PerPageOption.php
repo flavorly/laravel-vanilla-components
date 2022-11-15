@@ -2,10 +2,10 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Options\Page;
 
-use Illuminate\Support\Traits\Macroable;
 use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
 use Flavorly\VanillaComponents\Core\Contracts as CoreContracts;
 use Flavorly\VanillaComponents\Datatables\Concerns as BaseConcerns;
+use Illuminate\Support\Traits\Macroable;
 
 class PerPageOption implements CoreContracts\HasToArray
 {

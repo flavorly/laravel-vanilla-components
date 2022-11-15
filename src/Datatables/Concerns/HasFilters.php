@@ -2,9 +2,9 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
-use Illuminate\Support\Collection;
 use Flavorly\VanillaComponents\Core\Components\BaseComponent;
 use Flavorly\VanillaComponents\Datatables\Filters\Filter;
+use Illuminate\Support\Collection;
 
 trait HasFilters
 {

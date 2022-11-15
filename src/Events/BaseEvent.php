@@ -2,9 +2,9 @@
 
 namespace Flavorly\VanillaComponents\Events;
 
+use Flavorly\VanillaComponents\Datatables\PendingAction\PendingAction;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Flavorly\VanillaComponents\Datatables\PendingAction\PendingAction;
 
 class BaseEvent
 {

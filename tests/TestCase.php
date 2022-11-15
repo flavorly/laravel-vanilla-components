@@ -2,9 +2,9 @@
 
 namespace Flavorly\VanillaComponents\Tests;
 
+use Flavorly\VanillaComponentsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Flavorly\VanillaComponentsServiceProvider;
 
 class TestCase extends Orchestra
 {
