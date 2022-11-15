@@ -48,12 +48,12 @@ class Action implements CoreContracts\HasToArray
         $confirmation = Confirmation::make()
             ->enabled()
             ->buttons(
-                trans('vanilla-components-laravel::translations.confirmation.confirm'),
-                trans('vanilla-components-laravel::translations.confirmation.cancel'),
+                trans('laravel-vanilla-components::translations.confirmation.confirm'),
+                trans('laravel-vanilla-components::translations.confirmation.cancel'),
             )
             ->raw(false)
             ->title($this->getName())
-            ->text(trans('vanilla-components-laravel::translations.confirmation.text'));
+            ->text(trans('laravel-vanilla-components::translations.confirmation.text'));
 
         // Other stuff
         $this->after['clearSelected'] = $this->getShouldClearSelectionAfterAction() ?? true;

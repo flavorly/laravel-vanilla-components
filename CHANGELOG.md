@@ -1,3 +1,3 @@
 # Changelog
 
-All notable changes to `vanilla-components-laravel` will be documented in this file.
+All notable changes to `laravel-vanilla-components` will be documented in this file.

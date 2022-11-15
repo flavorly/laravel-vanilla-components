@@ -16,10 +16,10 @@ class VanillaComponentsServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('vanilla-components-laravel')
+            ->name('laravel-vanilla-components')
             ->hasConfigFile()
             ->hasTranslations()
-            ->hasMigration('create_vanilla-components-laravel_table')
+            //->hasMigration('create_laravel-vanilla-components_table')
             ->hasCommand(VanillaComponentsCommand::class);
     }
 }

@@ -18,14 +18,14 @@ composer require flavorly/laravel-vanilla-components
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="vanilla-components-laravel-migrations"
+php artisan vendor:publish --tag="laravel-vanilla-components-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="vanilla-components-laravel-config"
+php artisan vendor:publish --tag="laravel-vanilla-components-config"
 ```
 
 This is the contents of the published config file:
@@ -38,13 +38,13 @@ return [
 Optionally, you can publish the views using
 
 ```bash
-php artisan vendor:publish --tag="vanilla-components-laravel-views"
+php artisan vendor:publish --tag="laravel-vanilla-components-views"
 ```
 
 Optionally, you can publish translations using
 
 ```bash
-php artisan vendor:publish --tag="vanilla-components-laravel-translations
+php artisan vendor:publish --tag="laravel-vanilla-components-translations
 ```
 
 ## Usage

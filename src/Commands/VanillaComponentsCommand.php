@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class VanillaComponentsCommand extends Command
 {
-    public $signature = 'vanilla-components-laravel';
+    public $signature = 'laravel-vanilla-components';
 
     public $description = 'My command';
 
