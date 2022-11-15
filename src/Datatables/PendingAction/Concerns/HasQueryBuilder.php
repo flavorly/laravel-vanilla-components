@@ -2,8 +2,8 @@
 
 namespace VanillaComponents\Datatables\PendingAction\Concerns;
 
-use Laravel\Scout\Builder as ScoutBuilder;
 use Illuminate\Database\Eloquent\Builder;
+use Laravel\Scout\Builder as ScoutBuilder;
 
 trait HasQueryBuilder
 {
@@ -12,6 +12,7 @@ trait HasQueryBuilder
     public function withQuery(Builder|ScoutBuilder|null $queryBuilder = null): static
     {
         $this->queryBuilder = $queryBuilder;
+
         return $this;
     }
 
