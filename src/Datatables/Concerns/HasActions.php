@@ -2,8 +2,8 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
-use Illuminate\Support\Collection;
 use Flavorly\VanillaComponents\Datatables\Actions\Action;
+use Illuminate\Support\Collection;
 
 trait HasActions
 {

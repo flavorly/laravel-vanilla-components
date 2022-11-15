@@ -2,9 +2,9 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Flavorly\VanillaComponents\Core\Concerns\InteractsWithPagination;
 use Flavorly\VanillaComponents\Datatables\Paginator\PaginatedResourceResponse;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class DatatableResource extends ResourceCollection
 {

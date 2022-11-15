@@ -3,12 +3,12 @@
 namespace Flavorly\VanillaComponents\Datatables\Actions\Concerns;
 
 use Closure;
-use Illuminate\Support\Collection;
 use Flavorly\VanillaComponents\Datatables\PendingAction\PendingAction;
 use Flavorly\VanillaComponents\Events\DatatableActionExecuted;
 use Flavorly\VanillaComponents\Events\DatatableActionFailed;
 use Flavorly\VanillaComponents\Events\DatatableActionFinished;
 use Flavorly\VanillaComponents\Events\DatatableActionStarted;
+use Illuminate\Support\Collection;
 
 trait CanBeExecuted
 {

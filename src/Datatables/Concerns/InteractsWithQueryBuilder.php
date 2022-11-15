@@ -4,12 +4,12 @@ namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
 use App\Models\User;
 use Closure;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Builder as ScoutBuilder;
 use Flavorly\VanillaComponents\Datatables\Columns\Column;
 use Flavorly\VanillaComponents\Datatables\Filters\Filter;
 use Flavorly\VanillaComponents\Datatables\Http\Resources\DatatableResource;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Builder as ScoutBuilder;
 
 trait InteractsWithQueryBuilder
 {

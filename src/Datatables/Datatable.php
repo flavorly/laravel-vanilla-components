@@ -2,8 +2,8 @@
 
 namespace Flavorly\VanillaComponents\Datatables;
 
-use Illuminate\Support\Traits\Macroable;
 use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
+use Illuminate\Support\Traits\Macroable;
 
 abstract class Datatable
 {

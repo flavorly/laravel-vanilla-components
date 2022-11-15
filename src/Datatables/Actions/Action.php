@@ -2,12 +2,12 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Actions;
 
-use Illuminate\Support\Traits\Macroable;
 use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
 use Flavorly\VanillaComponents\Core\Confirmation\Confirmation;
 use Flavorly\VanillaComponents\Core\Contracts as CoreContracts;
 use Flavorly\VanillaComponents\Core\Polling\Polling;
 use Flavorly\VanillaComponents\Datatables\Concerns as BaseConcerns;
+use Illuminate\Support\Traits\Macroable;
 
 class Action implements CoreContracts\HasToArray
 {

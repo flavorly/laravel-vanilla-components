@@ -2,9 +2,9 @@
 
 namespace Flavorly\VanillaComponents\Core\Components;
 
-use Illuminate\Support\Traits\Macroable;
 use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
 use Flavorly\VanillaComponents\Core\Contracts as CoreContracts;
+use Illuminate\Support\Traits\Macroable;
 
 abstract class BaseComponent implements CoreContracts\HasToArray
 {

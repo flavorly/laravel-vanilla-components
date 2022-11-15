@@ -2,12 +2,12 @@
 
 namespace Flavorly\VanillaComponents\Core\Option;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Traits\Macroable;
 use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
 use Flavorly\VanillaComponents\Core\Contracts\HasToArray;
 use Flavorly\VanillaComponents\Core\Option\Concerns as BaseConcerns;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Traits\Macroable;
 
 class Option implements HasToArray
 {

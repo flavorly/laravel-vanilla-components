@@ -2,8 +2,8 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Actions\Concerns;
 
-use Illuminate\Support\Arr;
 use Flavorly\VanillaComponents\Core\Polling\Polling;
+use Illuminate\Support\Arr;
 
 trait HasPolling
 {
