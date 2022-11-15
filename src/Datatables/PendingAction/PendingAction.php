@@ -11,4 +11,5 @@ class PendingAction
     use Concerns\HasCollectionOfRows;
     use Concerns\CanAllBeSelected;
     use Concerns\BelongsToAction;
+    use Concerns\HasQueryBuilder;
 }

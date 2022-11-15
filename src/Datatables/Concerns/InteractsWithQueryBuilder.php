@@ -48,6 +48,9 @@ trait InteractsWithQueryBuilder
         // Get the possible options for per Page Options
         $perPageOptions = $this->getPerPageOptions();
 
+        // Get the actions
+        $actions = $this->getActions();
+
         // The default option per page
         $defaultPerPageOption = $perPageOptions->first(fn ($item, $key) => $key === request()->input('perPage'))->getValue() ?? $perPageOptions->first()->getValue();
 

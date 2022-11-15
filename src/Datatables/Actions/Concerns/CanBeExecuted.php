@@ -29,12 +29,13 @@ trait CanBeExecuted
         return $this->executeUsing;
     }
 
-    public function execute(Collection $requestData): void
+    public function execute(Collection $requestData, ScoutBuilder|Builder|null $queryBuilder = null): void
     {
         $pendingAction = PendingAction::make()
             ->rows($requestData->get('rows'))
             ->allSelectedWhen($requestData->get('rows') === 'all')
-            ->action($this);
+            ->action($this)
+            ->withQuery($queryBuilder);
 
         // Hook: Before
         if (class_implements($this, HasHooks::class) && $this->onBefore !== null) {
