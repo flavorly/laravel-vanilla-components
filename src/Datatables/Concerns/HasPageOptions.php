@@ -50,6 +50,11 @@ trait HasPageOptions
             ->filter(fn ($perPageOption) => ! empty($perPageOption));
     }
 
+    public function getPerPageOptionByNumber(int|string|null $perPageOption = null): PerPageOption
+    {
+        return $this->getPerPageOptions()->first(fn ($item, $key) => $key === $perPageOption) ?? $this->getPerPageOptions()->first();
+    }
+
     protected function setupPerPageOptions(): void
     {
         $this->perPageOptions = $this->perPageOptions();

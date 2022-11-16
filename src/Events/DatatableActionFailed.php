@@ -3,15 +3,16 @@
 namespace Flavorly\VanillaComponents\Events;
 
 use Exception;
-use Flavorly\VanillaComponents\Datatables\PendingAction\PendingAction;
+use Flavorly\VanillaComponents\Datatables\Actions\Action;
+use Flavorly\VanillaComponents\Datatables\Data\DatatableRequest;
 
 class DatatableActionFailed extends BaseEvent
 {
     protected ?Exception $exception = null;
 
-    public function __construct(PendingAction $pendingAction, Exception $exception = null)
+    public function __construct(DatatableRequest $data, Action $action, Exception $exception = null)
     {
-        parent::__construct($pendingAction);
+        parent::__construct($data,$action);
         $this->exception = $exception;
     }
 }

@@ -48,6 +48,11 @@ trait HasColumns
         return collect($this->columns())->map(fn ($column) => $column->getName());
     }
 
+    protected function getColumnByKey(string $columnKey): ?Column
+    {
+        return $this->getColumns()->first(fn ($item, $key) => $key === $columnKey);
+    }
+
     protected function columnsToArray(): array
     {
         if (! empty($this->columns)) {

@@ -4,7 +4,7 @@ namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
 use App\Models\User;
 use Closure;
-use Flavorly\VanillaComponents\Datatables\Columns\Column;
+use Flavorly\VanillaComponents\Datatables\Data\DatatableRequest;
 use Flavorly\VanillaComponents\Datatables\Filters\Filter;
 use Flavorly\VanillaComponents\Datatables\Http\Resources\DatatableResource;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,6 +14,7 @@ use Laravel\Scout\Builder as ScoutBuilder;
 trait InteractsWithQueryBuilder
 {
     protected Builder|ScoutBuilder|null $query = null;
+    protected DatatableRequest $data;
 
     protected function resolveQueryOrModel(Builder|Model|string|Closure $queryOrModel): Builder
     {
@@ -32,55 +33,49 @@ trait InteractsWithQueryBuilder
 
     protected function dispatchAction(): void
     {
+        // Get the actions
+        $action = $this->getActionByKey($this->data->action);
+        if(!$action){
+            return;
+        }
+
+        $action->execute($this->data,$this->query);
     }
 
-    public function response(Builder $queryOrModel = null): DatatableResource
+    public function response(Builder $queryOrModel, DatatableRequest $data): DatatableResource
     {
+        $this->data = $data;
+
         // Attempt to always get a query builder
         $baseQuery = $this->resolveQueryOrModel($queryOrModel);
 
-        // Get the columns defined
-        $columns = $this->getColumns();
-
-        // Get the filters
-        $filters = $this->getFilters();
-
-        // Get the possible options for per Page Options
-        $perPageOptions = $this->getPerPageOptions();
-
-        // Get the actions
-        $actions = $this->getActions();
-
-        // The default option per page
-        $defaultPerPageOption = $perPageOptions->first(fn ($item, $key) => $key === request()->input('perPage'))->getValue() ?? $perPageOptions->first()->getValue();
-
         $paginator = User::search(
-            request()->get('search') ?? '',
+            $this->data->search ?? '',
 
             // We use scout for searching, the second argument we can modify the underlying query, so that we will be able to
             // Control the actual results, the base query constraints are merged into this.
 
-            function (Builder $query) use ($columns, $filters, $baseQuery) {
+            function (Builder $query) use ($baseQuery) {
                 $query
                     // Select columns
-                    ->select(array_keys($columns->toArray()))
+                    ->select($this->getColumnKeys()->toArray())
 
                     // Merge previous query
                     ->mergeConstraintsFrom($baseQuery)
 
                     // Perform sorting
-                    ->when(! empty(request()->input('sorting')), function (Builder|ScoutBuilder $subQuery) use ($columns) {
+                    ->when($this->data->sorting->isNotEmpty(), function (Builder|ScoutBuilder $subQuery) {
                         // Each column that needs to be sorted
-                        collect(request()->input('sorting'))
-
+                        $this
+                            ->data
+                            ->sorting
                             // Filter the ones not present in the columns
-                            ->filter(function ($sorting) use ($columns) {
+                            ->filter(function ($sorting) {
                                 if (empty($sorting)) {
                                     return false;
                                 }
-                                /** @var Column $column */
-                                $column = $columns?->first(fn ($item, $key) => $key === $sorting['column']);
-                                if (empty($column)) {
+                                $column = $this->getColumnByKey($sorting['column']);
+                                if (!$column) {
                                     return false;
                                 }
 
@@ -94,16 +89,17 @@ trait InteractsWithQueryBuilder
                     })
 
                     // Filters
-                    ->when(! empty(request()->input('filters')), function (Builder|ScoutBuilder $subQuery) use ($filters) {
+                    ->when($this->data->filters->isNotEmpty(), function (Builder|ScoutBuilder $subQuery) {
                         // Each column that needs to be sorted
-                        collect(request()->input('filters'))
-
+                        $this
+                            ->data
+                            ->filters
                             // Filter the ones not present in the columns
-                            ->filter(fn ($filterValue, $filterKey) => $filterValue !== null && $filters?->first(fn ($item, $key) => $key === $filterKey))
+                            ->filter(fn ($filterValue, $filterKey) => $filterValue !== null && $this->getFilterByKey($filterKey) !== null)
 
                             // Apply Sorting
-                            ->each(function ($filterValue, $filterKey) use ($subQuery, $filters) {
-                                $filter = $filters?->first(fn ($item, $key) => $key === $filterKey);
+                            ->each(function ($filterValue, $filterKey) use ($subQuery,) {
+                                $filter = $this->getFilterByKey($filterKey);
                                 if ($filter instanceof Filter) {
                                     $filter->apply($subQuery, $filterKey, $filterValue);
                                 }
@@ -118,7 +114,12 @@ trait InteractsWithQueryBuilder
                 return $query;
             }
         )
-        ->paginate($defaultPerPageOption);
+        ->paginate($this->getPerPageOptionByNumber($this->data->perPage)->getValue());
+
+        // Only execute if there is an action and selectedAll is true or selected is not empty
+        if($this->data->action && ($this->data->selectedAll === true || $this->data->selectedRows->isNotEmpty())){
+            $this->dispatchAction();
+        }
 
         return (new DatatableResource($paginator))->rightSideMaximumPages(3);
     }
