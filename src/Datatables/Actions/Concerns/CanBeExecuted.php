@@ -21,6 +21,7 @@ trait CanBeExecuted
     {
         $this->executeUsing = $closureOrInvokable;
         $this->executeUsingMethod = $method;
+
         return $this;
     }
 
@@ -31,24 +32,23 @@ trait CanBeExecuted
 
     public function execute(DatatableRequest $data, ScoutBuilder|Builder $queryBuilder): void
     {
-        $payload = ['action' => $this,'data' => $data, 'query' => $queryBuilder];
+        $payload = ['action' => $this, 'data' => $data, 'query' => $queryBuilder];
 
         // Hook: Before
         if (class_implements($this, HasHooks::class) && $this->onBefore !== null) {
-            app()->call($this->onBefore,$payload);
+            app()->call($this->onBefore, $payload);
         }
 
         event(new DatatableActionStarted($data, $this));
 
         try {
-
             // No method registered or callback
             if ($this->executeUsing === null) {
                 throw new \Exception('Please make sure you call the executeUsing with either closure or a class to perform the action');
             }
 
             if (method_exists($this, 'handle')) {
-                app()->call([$this, 'handle'],$payload);
+                app()->call([$this, 'handle'], $payload);
             }
             // Action should be executed as a closure
             elseif ($this->getExecuteUsing() instanceof Closure) {
@@ -74,7 +74,7 @@ trait CanBeExecuted
                 app()->call($this->onAfter, $payload);
             }
 
-            event(new DatatableActionExecuted($data,$this));
+            event(new DatatableActionExecuted($data, $this));
         } catch (\Exception $e) {
             // Hook: Exception
             if (class_implements($this, HasHooks::class) && $this->onFailed !== null) {
@@ -90,7 +90,7 @@ trait CanBeExecuted
                 app()->call($this->onFinished, $payload);
             }
 
-            event(new DatatableActionFinished($data,$this));
+            event(new DatatableActionFinished($data, $this));
         }
     }
 }

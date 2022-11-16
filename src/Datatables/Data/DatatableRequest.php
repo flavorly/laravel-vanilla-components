@@ -34,7 +34,7 @@ class DatatableRequest extends Data
     public static function rules(): array
     {
         return [
-            'search' => ['nullable','string'],
+            'search' => ['nullable', 'string'],
             'perPage' => ['nullable', 'integer'],
             'selected' => ['nullable', 'array'],
             'selectedAll' => ['required', 'boolean'],
