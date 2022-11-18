@@ -8,8 +8,6 @@ use Flavorly\VanillaComponents\Events\DatatableActionExecuted;
 use Flavorly\VanillaComponents\Events\DatatableActionFailed;
 use Flavorly\VanillaComponents\Events\DatatableActionFinished;
 use Flavorly\VanillaComponents\Events\DatatableActionStarted;
-use Illuminate\Database\Eloquent\Builder;
-use Laravel\Scout\Builder as ScoutBuilder;
 
 trait CanBeExecuted
 {
@@ -21,6 +19,7 @@ trait CanBeExecuted
     {
         $this->executeUsing = $closureOrInvokable;
         $this->executeUsingMethod = $method;
+
         return $this;
     }
 
@@ -33,12 +32,12 @@ trait CanBeExecuted
     {
         // Ensure we can convert the models
         $selectedModels = collect();
-        if($this->shouldConvertIDsToModels() &&
+        if ($this->shouldConvertIDsToModels() &&
             $data->selectedRowsIds->isNotEmpty() &&
             $this->getModelsPrimaryKey() !== null &&
             $data->query !== null
-        ){
-            $selectedModels = $data->query->clone()->whereIn($this->getModelsPrimaryKey(),$data->selectedRowsIds)->get() ?? collect();
+        ) {
+            $selectedModels = $data->query->clone()->whereIn($this->getModelsPrimaryKey(), $data->selectedRowsIds)->get() ?? collect();
         }
 
         // Payload injected to all the stuff while executing a action
@@ -50,21 +49,20 @@ trait CanBeExecuted
 
         // Hook: Before
         if (class_implements($this, HasHooks::class) && $this->onBefore !== null) {
-            app()->call($this->onBefore,$payload);
+            app()->call($this->onBefore, $payload);
         }
 
         event(new DatatableActionStarted($data, $this));
 
         try {
-
             // No method registered or callback
-            if ($this->executeUsing === null && !method_exists($this, 'handle')) {
+            if ($this->executeUsing === null && ! method_exists($this, 'handle')) {
                 throw new \Exception('Please make sure you call the using with either a closure or a class to perform the action');
             }
 
             // If user provided a instance instead with a handle method
             if (method_exists($this, 'handle')) {
-                app()->call([$this, 'handle'],$payload);
+                app()->call([$this, 'handle'], $payload);
             }
 
             // Action should be executed as a closure
@@ -91,14 +89,14 @@ trait CanBeExecuted
                 app()->call($this->onAfter, $payload);
             }
 
-            event(new DatatableActionExecuted($data,$this));
+            event(new DatatableActionExecuted($data, $this));
         } catch (\Exception $e) {
             // Hook: Exception
             if (class_implements($this, HasHooks::class) && $this->onFailed !== null) {
                 app()->call($this->onFailed, $payload);
             }
 
-            event(new DatatableActionFailed($data,$this, $e));
+            event(new DatatableActionFailed($data, $this, $e));
 
             throw $e;
         } finally {
@@ -107,7 +105,7 @@ trait CanBeExecuted
                 app()->call($this->onFinished, $payload);
             }
 
-            event(new DatatableActionFinished($data,$this));
+            event(new DatatableActionFinished($data, $this));
         }
     }
 }

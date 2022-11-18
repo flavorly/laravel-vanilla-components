@@ -37,6 +37,7 @@ trait HasActions
                 }
 
                 $action->table($this);
+
                 return [$action->getName() => $action];
             })
             ->filter(fn ($action) => ! empty($action));
@@ -54,6 +55,6 @@ trait HasActions
 
     protected function actionsToArray(): array
     {
-        return $this->getActions()->map(fn($action) => $action->toArray())->values()->toArray();
+        return $this->getActions()->map(fn ($action) => $action->toArray())->values()->toArray();
     }
 }

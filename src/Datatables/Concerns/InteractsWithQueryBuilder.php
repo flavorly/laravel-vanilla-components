@@ -14,6 +14,7 @@ use Laravel\Scout\Builder as ScoutBuilder;
 trait InteractsWithQueryBuilder
 {
     protected Builder|ScoutBuilder|null $query = null;
+
     protected DatatableRequest $data;
 
     protected function resolveQueryOrModel(Builder|Model|string|Closure $queryOrModel): Builder
@@ -36,7 +37,7 @@ trait InteractsWithQueryBuilder
     {
         // Get the actions
         $action = $this->getActionByKey($this->data->action);
-        if(!$action){
+        if (! $action) {
             return;
         }
 
@@ -77,7 +78,7 @@ trait InteractsWithQueryBuilder
                                     return false;
                                 }
                                 $column = $this->getColumnByKey($sorting['column']);
-                                if (!$column) {
+                                if (! $column) {
                                     return false;
                                 }
 
@@ -100,7 +101,7 @@ trait InteractsWithQueryBuilder
                             ->filter(fn ($filterValue, $filterKey) => $filterValue !== null && $this->getFilterByKey($filterKey) !== null)
 
                             // Apply Sorting
-                            ->each(function ($filterValue, $filterKey) use ($subQuery,) {
+                            ->each(function ($filterValue, $filterKey) use ($subQuery) {
                                 $filter = $this->getFilterByKey($filterKey);
                                 if ($filter instanceof Filter) {
                                     $filter->apply($subQuery, $filterKey, $filterValue);
@@ -119,10 +120,10 @@ trait InteractsWithQueryBuilder
         ->paginate($this->getPerPageOptionByNumber($this->data->perPage)->getValue());
 
         // Re-flash the data with the query that is already merged.
-        $this->data = DatatableRequest::from(array_merge($data->toArray(),['query' => $this->query]));
+        $this->data = DatatableRequest::from(array_merge($data->toArray(), ['query' => $this->query]));
 
         // Only execute if there is an action and selectedAll is true or selected is not empty
-        if($this->data->action && ($this->data->isAllSelected === true || $this->data->selectedRowsIds->isNotEmpty())){
+        if ($this->data->action && ($this->data->isAllSelected === true || $this->data->selectedRowsIds->isNotEmpty())) {
             $this->dispatchAction();
         }
 

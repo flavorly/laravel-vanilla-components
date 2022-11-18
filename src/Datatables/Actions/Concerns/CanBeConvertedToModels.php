@@ -9,6 +9,7 @@ trait CanBeConvertedToModels
     public function convertToModels(string|null $primaryKey = 'id'): static
     {
         $this->modelPrimaryKey = $primaryKey;
+
         return $this;
     }
 
@@ -20,9 +21,6 @@ trait CanBeConvertedToModels
 
     protected function shouldConvertIDsToModels(): bool
     {
-
-
-
         return $this->evaluate($this->modelPrimaryKey) !== null;
     }
 
