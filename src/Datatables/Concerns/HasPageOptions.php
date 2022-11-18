@@ -62,22 +62,6 @@ trait HasPageOptions
 
     protected function perPageOptionsToArray(): array
     {
-        if (! empty($this->perPageOptions)) {
-            return collect($this->perPageOptions)
-                ->map(function ($option) {
-                    if ($option instanceof PerPageOption) {
-                        return $option->toArray();
-                    }
-                    if (is_array($option)) {
-                        return $option;
-                    }
-
-                    return [];
-                })
-                ->filter(fn ($option) => ! empty($option))
-                ->toArray();
-        }
-
-        return [];
+        return $this->getPerPageOptions()->map(fn($option) => $option->toArray())->toArray();
     }
 }

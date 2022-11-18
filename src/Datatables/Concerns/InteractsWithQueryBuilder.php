@@ -23,6 +23,7 @@ trait InteractsWithQueryBuilder
         if (is_string($queryOrModel)) {
             $queryOrModel = app($queryOrModel);
         }
+
         if ($queryOrModel instanceof Closure) {
             $queryOrModel = $this->evaluate($queryOrModel);
         }
@@ -39,11 +40,12 @@ trait InteractsWithQueryBuilder
             return;
         }
 
-        $action->execute($this->data,$this->query);
+        $action->execute($this->data);
     }
 
     public function response(Builder $queryOrModel, DatatableRequest $data): DatatableResource
     {
+        // Flash the initial data
         $this->data = $data;
 
         // Attempt to always get a query builder
@@ -116,8 +118,11 @@ trait InteractsWithQueryBuilder
         )
         ->paginate($this->getPerPageOptionByNumber($this->data->perPage)->getValue());
 
+        // Re-flash the data with the query that is already merged.
+        $this->data = DatatableRequest::from(array_merge($data->toArray(),['query' => $this->query]));
+
         // Only execute if there is an action and selectedAll is true or selected is not empty
-        if($this->data->action && ($this->data->selectedAll === true || $this->data->selectedRows->isNotEmpty())){
+        if($this->data->action && ($this->data->isAllSelected === true || $this->data->selectedRowsIds->isNotEmpty())){
             $this->dispatchAction();
         }
 

@@ -26,6 +26,7 @@ class Action implements CoreContracts\HasToArray
     use Concerns\CanClearSelected;
     use Concerns\CanBeConfirmed;
     use Concerns\CanResetFilters;
+    use Concerns\CanBeConvertedToModels;
     use Macroable;
 
     public function __construct()

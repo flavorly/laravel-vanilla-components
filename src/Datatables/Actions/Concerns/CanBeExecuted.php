@@ -17,7 +17,7 @@ trait CanBeExecuted
 
     protected ?string $executeUsingMethod = null;
 
-    public function executeUsing(Closure|null|string $closureOrInvokable = null, ?string $method = '__invoke'): static
+    public function using(Closure|null|string $closureOrInvokable = null, ?string $method = '__invoke'): static
     {
         $this->executeUsing = $closureOrInvokable;
         $this->executeUsingMethod = $method;
@@ -29,9 +29,24 @@ trait CanBeExecuted
         return $this->executeUsing;
     }
 
-    public function execute(DatatableRequest $data, ScoutBuilder|Builder $queryBuilder): void
+    public function execute(DatatableRequest $data): void
     {
-        $payload = ['action' => $this,'data' => $data, 'query' => $queryBuilder];
+        // Ensure we can convert the models
+        $selectedModels = collect();
+        if($this->shouldConvertIDsToModels() &&
+            $data->selectedRowsIds->isNotEmpty() &&
+            $this->getModelsPrimaryKey() !== null &&
+            $data->query !== null
+        ){
+            $selectedModels = $data->query->clone()->whereIn($this->getModelsPrimaryKey(),$data->selectedRowsIds)->get() ?? collect();
+        }
+
+        // Payload injected to all the stuff while executing a action
+        $payload = [
+            'data' => $data,
+            'models' => $selectedModels,
+            'action' => $this,
+        ];
 
         // Hook: Before
         if (class_implements($this, HasHooks::class) && $this->onBefore !== null) {
@@ -43,13 +58,15 @@ trait CanBeExecuted
         try {
 
             // No method registered or callback
-            if ($this->executeUsing === null) {
-                throw new \Exception('Please make sure you call the executeUsing with either closure or a class to perform the action');
+            if ($this->executeUsing === null && !method_exists($this, 'handle')) {
+                throw new \Exception('Please make sure you call the using with either a closure or a class to perform the action');
             }
 
+            // If user provided a instance instead with a handle method
             if (method_exists($this, 'handle')) {
                 app()->call([$this, 'handle'],$payload);
             }
+
             // Action should be executed as a closure
             elseif ($this->getExecuteUsing() instanceof Closure) {
                 app()->call($this->getExecuteUsing(), $payload);
@@ -81,7 +98,7 @@ trait CanBeExecuted
                 app()->call($this->onFailed, $payload);
             }
 
-            event(new DatatableActionFailed($data, $e));
+            event(new DatatableActionFailed($data,$this, $e));
 
             throw $e;
         } finally {

@@ -30,13 +30,13 @@ trait HasColumns
             ->mapWithKeys(function ($column) {
                 if (is_string($column)) {
                     $column = app($column);
-
-                    return [$column->getName() => $column];
                 }
 
                 if (! $column instanceof Column) {
                     return [];
                 }
+
+                $column->table($this);
 
                 return [$column->getName() => $column];
             })
@@ -55,22 +55,6 @@ trait HasColumns
 
     protected function columnsToArray(): array
     {
-        if (! empty($this->columns)) {
-            return collect($this->columns)
-            ->map(function ($column) {
-                if ($column instanceof Column) {
-                    return $column->toArray();
-                }
-                if (is_array($column)) {
-                    return $column;
-                }
-
-                return [];
-            })
-            ->filter(fn ($column) => ! empty($column))
-            ->toArray();
-        }
-
-        return [];
+        return $this->getColumns()->map(fn($column) => $column->toArray())->values()->toArray();
     }
 }

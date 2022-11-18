@@ -30,14 +30,13 @@ trait HasActions
             ->mapWithKeys(function ($action) {
                 if (is_string($action)) {
                     $action = app($action);
-
-                    return [$action->getName() => $action];
                 }
 
                 if (! $action instanceof Action) {
                     return [];
                 }
 
+                $action->table($this);
                 return [$action->getName() => $action];
             })
             ->filter(fn ($action) => ! empty($action));
@@ -55,20 +54,6 @@ trait HasActions
 
     protected function actionsToArray(): array
     {
-        return collect($this->actions)->map(function ($action) {
-            if (is_string($action)) {
-                return app()->make($action)->toArray();
-            }
-
-            if ($action instanceof Action) {
-                return $action->toArray();
-            }
-
-            if (is_array($action)) {
-                return $action;
-            }
-
-            throw new \Exception('Invalid action type');
-        })->toArray();
+        return $this->getActions()->map(fn($action) => $action->toArray())->values()->toArray();
     }
 }
