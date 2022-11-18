@@ -9,9 +9,10 @@ class ArrayToCollection implements Cast
 {
     public function cast(DataProperty $property, mixed $value, array $context): mixed
     {
-        if(null === $value){
+        if (null === $value) {
             return collect();
         }
+
         return collect($value);
     }
 }

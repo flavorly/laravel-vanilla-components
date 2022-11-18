@@ -12,6 +12,7 @@ class BaseEvent
     use Dispatchable, SerializesModels;
 
     protected ?DatatableRequest $data;
+
     protected ?Action $action;
 
     public function __construct(DatatableRequest $data, Action $action)

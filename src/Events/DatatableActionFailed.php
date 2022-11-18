@@ -12,7 +12,7 @@ class DatatableActionFailed extends BaseEvent
 
     public function __construct(DatatableRequest $data, Action $action, Exception $exception = null)
     {
-        parent::__construct($data,$action);
+        parent::__construct($data, $action);
         $this->exception = $exception;
     }
 }
