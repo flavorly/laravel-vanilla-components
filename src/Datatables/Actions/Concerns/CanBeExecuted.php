@@ -80,7 +80,7 @@ trait CanBeExecuted
         try {
 
             // No method registered or callback
-            throw_if(!$this->isAnyOfTheMethodsImplemented(),new DatatableActionMethodMissingException())
+            throw_if(!$this->isAnyOfTheMethodsImplemented(),new DatatableActionMethodMissingException());
 
             // Closure executing
             if($this->executeUsing instanceof Closure){

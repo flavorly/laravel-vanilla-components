@@ -16,8 +16,6 @@ trait HasPerPage
         if (null !== $perPage && $this->getTable() !== null) {
             $this->perPage = $this->getTable()->getPerPageOptionByNumber($perPage)->getValue() ?? 10;
         }
-        ray('Im here');
-
         return $this;
     }
 

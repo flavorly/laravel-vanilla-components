@@ -21,17 +21,15 @@ trait CanBeFiltered
         }
 
         // Filter the sorting
-        $filters
+        $this->filters = $filters
             ->filter(function ($filterValue, $filterKey) {
                 return $filterValue !== null && $this->getTable()->getFilterByKey($filterKey) !== null;
             })
-            ->map(function ($filterValue, $filterKey) {
+            ->mapWithKeys(function ($filterValue, $filterKey) {
                 $filter = $this->getTable()->getFilterByKey($filterKey);
-
-                return $filter->value($filterValue);
-            });
-
-        $this->filters = $filters;
+                $filter->value($filterValue);
+                return [$filterKey => $filter];
+            });;
 
         return $this;
     }

@@ -20,7 +20,7 @@ trait HasFilters
         $this->filters = $this->filters();
     }
 
-    protected function getFilters(): Collection
+    public function getFilters(): Collection
     {
         if (empty($this->filters())) {
             return collect();

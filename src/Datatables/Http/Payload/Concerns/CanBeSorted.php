@@ -21,33 +21,31 @@ trait CanBeSorted
         }
 
         // Filter the sorting
-        $sorting
-        ->filter(function ($sorting) {
-            // Empty
-            if (empty($sorting)) {
-                return false;
-            }
+        $this->sorting = $sorting
+            ->filter(function ($sorting) {
+                // Empty
+                if (empty($sorting)) {
+                    return false;
+                }
 
-            // Not asc or desc
-            if (! in_array($sorting['direction'], ['asc', 'desc'])) {
-                return false;
-            }
+                // Not asc or desc
+                if (! in_array($sorting['direction'], ['asc', 'desc'])) {
+                    return false;
+                }
 
-            // Column doest not actual exists
-            $column = $this->getTable()->getColumnByKey($sorting['column']);
-            if (! $column) {
-                return false;
-            }
+                // Column doest not actual exists
+                $column = $this->getTable()->getColumnByKey($sorting['column']);
+                if (! $column) {
+                    return false;
+                }
 
-            return $column->isSortable();
-        })
-        ->map(function ($sorting) {
-            $column = $this->getTable()->getColumnByKey($sorting['column']);
+                return $column->isSortable();
+            })
+            ->map(function ($sorting) {
+                $column = $this->getTable()->getColumnByKey($sorting['column']);
 
-            return $column->sortedAs($sorting['direction']);
-        });
-
-        $this->sorting = $sorting;
+                return $column->sortedAs($sorting['direction']);
+            });;
 
         return $this;
     }

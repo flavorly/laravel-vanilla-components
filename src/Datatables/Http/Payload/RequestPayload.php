@@ -39,6 +39,7 @@ class RequestPayload
         $this->withIsAllSelected(request('selectedAll', false));
         $this->withAction(request('action'));
         $this->withPerPage(request('perPage', 10));
+        $this->withSearch(request('search',''));
         $this->withSelectedRowsIds(collect(request('selected', [])));
 
         return $this;
