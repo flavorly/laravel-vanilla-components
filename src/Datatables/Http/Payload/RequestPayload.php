@@ -4,7 +4,6 @@ namespace Flavorly\VanillaComponents\Datatables\Http\Payload;
 
 use Flavorly\VanillaComponents\Core\Concerns\Makable;
 use Flavorly\VanillaComponents\Datatables\Concerns\BelongsToTable;
-use Flavorly\VanillaComponents\Datatables\Http\Payload\Concerns;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class RequestPayload
@@ -41,6 +40,7 @@ class RequestPayload
         $this->withAction(request('action'));
         $this->withPerPage(request('perPage', 10));
         $this->withSelectedRowsIds(collect(request('selected', [])));
+
         return $this;
     }
 }

@@ -3,7 +3,6 @@
 namespace Flavorly\VanillaComponents\Events;
 
 use Flavorly\VanillaComponents\Datatables\Actions\Action;
-use Flavorly\VanillaComponents\Datatables\Data\DatatableRequest;
 use Flavorly\VanillaComponents\Datatables\Http\Payload\RequestPayload;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
