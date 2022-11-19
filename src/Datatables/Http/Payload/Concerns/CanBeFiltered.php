@@ -28,8 +28,9 @@ trait CanBeFiltered
             ->mapWithKeys(function ($filterValue, $filterKey) {
                 $filter = $this->getTable()->getFilterByKey($filterKey);
                 $filter->value($filterValue);
+
                 return [$filterKey => $filter];
-            });;
+            });
 
         return $this;
     }

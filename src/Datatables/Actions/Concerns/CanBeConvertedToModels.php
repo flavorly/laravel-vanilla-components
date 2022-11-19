@@ -9,44 +9,47 @@ trait CanBeConvertedToModels
     public function convertToModels(string|null $primaryKey = 'id'): static
     {
         $this->modelPrimaryKey = $primaryKey;
+
         return $this;
     }
 
     public function shouldConvertToModelsIfWasTypeHinted(): bool
     {
         // If the user provided a callback
-        if($this->executeUsing !== null){
+        if ($this->executeUsing !== null) {
             try {
                 $reflection = new \ReflectionFunction($this->executeUsing);
-                foreach($reflection->getParameters() as $parameter){
-                    if(
+                foreach ($reflection->getParameters() as $parameter) {
+                    if (
                         $parameter->getType() === 'Illuminate\Database\Eloquent\Collection' ||
                         $parameter->getName() === 'models'
-                    ){
+                    ) {
                         return true;
                     }
                 }
             } catch (\ReflectionException $e) {
             }
+
             return false;
         }
 
         $method = $this->getFirstMethodThatExists();
 
-        if(method_exists($this,$method)){
+        if (method_exists($this, $method)) {
             try {
-                $reflection = new \ReflectionMethod($this,$method);
-                foreach($reflection->getParameters() as $parameter){
-                    if(
+                $reflection = new \ReflectionMethod($this, $method);
+                foreach ($reflection->getParameters() as $parameter) {
+                    if (
                         $parameter->getType() === 'Illuminate\Database\Eloquent\Collection' ||
                         $parameter->getName() === 'models'
-                    ){
+                    ) {
                         return true;
                     }
                 }
             } catch (\ReflectionException $e) {
             }
         }
+
         return false;
     }
 

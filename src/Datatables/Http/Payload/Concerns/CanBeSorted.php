@@ -45,7 +45,7 @@ trait CanBeSorted
                 $column = $this->getTable()->getColumnByKey($sorting['column']);
 
                 return $column->sortedAs($sorting['direction']);
-            });;
+            });
 
         return $this;
     }

@@ -25,7 +25,7 @@ trait HasEndpoint
         $fetchEndpoint = $this->fetchEndpoint();
         $actionsEndpoint = $this->fetchEndpoint();
 
-        throw_if(empty($fetchEndpoint),new DatatableMissingFetchEndpointException());
+        throw_if(empty($fetchEndpoint), new DatatableMissingFetchEndpointException());
 
         $this->fetchEndpoint = $fetchEndpoint;
 
