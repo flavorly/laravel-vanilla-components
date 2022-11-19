@@ -3,6 +3,7 @@
 namespace Flavorly\VanillaComponents\Datatables\Data;
 
 use Flavorly\VanillaComponents\DataCasts\ArrayToCollection;
+use Flavorly\VanillaComponents\Datatables\Actions\Action;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Collection as ModelsCollection;
 use Spatie\LaravelData\Attributes\MapInputName;
@@ -33,9 +34,12 @@ class DatatableRequest extends Data
         #[WithCast(ArrayToCollection::class)]
         public Collection $sorting,
 
-        public string|null $action,
+        #[MapInputName('action')]
+        public string|null $actionName,
 
-        public Optional|Builder|ScoutBuilder $query,
+        public Optional|Action $action,
+
+        public Optional|Builder|ScoutBuilder|null $query,
 
         public Optional|ModelsCollection $selectedModels,
     ) {

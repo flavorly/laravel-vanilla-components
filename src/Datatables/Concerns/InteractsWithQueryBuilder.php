@@ -4,8 +4,10 @@ namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
 use App\Models\User;
 use Closure;
+use Flavorly\VanillaComponents\Datatables\Columns\Column;
 use Flavorly\VanillaComponents\Datatables\Data\DatatableRequest;
 use Flavorly\VanillaComponents\Datatables\Filters\Filter;
+use Flavorly\VanillaComponents\Datatables\Http\Payload\RequestPayload;
 use Flavorly\VanillaComponents\Datatables\Http\Resources\DatatableResource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +16,7 @@ use Laravel\Scout\Builder as ScoutBuilder;
 trait InteractsWithQueryBuilder
 {
     protected Builder|ScoutBuilder|null $query = null;
-    protected DatatableRequest $data;
+    protected RequestPayload $data;
 
     protected function resolveQueryOrModel(Builder|Model|string|Closure $queryOrModel): Builder
     {
@@ -34,26 +36,31 @@ trait InteractsWithQueryBuilder
 
     protected function dispatchAction(): void
     {
-        // Get the actions
-        $action = $this->getActionByKey($this->data->action);
-        if(!$action){
-            return;
+        if(
+            $this->data->hasAction() &&
+            ($this->data->isAllSelected() || $this->data->hasSelectedRows())
+        ){
+            // Resolve the models if required
+            $this->data->resolveModels();
+            // Execute the action
+            $this->data->getAction()->execute();
         }
-
-        $action->execute($this->data);
     }
 
-    public function response(Builder $queryOrModel, DatatableRequest $data): DatatableResource
+    public function response(Builder $queryOrModel): DatatableResource
     {
-        // Flash the initial data
-        $this->data = $data;
+        // Create the data from the request payload
+        // First we need to infer the table.
+        $this->data = RequestPayload::make()
+            ->table($this)
+            ->fromRequest();
 
         // Attempt to always get a query builder
         $baseQuery = $this->resolveQueryOrModel($queryOrModel);
 
         $paginator = User::search(
-            $this->data->search ?? '',
 
+            $this->data->getSearch(),
             // We use scout for searching, the second argument we can modify the underlying query, so that we will be able to
             // Control the actual results, the base query constraints are merged into this.
 
@@ -66,47 +73,32 @@ trait InteractsWithQueryBuilder
                     ->mergeConstraintsFrom($baseQuery)
 
                     // Perform sorting
-                    ->when($this->data->sorting->isNotEmpty(), function (Builder|ScoutBuilder $subQuery) {
+                    ->when($this->data->hasSorting(), function (Builder|ScoutBuilder $subQuery) {
                         // Each column that needs to be sorted
                         $this
                             ->data
-                            ->sorting
-                            // Filter the ones not present in the columns
-                            ->filter(function ($sorting) {
-                                if (empty($sorting)) {
-                                    return false;
-                                }
-                                $column = $this->getColumnByKey($sorting['column']);
-                                if (!$column) {
-                                    return false;
-                                }
-
-                                return $column->isSortable();
-                            })
-
-                            // Apply Sorting
-                            ->each(fn ($sorting) => $subQuery->orderBy($sorting['column'], $sorting['direction']));
-
+                            ->getSorting()
+                            ->each(fn (Column $column) => $subQuery->orderBy(
+                                    $column->getName(),
+                                    $column->getSortDirection()
+                                )
+                            );
                         return $subQuery;
                     })
 
                     // Filters
-                    ->when($this->data->filters->isNotEmpty(), function (Builder|ScoutBuilder $subQuery) {
+                    ->when($this->data->hasFilters(), function (Builder|ScoutBuilder $subQuery) {
                         // Each column that needs to be sorted
                         $this
                             ->data
-                            ->filters
-                            // Filter the ones not present in the columns
-                            ->filter(fn ($filterValue, $filterKey) => $filterValue !== null && $this->getFilterByKey($filterKey) !== null)
-
+                            ->getFilters()
                             // Apply Sorting
-                            ->each(function ($filterValue, $filterKey) use ($subQuery,) {
-                                $filter = $this->getFilterByKey($filterKey);
-                                if ($filter instanceof Filter) {
-                                    $filter->apply($subQuery, $filterKey, $filterValue);
-                                }
-                            });
-
+                            ->each(fn (Filter $filter) => $filter->apply(
+                                    $subQuery,
+                                    $filter->getName(),
+                                    $filter->getValue()
+                                )
+                            );
                         return $subQuery;
                     });
 
@@ -116,15 +108,13 @@ trait InteractsWithQueryBuilder
                 return $query;
             }
         )
-        ->paginate($this->getPerPageOptionByNumber($this->data->perPage)->getValue());
+        ->paginate($this->data->getPerPage());
 
-        // Re-flash the data with the query that is already merged.
-        $this->data = DatatableRequest::from(array_merge($data->toArray(),['query' => $this->query]));
+        // Append the query, because at this point we are done with it.
+        $this->data->withQuery($this->query);
 
-        // Only execute if there is an action and selectedAll is true or selected is not empty
-        if($this->data->action && ($this->data->isAllSelected === true || $this->data->selectedRowsIds->isNotEmpty())){
-            $this->dispatchAction();
-        }
+        // Dispatch the action
+        $this->dispatchAction();
 
         return (new DatatableResource($paginator))->rightSideMaximumPages(3);
     }

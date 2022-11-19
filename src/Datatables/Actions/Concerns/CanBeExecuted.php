@@ -15,9 +15,9 @@ trait CanBeExecuted
 {
     protected null | Closure | string $executeUsing = null;
 
-    protected ?string $executeUsingMethod = null;
+    protected ?string $executeUsingMethod = 'handle';
 
-    public function using(Closure|null|string $closureOrInvokable = null, ?string $method = '__invoke'): static
+    public function using(Closure|null|string $closureOrInvokable = null, ?string $method = 'handle'): static
     {
         $this->executeUsing = $closureOrInvokable;
         $this->executeUsingMethod = $method;
@@ -29,23 +29,11 @@ trait CanBeExecuted
         return $this->executeUsing;
     }
 
-    public function execute(DatatableRequest $data): void
+    public function execute(): void
     {
-        // Ensure we can convert the models
-        $selectedModels = collect();
-        if($this->shouldConvertIDsToModels() &&
-            $data->selectedRowsIds->isNotEmpty() &&
-            $this->getModelsPrimaryKey() !== null &&
-            $data->query !== null
-        ){
-            $selectedModels = $data->query->clone()->whereIn($this->getModelsPrimaryKey(),$data->selectedRowsIds)->get() ?? collect();
-        }
-
         // Payload injected to all the stuff while executing a action
         $payload = [
-            'data' => $data,
-            'models' => $selectedModels,
-            'action' => $this,
+            'data' => $this->getData(),
         ];
 
         // Hook: Before
@@ -53,7 +41,7 @@ trait CanBeExecuted
             app()->call($this->onBefore,$payload);
         }
 
-        event(new DatatableActionStarted($data, $this));
+        event(new DatatableActionStarted($this->getData(), $this));
 
         try {
 
@@ -91,14 +79,14 @@ trait CanBeExecuted
                 app()->call($this->onAfter, $payload);
             }
 
-            event(new DatatableActionExecuted($data,$this));
+            event(new DatatableActionExecuted($this->getData(),$this));
         } catch (\Exception $e) {
             // Hook: Exception
             if (class_implements($this, HasHooks::class) && $this->onFailed !== null) {
                 app()->call($this->onFailed, $payload);
             }
 
-            event(new DatatableActionFailed($data,$this, $e));
+            event(new DatatableActionFailed($this->getData(),$this, $e));
 
             throw $e;
         } finally {
@@ -107,7 +95,7 @@ trait CanBeExecuted
                 app()->call($this->onFinished, $payload);
             }
 
-            event(new DatatableActionFinished($data,$this));
+            event(new DatatableActionFinished($this->getData(),$this));
         }
     }
 }

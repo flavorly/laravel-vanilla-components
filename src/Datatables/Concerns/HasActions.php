@@ -47,7 +47,7 @@ trait HasActions
         return collect($this->actions())->map(fn ($action) => $action->getName());
     }
 
-    protected function getActionByKey(string $actionKey): ?Action
+    public function getActionByKey(string $actionKey): ?Action
     {
         return $this->getActions()->first(fn ($item, $key) => $key === $actionKey);
     }

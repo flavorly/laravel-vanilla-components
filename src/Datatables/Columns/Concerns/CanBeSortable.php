@@ -13,6 +13,8 @@ trait CanBeSortable
 
     protected ?Closure $sortQuery = null;
 
+    protected ?string $sortDirection = null;
+
     public function sortable(bool | array $condition = true, ?Closure $query = null): static
     {
         if (is_array($condition)) {
@@ -26,6 +28,20 @@ trait CanBeSortable
         $this->sortQuery = $query;
 
         return $this;
+    }
+
+    public function sortedAs(string $direction): static
+    {
+        if(!in_array($direction, ['asc', 'desc'])) {
+           $direction = 'desc';
+        }
+        $this->sortDirection = $direction;
+        return $this;
+    }
+
+    public function getSortDirection(): ?string
+    {
+        return $this->sortDirection;
     }
 
     public function getSortColumns(): array

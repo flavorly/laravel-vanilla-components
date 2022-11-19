@@ -49,7 +49,7 @@ trait HasFilters
         return collect($this->filters())->map(fn ($filter) => $filter->getName());
     }
 
-    protected function getFilterByKey(string $filterKey): ?Filter
+    public function getFilterByKey(string $filterKey): ?Filter
     {
         return $this->getFilters()->first(fn ($item, $key) => $key === $filterKey);
     }

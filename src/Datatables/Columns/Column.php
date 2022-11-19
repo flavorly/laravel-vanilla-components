@@ -26,7 +26,8 @@ class Column implements CoreContracts\HasToArray
             'name' => $this->getName(),
             'label' => $this->getLabel(),
             'sortable' => $this->isSortable(),
-            'native' => true, // TODO : check this
+            'sorting' => $this->getSortDirection(),
+            'native' => true,
             'hidden' => $this->isHidden(),
             'raw' => $this->isRaw(),
         ];
