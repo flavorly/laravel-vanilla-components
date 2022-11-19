@@ -3,6 +3,7 @@
 namespace Flavorly\VanillaComponents\Datatables\Actions\Concerns;
 
 use Closure;
+use Flavorly\VanillaComponents\Datatables\Exceptions\DatatableActionMethodMissingException;
 use Flavorly\VanillaComponents\Events\DatatableActionExecuted;
 use Flavorly\VanillaComponents\Events\DatatableActionFailed;
 use Flavorly\VanillaComponents\Events\DatatableActionFinished;
@@ -79,9 +80,7 @@ trait CanBeExecuted
         try {
 
             // No method registered or callback
-            if (!$this->isAnyOfTheMethodsImplemented()) {
-                throw new \Exception('Please make sure you call the using with either a closure or a class to perform the action');
-            }
+            throw_if(!$this->isAnyOfTheMethodsImplemented(),new DatatableActionMethodMissingException())
 
             // Closure executing
             if($this->executeUsing instanceof Closure){

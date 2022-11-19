@@ -9,14 +9,11 @@ trait CanBeConvertedToModels
     public function convertToModels(string|null $primaryKey = 'id'): static
     {
         $this->modelPrimaryKey = $primaryKey;
-
         return $this;
     }
 
     public function shouldConvertToModelsIfWasTypeHinted(): bool
     {
-        ray('Should execute', $this->executeUsing !== null);
-
         // If the user provided a callback
         if($this->executeUsing !== null){
             try {
@@ -34,25 +31,22 @@ trait CanBeConvertedToModels
             return false;
         }
 
-        ray('Going for methods',$this->getDefaultMethodsToCheck());
+        $method = $this->getFirstMethodThatExists();
 
-        foreach($this->getDefaultMethodsToCheck() as $method){
-            if(method_exists($this,$method)){
-                try {
-                    $reflection = new \ReflectionMethod($this,$method);
-                    foreach($reflection->getParameters() as $parameter){
-                        if(
-                            $parameter->getType() === 'Illuminate\Database\Eloquent\Collection' ||
-                            $parameter->getName() === 'models'
-                        ){
-                            return true;
-                        }
+        if(method_exists($this,$method)){
+            try {
+                $reflection = new \ReflectionMethod($this,$method);
+                foreach($reflection->getParameters() as $parameter){
+                    if(
+                        $parameter->getType() === 'Illuminate\Database\Eloquent\Collection' ||
+                        $parameter->getName() === 'models'
+                    ){
+                        return true;
                     }
-                } catch (\ReflectionException $e) {
                 }
+            } catch (\ReflectionException $e) {
             }
         }
-
         return false;
     }
 

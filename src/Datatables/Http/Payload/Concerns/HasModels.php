@@ -2,6 +2,7 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Http\Payload\Concerns;
 
+use Flavorly\VanillaComponents\Datatables\Exceptions\DatatableUnableToResolveModelPrimaryKeyException;
 use Illuminate\Database\Eloquent\Collection;
 
 trait HasModels
@@ -27,16 +28,13 @@ trait HasModels
 
     public function resolveModels(): void
     {
+        $primaryKey = $this->getAction()->getModelPrimaryKey() ?? $this->getQuery()->getModel()->getKeyName();
         if (
             $this->hasQuery() &&
-            ($this->getAction()->shouldConvertToModelsIfWasTypeHinted() && $this->getAction()->getModelPrimaryKey()) &&
+            ($this->getAction()->shouldConvertToModelsIfWasTypeHinted() && $primaryKey !== null) &&
             ($this->hasSelectedRows() || $this->isAllSelected())
         ) {
-            $primaryKey = $this->getAction()->getModelPrimaryKey() ?? $this->getQuery()->getModel()->getKeyName();
-
-            if (empty($primaryKey)) {
-                throw new \Exception('Unable to resolve model primary key for loading models for this action');
-            }
+            throw_if(empty($primaryKey), new DatatableUnableToResolveModelPrimaryKeyException());
 
             $this
                 ->withModels(

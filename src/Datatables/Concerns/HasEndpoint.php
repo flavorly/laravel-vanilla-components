@@ -2,6 +2,8 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
+use Flavorly\VanillaComponents\Datatables\Exceptions\DatatableMissingFetchEndpointException;
+
 trait HasEndpoint
 {
     protected ?string $fetchEndpoint = null;
@@ -23,9 +25,7 @@ trait HasEndpoint
         $fetchEndpoint = $this->fetchEndpoint();
         $actionsEndpoint = $this->fetchEndpoint();
 
-        if (empty($fetchEndpoint)) {
-            throw new \Exception('Fetch endpoint is required. Please define a method with the name fetchEndpoint() in your datatable class and return the full URL/Route for the datatable.');
-        }
+        throw_if(empty($fetchEndpoint),new DatatableMissingFetchEndpointException());
 
         $this->fetchEndpoint = $fetchEndpoint;
 

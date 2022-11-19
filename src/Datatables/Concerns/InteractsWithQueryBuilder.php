@@ -5,7 +5,6 @@ namespace Flavorly\VanillaComponents\Datatables\Concerns;
 use App\Models\User;
 use Closure;
 use Flavorly\VanillaComponents\Datatables\Columns\Column;
-use Flavorly\VanillaComponents\Datatables\Data\DatatableRequest;
 use Flavorly\VanillaComponents\Datatables\Filters\Filter;
 use Flavorly\VanillaComponents\Datatables\Http\Payload\RequestPayload;
 use Flavorly\VanillaComponents\Datatables\Http\Resources\DatatableResource;
