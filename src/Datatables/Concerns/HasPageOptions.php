@@ -62,6 +62,6 @@ trait HasPageOptions
 
     protected function perPageOptionsToArray(): array
     {
-        return $this->getPerPageOptions()->map(fn($option) => $option->toArray())->toArray();
+        return $this->getPerPageOptions()->map(fn ($option) => $option->toArray())->toArray();
     }
 }

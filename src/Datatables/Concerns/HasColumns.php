@@ -55,6 +55,6 @@ trait HasColumns
 
     protected function columnsToArray(): array
     {
-        return $this->getColumns()->map(fn($column) => $column->toArray())->values()->toArray();
+        return $this->getColumns()->map(fn ($column) => $column->toArray())->values()->toArray();
     }
 }

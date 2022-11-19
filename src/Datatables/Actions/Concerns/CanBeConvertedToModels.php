@@ -9,6 +9,7 @@ trait CanBeConvertedToModels
     public function convertToModels(string|null $primaryKey = 'id'): static
     {
         $this->modelPrimaryKey = $primaryKey;
+
         return $this;
     }
 

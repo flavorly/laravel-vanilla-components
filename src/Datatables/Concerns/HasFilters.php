@@ -2,7 +2,6 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
-use Flavorly\VanillaComponents\Core\Components\BaseComponent;
 use Flavorly\VanillaComponents\Datatables\Filters\Filter;
 use Illuminate\Support\Collection;
 
@@ -56,6 +55,6 @@ trait HasFilters
 
     protected function filtersToArray(): array
     {
-        return $this->getFilters()->map(fn($filter) => $filter->toArray())->values()->toArray();
+        return $this->getFilters()->map(fn ($filter) => $filter->toArray())->values()->toArray();
     }
 }
