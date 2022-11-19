@@ -2,7 +2,6 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Filters;
 
-use Flavorly\VanillaComponents\Core\Components\Concerns\HasPlaceholder;
 use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
 use Flavorly\VanillaComponents\Core\Contracts as CoreContracts;
 use Flavorly\VanillaComponents\Datatables\Concerns as BaseConcerns;
