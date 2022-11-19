@@ -19,8 +19,14 @@ trait HasAction
             return $this;
         }
 
+
         if(is_string($action)){
             $action = $this->getTable()->getActionByKey($action);
+        }
+
+        // If its still string, than its probably a class name
+        if(is_string($action)){
+            $action = app($action);
         }
 
         $action->withData($this);

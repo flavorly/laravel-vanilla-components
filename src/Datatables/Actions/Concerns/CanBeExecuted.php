@@ -3,19 +3,17 @@
 namespace Flavorly\VanillaComponents\Datatables\Actions\Concerns;
 
 use Closure;
-use Flavorly\VanillaComponents\Datatables\Data\DatatableRequest;
 use Flavorly\VanillaComponents\Events\DatatableActionExecuted;
 use Flavorly\VanillaComponents\Events\DatatableActionFailed;
 use Flavorly\VanillaComponents\Events\DatatableActionFinished;
 use Flavorly\VanillaComponents\Events\DatatableActionStarted;
-use Illuminate\Database\Eloquent\Builder;
-use Laravel\Scout\Builder as ScoutBuilder;
+use Illuminate\Support\Collection;
 
 trait CanBeExecuted
 {
     protected null | Closure | string $executeUsing = null;
 
-    protected ?string $executeUsingMethod = 'handle';
+    protected ?string $executeUsingMethod = null;
 
     public function using(Closure|null|string $closureOrInvokable = null, ?string $method = 'handle'): static
     {
@@ -29,11 +27,46 @@ trait CanBeExecuted
         return $this->executeUsing;
     }
 
+    protected function getDefaultMethodsToCheck(): Collection
+    {
+        return collect([
+            'handle',
+            '__invoke',
+            $this->executeUsingMethod,
+        ])->filter(fn($item) => !empty($item));
+    }
+
+    protected function isAnyOfTheMethodsImplemented(): bool
+    {
+        if($this->executeUsing !== null){
+            return true;
+        }
+
+        return $this->getDefaultMethodsToCheck()->contains(function($method){
+            return method_exists($this,$method);
+        });
+    }
+
+    protected function getFirstMethodThatExists(): ?string
+    {
+        if($this->executeUsing !== null){
+            return $this->executeUsingMethod;
+        }
+
+        return $this->getDefaultMethodsToCheck()->first(function($method){
+            return method_exists($this,$method);
+        });
+    }
+
     public function execute(): void
     {
+        // Resolve models
+        $this->getData()->resolveModels();
+
         // Payload injected to all the stuff while executing a action
         $payload = [
             'data' => $this->getData(),
+            'models' => $this->getData()->getModels(),
         ];
 
         // Hook: Before
@@ -46,32 +79,20 @@ trait CanBeExecuted
         try {
 
             // No method registered or callback
-            if ($this->executeUsing === null && !method_exists($this, 'handle')) {
+            if (!$this->isAnyOfTheMethodsImplemented()) {
                 throw new \Exception('Please make sure you call the using with either a closure or a class to perform the action');
             }
 
-            // If user provided a instance instead with a handle method
-            if (method_exists($this, 'handle')) {
-                app()->call([$this, 'handle'],$payload);
+            // Closure executing
+            if($this->executeUsing instanceof Closure){
+                app()->call($this->executeUsing,$payload);
             }
-
-            // Action should be executed as a closure
-            elseif ($this->getExecuteUsing() instanceof Closure) {
-                app()->call($this->getExecuteUsing(), $payload);
+            // Its a string or a class, we will attempt to call it.
+            elseif(is_string($this->executeUsing)){
+                app()->call([$this->executeUsing,$this->getFirstMethodThatExists()],$payload,$this->executeUsingMethod);
             }
-            // Action is a class, lets invoke
-            elseif (is_string($this->getExecuteUsing())) {
-                // Method __invoke or chosen method does not exists on the class
-                if (! method_exists($this->getExecuteUsing(), $this->executeUsingMethod)) {
-                    throw new \Exception(sprintf('Method %s does not exist on Action [%s]', $this->executeUsingMethod, $this::class));
-                }
-
-                // Call the action using the choosen method, defaults to __invoke
-                app()->call(
-                    $this->getExecuteUsing(),
-                    $payload,
-                    $this->executeUsingMethod
-                );
+            else {
+                app()->call([$this,$this->getFirstMethodThatExists()],$payload);
             }
 
             // Hook: After

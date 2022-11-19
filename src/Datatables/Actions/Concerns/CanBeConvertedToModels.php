@@ -13,8 +13,10 @@ trait CanBeConvertedToModels
         return $this;
     }
 
-    protected function shouldConvertToModelsIfWasTypeHinted(): bool
+    public function shouldConvertToModelsIfWasTypeHinted(): bool
     {
+        ray('Should execute', $this->executeUsing !== null);
+
         // If the user provided a callback
         if($this->executeUsing !== null){
             try {
@@ -32,15 +34,9 @@ trait CanBeConvertedToModels
             return false;
         }
 
+        ray('Going for methods',$this->getDefaultMethodsToCheck());
 
-        // If the user provider a method instead
-        $methodsToCheck = [
-            'handle',
-            '__invoke',
-            $this->executeUsingMethod,
-        ];
-
-        foreach($methodsToCheck as $method){
+        foreach($this->getDefaultMethodsToCheck() as $method){
             if(method_exists($this,$method)){
                 try {
                     $reflection = new \ReflectionMethod($this,$method);
@@ -60,12 +56,12 @@ trait CanBeConvertedToModels
         return false;
     }
 
-    protected function shouldConvertIDsToModels(): bool
+    public function shouldConvertIDsToModels(): bool
     {
         return $this->evaluate($this->modelPrimaryKey) !== null;
     }
 
-    protected function getModelPrimaryKey(): string|null
+    public function getModelPrimaryKey(): string|null
     {
         return $this->evaluate($this->modelPrimaryKey);
     }

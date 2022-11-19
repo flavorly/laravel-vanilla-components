@@ -21,14 +21,14 @@ trait HasModels
 
     public function getModels(): ?Collection
     {
-        return $this->models;
+        return $this->models ?? Collection::make();
     }
 
     public function resolveModels(): void
     {
         if(
             $this->hasQuery() &&
-            ($this->getAction()->shouldConvertToModelsIfWasTypeHinted() || $this->getAction()->shouldConvertIDsToModels()) &&
+            ($this->getAction()->shouldConvertToModelsIfWasTypeHinted() && $this->getAction()->getModelPrimaryKey()) &&
             ($this->hasSelectedRows() || $this->isAllSelected())
         ){
             $primaryKey = $this->getAction()->getModelPrimaryKey() ?? $this->getQuery()->getModel()->getKeyName();

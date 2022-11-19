@@ -40,8 +40,6 @@ trait InteractsWithQueryBuilder
             $this->data->hasAction() &&
             ($this->data->isAllSelected() || $this->data->hasSelectedRows())
         ){
-            // Resolve the models if required
-            $this->data->resolveModels();
             // Execute the action
             $this->data->getAction()->execute();
         }
