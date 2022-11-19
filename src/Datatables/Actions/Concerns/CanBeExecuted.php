@@ -19,6 +19,7 @@ trait CanBeExecuted
     {
         $this->executeUsing = $closureOrInvokable;
         $this->executeUsingMethod = $method;
+
         return $this;
     }
 
@@ -33,28 +34,28 @@ trait CanBeExecuted
             'handle',
             '__invoke',
             $this->executeUsingMethod,
-        ])->filter(fn($item) => !empty($item));
+        ])->filter(fn ($item) => ! empty($item));
     }
 
     protected function isAnyOfTheMethodsImplemented(): bool
     {
-        if($this->executeUsing !== null){
+        if ($this->executeUsing !== null) {
             return true;
         }
 
-        return $this->getDefaultMethodsToCheck()->contains(function($method){
-            return method_exists($this,$method);
+        return $this->getDefaultMethodsToCheck()->contains(function ($method) {
+            return method_exists($this, $method);
         });
     }
 
     protected function getFirstMethodThatExists(): ?string
     {
-        if($this->executeUsing !== null){
+        if ($this->executeUsing !== null) {
             return $this->executeUsingMethod;
         }
 
-        return $this->getDefaultMethodsToCheck()->first(function($method){
-            return method_exists($this,$method);
+        return $this->getDefaultMethodsToCheck()->first(function ($method) {
+            return method_exists($this, $method);
         });
     }
 
@@ -71,28 +72,26 @@ trait CanBeExecuted
 
         // Hook: Before
         if (class_implements($this, HasHooks::class) && $this->onBefore !== null) {
-            app()->call($this->onBefore,$payload);
+            app()->call($this->onBefore, $payload);
         }
 
         event(new DatatableActionStarted($this->getData(), $this));
 
         try {
-
             // No method registered or callback
-            if (!$this->isAnyOfTheMethodsImplemented()) {
+            if (! $this->isAnyOfTheMethodsImplemented()) {
                 throw new \Exception('Please make sure you call the using with either a closure or a class to perform the action');
             }
 
             // Closure executing
-            if($this->executeUsing instanceof Closure){
-                app()->call($this->executeUsing,$payload);
+            if ($this->executeUsing instanceof Closure) {
+                app()->call($this->executeUsing, $payload);
             }
             // Its a string or a class, we will attempt to call it.
-            elseif(is_string($this->executeUsing)){
-                app()->call([$this->executeUsing,$this->getFirstMethodThatExists()],$payload,$this->executeUsingMethod);
-            }
-            else {
-                app()->call([$this,$this->getFirstMethodThatExists()],$payload);
+            elseif (is_string($this->executeUsing)) {
+                app()->call([$this->executeUsing, $this->getFirstMethodThatExists()], $payload, $this->executeUsingMethod);
+            } else {
+                app()->call([$this, $this->getFirstMethodThatExists()], $payload);
             }
 
             // Hook: After
@@ -100,14 +99,14 @@ trait CanBeExecuted
                 app()->call($this->onAfter, $payload);
             }
 
-            event(new DatatableActionExecuted($this->getData(),$this));
+            event(new DatatableActionExecuted($this->getData(), $this));
         } catch (\Exception $e) {
             // Hook: Exception
             if (class_implements($this, HasHooks::class) && $this->onFailed !== null) {
                 app()->call($this->onFailed, $payload);
             }
 
-            event(new DatatableActionFailed($this->getData(),$this, $e));
+            event(new DatatableActionFailed($this->getData(), $this, $e));
 
             throw $e;
         } finally {
@@ -116,7 +115,7 @@ trait CanBeExecuted
                 app()->call($this->onFinished, $payload);
             }
 
-            event(new DatatableActionFinished($this->getData(),$this));
+            event(new DatatableActionFinished($this->getData(), $this));
         }
     }
 }
