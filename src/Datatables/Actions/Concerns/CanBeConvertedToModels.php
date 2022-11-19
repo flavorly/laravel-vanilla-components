@@ -16,22 +16,22 @@ trait CanBeConvertedToModels
     protected function shouldConvertToModelsIfWasTypeHinted(): bool
     {
         // If the user provided a callback
-        if($this->executeUsing !== null){
+        if ($this->executeUsing !== null) {
             try {
                 $reflection = new \ReflectionFunction($this->executeUsing);
-                foreach($reflection->getParameters() as $parameter){
-                    if(
+                foreach ($reflection->getParameters() as $parameter) {
+                    if (
                         $parameter->getType() === 'Illuminate\Database\Eloquent\Collection' ||
                         $parameter->getName() === 'models'
-                    ){
+                    ) {
                         return true;
                     }
                 }
             } catch (\ReflectionException $e) {
             }
+
             return false;
         }
-
 
         // If the user provider a method instead
         $methodsToCheck = [
@@ -40,15 +40,15 @@ trait CanBeConvertedToModels
             $this->executeUsingMethod,
         ];
 
-        foreach($methodsToCheck as $method){
-            if(method_exists($this,$method)){
+        foreach ($methodsToCheck as $method) {
+            if (method_exists($this, $method)) {
                 try {
-                    $reflection = new \ReflectionMethod($this,$method);
-                    foreach($reflection->getParameters() as $parameter){
-                        if(
+                    $reflection = new \ReflectionMethod($this, $method);
+                    foreach ($reflection->getParameters() as $parameter) {
+                        if (
                             $parameter->getType() === 'Illuminate\Database\Eloquent\Collection' ||
                             $parameter->getName() === 'models'
-                        ){
+                        ) {
                             return true;
                         }
                     }

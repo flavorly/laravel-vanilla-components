@@ -32,10 +32,11 @@ trait CanBeSortable
 
     public function sortedAs(string $direction): static
     {
-        if(!in_array($direction, ['asc', 'desc'])) {
-           $direction = 'desc';
+        if (! in_array($direction, ['asc', 'desc'])) {
+            $direction = 'desc';
         }
         $this->sortDirection = $direction;
+
         return $this;
     }
 

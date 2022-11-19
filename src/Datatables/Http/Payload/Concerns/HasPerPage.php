@@ -6,16 +6,18 @@ trait HasPerPage
 {
     /**
      * Stores the per page
+     *
      * @var int
      */
     protected int $perPage = 10;
 
     public function withPerPage(?int $perPage): static
     {
-        if(null !== $perPage && $this->getTable() !== null) {
+        if (null !== $perPage && $this->getTable() !== null) {
             $this->perPage = $this->getTable()->getPerPageOptionByNumber($perPage)->getValue() ?? 10;
         }
         ray('Im here');
+
         return $this;
     }
 

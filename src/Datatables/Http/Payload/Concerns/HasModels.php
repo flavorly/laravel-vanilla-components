@@ -11,12 +11,13 @@ trait HasModels
     public function withModels(Collection $models): static
     {
         $this->models = $models;
+
         return $this;
     }
 
     public function hasModels(): bool
     {
-        return !is_null($this->models) && !$this->models->isEmpty();
+        return ! is_null($this->models) && ! $this->models->isEmpty();
     }
 
     public function getModels(): ?Collection
@@ -26,14 +27,14 @@ trait HasModels
 
     public function resolveModels(): void
     {
-        if(
+        if (
             $this->hasQuery() &&
             ($this->getAction()->shouldConvertToModelsIfWasTypeHinted() || $this->getAction()->shouldConvertIDsToModels()) &&
             ($this->hasSelectedRows() || $this->isAllSelected())
-        ){
+        ) {
             $primaryKey = $this->getAction()->getModelPrimaryKey() ?? $this->getQuery()->getModel()->getKeyName();
 
-            if(empty($primaryKey)){
+            if (empty($primaryKey)) {
                 throw new \Exception('Unable to resolve model primary key for loading models for this action');
             }
 

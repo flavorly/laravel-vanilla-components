@@ -2,9 +2,7 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Actions\Concerns;
 
-use Flavorly\VanillaComponents\Core\Polling\Polling;
 use Flavorly\VanillaComponents\Datatables\Http\Payload\RequestPayload;
-use Illuminate\Support\Arr;
 
 trait HasPayload
 {
@@ -13,6 +11,7 @@ trait HasPayload
     public function withData(?RequestPayload $payload = null): static
     {
         $this->payload = $payload;
+
         return $this;
     }
 

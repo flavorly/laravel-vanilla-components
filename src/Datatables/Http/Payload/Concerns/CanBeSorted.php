@@ -16,7 +16,7 @@ trait CanBeSorted
 
     public function withSorting(Collection $sorting): static
     {
-        if($sorting->isEmpty()) {
+        if ($sorting->isEmpty()) {
             return $this;
         }
 
@@ -29,24 +29,26 @@ trait CanBeSorted
             }
 
             // Not asc or desc
-            if(!in_array($sorting['direction'], ['asc', 'desc'])) {
+            if (! in_array($sorting['direction'], ['asc', 'desc'])) {
                 return false;
             }
 
             // Column doest not actual exists
             $column = $this->getTable()->getColumnByKey($sorting['column']);
-            if (!$column) {
+            if (! $column) {
                 return false;
             }
 
             return $column->isSortable();
         })
-        ->map(function ($sorting){
+        ->map(function ($sorting) {
             $column = $this->getTable()->getColumnByKey($sorting['column']);
+
             return $column->sortedAs($sorting['direction']);
         });
 
         $this->sorting = $sorting;
+
         return $this;
     }
 
@@ -57,6 +59,6 @@ trait CanBeSorted
 
     public function hasSorting(): bool
     {
-        return !$this->sorting->isEmpty();
+        return ! $this->sorting->isEmpty();
     }
 }

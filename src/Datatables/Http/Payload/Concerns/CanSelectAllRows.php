@@ -2,8 +2,6 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Http\Payload\Concerns;
 
-use Illuminate\Support\Collection;
-
 trait CanSelectAllRows
 {
     /**
@@ -16,6 +14,7 @@ trait CanSelectAllRows
     public function withIsAllSelected(bool $isAllSelected): static
     {
         $this->isAllSelected = $isAllSelected;
+
         return $this;
     }
 
@@ -26,6 +25,6 @@ trait CanSelectAllRows
 
     public function isNotAllSelected(): bool
     {
-        return !$this->isAllSelected;
+        return ! $this->isAllSelected;
     }
 }

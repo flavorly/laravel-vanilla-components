@@ -16,6 +16,7 @@ trait HasSelectedRows
     public function withSelectedRowsIds(Collection $selectedRowsIds): static
     {
         $this->selectedRowsIds = $selectedRowsIds;
+
         return $this;
     }
 
@@ -26,6 +27,6 @@ trait HasSelectedRows
 
     public function hasSelectedRows(): bool
     {
-        return !$this->selectedRowsIds->isEmpty();
+        return ! $this->selectedRowsIds->isEmpty();
     }
 }

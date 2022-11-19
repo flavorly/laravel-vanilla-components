@@ -4,14 +4,14 @@ namespace Flavorly\VanillaComponents\Datatables\Data;
 
 use Flavorly\VanillaComponents\DataCasts\ArrayToCollection;
 use Flavorly\VanillaComponents\Datatables\Actions\Action;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as ModelsCollection;
+use Illuminate\Support\Collection;
+use Laravel\Scout\Builder as ScoutBuilder;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
-use Illuminate\Database\Eloquent\Builder;
-use Laravel\Scout\Builder as ScoutBuilder;
 
 class DatatableRequest extends Data
 {

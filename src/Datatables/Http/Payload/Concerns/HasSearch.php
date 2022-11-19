@@ -6,6 +6,7 @@ trait HasSearch
 {
     /**
      * Stores the search query
+     *
      * @var string
      */
     protected string $search = '';
@@ -13,6 +14,7 @@ trait HasSearch
     public function withSearch(string $search): static
     {
         $this->search = $search;
+
         return $this;
     }
 
@@ -23,6 +25,6 @@ trait HasSearch
 
     public function hasSearch(): bool
     {
-        return !empty($this->search);
+        return ! empty($this->search);
     }
 }

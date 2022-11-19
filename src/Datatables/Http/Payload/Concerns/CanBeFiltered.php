@@ -16,21 +16,23 @@ trait CanBeFiltered
 
     public function withFilters(Collection $filters): static
     {
-        if($filters->isEmpty()) {
+        if ($filters->isEmpty()) {
             return $this;
         }
 
         // Filter the sorting
         $filters
-            ->filter(function ($filterValue, $filterKey){
+            ->filter(function ($filterValue, $filterKey) {
                 return $filterValue !== null && $this->getTable()->getFilterByKey($filterKey) !== null;
             })
-            ->map(function ($filterValue, $filterKey){
+            ->map(function ($filterValue, $filterKey) {
                 $filter = $this->getTable()->getFilterByKey($filterKey);
+
                 return $filter->value($filterValue);
             });
 
         $this->filters = $filters;
+
         return $this;
     }
 
@@ -41,6 +43,6 @@ trait CanBeFiltered
 
     public function hasFilters(): bool
     {
-        return !$this->filters->isEmpty();
+        return ! $this->filters->isEmpty();
     }
 }

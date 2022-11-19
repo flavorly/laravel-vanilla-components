@@ -5,7 +5,6 @@ namespace Flavorly\VanillaComponents\Datatables\Concerns;
 use App\Models\User;
 use Closure;
 use Flavorly\VanillaComponents\Datatables\Columns\Column;
-use Flavorly\VanillaComponents\Datatables\Data\DatatableRequest;
 use Flavorly\VanillaComponents\Datatables\Filters\Filter;
 use Flavorly\VanillaComponents\Datatables\Http\Payload\RequestPayload;
 use Flavorly\VanillaComponents\Datatables\Http\Resources\DatatableResource;
@@ -16,6 +15,7 @@ use Laravel\Scout\Builder as ScoutBuilder;
 trait InteractsWithQueryBuilder
 {
     protected Builder|ScoutBuilder|null $query = null;
+
     protected RequestPayload $data;
 
     protected function resolveQueryOrModel(Builder|Model|string|Closure $queryOrModel): Builder
@@ -36,10 +36,10 @@ trait InteractsWithQueryBuilder
 
     protected function dispatchAction(): void
     {
-        if(
+        if (
             $this->data->hasAction() &&
             ($this->data->isAllSelected() || $this->data->hasSelectedRows())
-        ){
+        ) {
             // Resolve the models if required
             $this->data->resolveModels();
             // Execute the action
@@ -79,10 +79,11 @@ trait InteractsWithQueryBuilder
                             ->data
                             ->getSorting()
                             ->each(fn (Column $column) => $subQuery->orderBy(
-                                    $column->getName(),
-                                    $column->getSortDirection()
-                                )
+                                $column->getName(),
+                                $column->getSortDirection()
+                            )
                             );
+
                         return $subQuery;
                     })
 
@@ -94,11 +95,12 @@ trait InteractsWithQueryBuilder
                             ->getFilters()
                             // Apply Sorting
                             ->each(fn (Filter $filter) => $filter->apply(
-                                    $subQuery,
-                                    $filter->getName(),
-                                    $filter->getValue()
-                                )
+                                $subQuery,
+                                $filter->getName(),
+                                $filter->getValue()
+                            )
                             );
+
                         return $subQuery;
                     });
 
