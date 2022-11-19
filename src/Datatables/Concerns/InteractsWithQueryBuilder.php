@@ -15,6 +15,7 @@ use Laravel\Scout\Builder as ScoutBuilder;
 trait InteractsWithQueryBuilder
 {
     protected Builder|ScoutBuilder|null $query = null;
+
     protected RequestPayload $data;
 
     protected function resolveQueryOrModel(Builder|Model|string|Closure $queryOrModel): Builder
@@ -35,10 +36,10 @@ trait InteractsWithQueryBuilder
 
     protected function dispatchAction(): void
     {
-        if(
+        if (
             $this->data->hasAction() &&
             ($this->data->isAllSelected() || $this->data->hasSelectedRows())
-        ){
+        ) {
             // Execute the action
             $this->data->getAction()->execute();
         }
@@ -76,10 +77,11 @@ trait InteractsWithQueryBuilder
                             ->data
                             ->getSorting()
                             ->each(fn (Column $column) => $subQuery->orderBy(
-                                    $column->getName(),
-                                    $column->getSortDirection()
-                                )
+                                $column->getName(),
+                                $column->getSortDirection()
+                            )
                             );
+
                         return $subQuery;
                     })
 
@@ -91,11 +93,12 @@ trait InteractsWithQueryBuilder
                             ->getFilters()
                             // Apply Sorting
                             ->each(fn (Filter $filter) => $filter->apply(
-                                    $subQuery,
-                                    $filter->getName(),
-                                    $filter->getValue()
-                                )
+                                $subQuery,
+                                $filter->getName(),
+                                $filter->getValue()
+                            )
                             );
+
                         return $subQuery;
                     });
 

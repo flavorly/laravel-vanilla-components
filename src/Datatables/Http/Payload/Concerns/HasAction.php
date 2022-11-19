@@ -15,29 +15,29 @@ trait HasAction
 
     public function withAction(Action|string|null $action): static
     {
-        if(null === $action){
+        if (null === $action) {
             return $this;
         }
 
-
-        if(is_string($action)){
+        if (is_string($action)) {
             $action = $this->getTable()->getActionByKey($action);
         }
 
         // If its still string, than its probably a class name
-        if(is_string($action)){
+        if (is_string($action)) {
             $action = app($action);
         }
 
         $action->withData($this);
 
         $this->action = $action;
+
         return $this;
     }
 
     public function hasAction(): bool
     {
-        return !is_null($this->action);
+        return ! is_null($this->action);
     }
 
     public function getAction(): ?Action
