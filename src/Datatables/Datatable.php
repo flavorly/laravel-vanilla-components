@@ -9,16 +9,18 @@ abstract class Datatable
 {
     use CoreConcerns\Makable;
     use CoreConcerns\EvaluatesClosures;
+    use Concerns\InteractsWithQueryBuilder;
+    use Concerns\HasName;
     use Concerns\HasActions;
     use Concerns\HasOptions;
     use Concerns\HasColumns;
     use Concerns\HasFilters;
     use Concerns\HasTranslations;
     use Concerns\HasPolling;
+    use Concerns\HasPrimaryKey;
     use Concerns\HasPageOptions;
-    use Concerns\HasName;
     use Concerns\HasEndpoint;
-    use Concerns\InteractsWithQueryBuilder;
+    use Concerns\HasResponse;
     use Macroable;
 
     public function __construct()
@@ -28,7 +30,9 @@ abstract class Datatable
 
     protected function setup(): void
     {
+        $this->setupQuery();
         $this->setupName();
+        $this->setupPrimaryKey();
         $this->setupEndpoints();
         $this->setupActions();
         $this->setupOptions();
@@ -42,6 +46,7 @@ abstract class Datatable
     public function toArray(): array
     {
         return [
+            'primaryKey' => $this->getPrimaryKey(),
             'fetchEndpoint' => $this->getFetchEndpoint(),
             'name' => $this->getName(),
             'actions' => $this->actionsToArray(),
