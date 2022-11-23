@@ -22,11 +22,11 @@ trait HasColumns
 
     protected function getColumns(): Collection
     {
-        if (empty($this->columns())) {
+        if (empty($this->columns)) {
             return collect();
         }
 
-        return collect($this->columns())
+        return collect($this->columns)
             ->mapWithKeys(function ($column) {
                 if (is_string($column)) {
                     $column = app($column);
@@ -45,7 +45,7 @@ trait HasColumns
 
     protected function getColumnKeys(): Collection
     {
-        return collect($this->columns())->map(fn ($column) => $column->getName());
+        return collect($this->columns)->map(fn ($column) => $column->getName());
     }
 
     public function getColumnByKey(string $columnKey): ?Column

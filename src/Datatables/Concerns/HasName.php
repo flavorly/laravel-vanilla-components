@@ -8,7 +8,7 @@ trait HasName
 
     public function name(): string
     {
-        return uniqid('datatable');
+        return md5(static::class);
     }
 
     public function setupName(): void

@@ -25,7 +25,9 @@ class Options implements CoreContracts\HasToArray
     {
         return [
             'selectable' => $this->isSelectable(),
+            'allSelectable' => $this->isAllSelectable(),
             'searchable' => $this->isSearchable(),
+            'isSearchHidden' => $this->isSearchBarHiddenByDefault(),
             'refreshable' => $this->isRefreshable(),
             'manageSettings' => $this->isSettingsManageable(),
             'showTotalItems' => $this->isTotalNumberOfItemsVisible(),

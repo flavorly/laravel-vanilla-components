@@ -22,11 +22,11 @@ trait HasFilters
 
     public function getFilters(): Collection
     {
-        if (empty($this->filters())) {
+        if (empty($this->filters)) {
             return collect();
         }
 
-        return collect($this->filters())
+        return collect($this->filters)
             ->mapWithKeys(function ($filter) {
                 if (is_string($filter)) {
                     $filter = app($filter);
@@ -45,7 +45,7 @@ trait HasFilters
 
     protected function getFiltersKeys(): Collection
     {
-        return collect($this->filters())->map(fn ($filter) => $filter->getName());
+        return collect($this->filters)->map(fn ($filter) => $filter->getName());
     }
 
     public function getFilterByKey(string $filterKey): ?Filter

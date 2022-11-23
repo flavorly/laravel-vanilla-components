@@ -22,11 +22,11 @@ trait HasActions
 
     protected function getActions(): Collection
     {
-        if (empty($this->actions())) {
+        if (empty($this->actions)) {
             return collect();
         }
 
-        return collect($this->actions())
+        return collect($this->actions)
             ->mapWithKeys(function ($action) {
                 if (is_string($action)) {
                     $action = app($action);
@@ -45,7 +45,7 @@ trait HasActions
 
     protected function getActionsKeys(): Collection
     {
-        return collect($this->actions())->map(fn ($action) => $action->getName());
+        return collect($this->actions)->map(fn ($action) => $action->getName());
     }
 
     public function getActionByKey(string $actionKey): ?Action

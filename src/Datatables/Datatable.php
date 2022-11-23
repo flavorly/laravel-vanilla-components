@@ -15,12 +15,14 @@ abstract class Datatable
     use Concerns\HasOptions;
     use Concerns\HasColumns;
     use Concerns\HasFilters;
+    use Concerns\HasFiltersFromURI;
     use Concerns\HasTranslations;
     use Concerns\HasPolling;
     use Concerns\HasPrimaryKey;
     use Concerns\HasPageOptions;
     use Concerns\HasEndpoint;
     use Concerns\HasResponse;
+    use Concerns\HasOriginUrl;
     use Macroable;
 
     public function __construct()
@@ -39,8 +41,10 @@ abstract class Datatable
         $this->setupColumns();
         $this->setupPolling();
         $this->setupFilters();
+        $this->setupFiltersFromURL();
         $this->setupPerPageOptions();
         $this->setupTranslations();
+        $this->setupOriginUrl();
     }
 
     public function toArray(): array
