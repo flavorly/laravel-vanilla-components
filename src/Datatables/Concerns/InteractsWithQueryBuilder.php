@@ -24,7 +24,7 @@ trait InteractsWithQueryBuilder
     protected function resolveQueryOrModel(Builder|Model|string|Closure|null $queryOrModel = null): Builder
     {
         // Query already present or set
-        if(null !== $this->query && $queryOrModel === null) {
+        if (null !== $this->query && $queryOrModel === null) {
             return $this->query;
         }
 
