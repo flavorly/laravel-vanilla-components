@@ -8,7 +8,7 @@ Laravel + Vanilla Components
 </h1>
 
 <p align="center">
-The official adaptor for Laravel & Vaniulla Components
+The official adaptor for Laravel & Vanilla Components
 <p>
 
 <p align="center">

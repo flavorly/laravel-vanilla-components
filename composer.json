@@ -4,7 +4,10 @@
     "keywords": [
         "flavorly",
         "laravel",
-        "laravel-vanilla-components"
+        "laravel-vanilla-components",
+        "tailwindcss",
+        "datatables",
+        "form builder"
     ],
     "homepage": "https://github.com/flavorly/laravel-vanilla-components",
     "license": "MIT",
