@@ -71,7 +71,7 @@ trait HasTranslations
 
     public function translations(): array
     {
-       return $this->getDefaultTranslations();
+        return $this->getDefaultTranslations();
     }
 
     protected function setupTranslations(): void
