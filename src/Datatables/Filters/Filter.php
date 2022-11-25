@@ -41,7 +41,7 @@ class Filter implements CoreContracts\HasToArray
             ->errors($baseComponent->getErrors())
             ->defaultValue($baseComponent->getDefaultValue());
 
-        if(class_uses($baseComponent, HasOptions::class)){
+        if (class_uses($baseComponent, HasOptions::class)) {
             $static->options($baseComponent->getOptions());
         }
 
