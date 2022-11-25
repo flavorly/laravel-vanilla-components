@@ -28,6 +28,7 @@ class Action implements CoreContracts\HasToArray
     use Concerns\CanBeConfirmed;
     use Concerns\CanResetFilters;
     use Concerns\CanBeConvertedToModels;
+    use Concerns\CanRefresh;
     use Macroable;
 
     public function __construct()
@@ -62,6 +63,7 @@ class Action implements CoreContracts\HasToArray
         $this->after['resetFilters'] = $this->getShouldClearFiltersAfterAction() ?? false;
         $this->after['polling'] = $this->getPolling() ?? $polling;
         $this->before['confirm'] = $this->getConfirmation() ?? $confirmation;
+        $this->before['refresh'] = $this->getShouldRefreshAfterExecuted() ?? true;
     }
 
     public function toArray(): array

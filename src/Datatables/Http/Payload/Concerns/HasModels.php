@@ -36,15 +36,17 @@ trait HasModels
         ) {
             throw_if(empty($primaryKey), new DatatableUnableToResolveModelPrimaryKeyException());
 
+            // Not all selected and not selected rows at all
+            if(!$this->isAllSelected() && !$this->hasSelectedRows()) {
+                return;
+            }
+
             $this
                 ->withModels(
                     $this
                         ->getQuery()
                         ->clone()
-                        ->whereIn(
-                            $primaryKey,
-                            $this->getSelectedRowsIds()
-                        )
+                        ->when(!$this->isAllSelected(), fn($query) => $query->whereIn($primaryKey, $this->getSelectedRowsIds()))
                         ->get() ?? Collection::make()
                 );
         }

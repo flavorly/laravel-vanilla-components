@@ -16,6 +16,6 @@ trait CanResetFilters
 
     protected function getShouldClearFiltersAfterAction(): bool
     {
-        return $this->evaluate(Arr::get($this->after, 'resetFilters', true));
+        return $this->evaluate(Arr::get($this->after, 'resetFilters', false));
     }
 }
