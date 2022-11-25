@@ -29,14 +29,15 @@ trait HasFilters
 
         return collect($this->filters)
             ->mapWithKeys(function ($filter) {
-
                 if (is_string($filter)) {
                     $filter = app($filter);
+
                     return [$filter->getName() => $filter];
                 }
 
-                if(is_a($filter, BaseComponent::class)){
+                if (is_a($filter, BaseComponent::class)) {
                     $filter = Filter::fromComponent($filter);
+
                     return [$filter->getName() => $filter];
                 }
 
