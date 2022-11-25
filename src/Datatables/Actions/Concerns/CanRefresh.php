@@ -10,6 +10,7 @@ trait CanRefresh
     public function refreshAfterExecuted(bool | Closure $refresh = false): static
     {
         $this->after['refresh'] = $this->evaluate($refresh);
+
         return $this;
     }
 

@@ -58,13 +58,14 @@ class Option implements HasToArray
             $this->disabledKey => $this->isDisabled(),
             $this->childrenKey => $this->getChildrenToArray(),
         ])
-        ->filter(function ($value,$key) {
-            if($key === $this->childrenKey) {
-                return !empty($value);
+        ->filter(function ($value, $key) {
+            if ($key === $this->childrenKey) {
+                return ! empty($value);
             }
-            if($key === $this->disabledKey && $value === false) {
+            if ($key === $this->disabledKey && $value === false) {
                 return false;
             }
+
             return true;
         })
         ->toArray();
