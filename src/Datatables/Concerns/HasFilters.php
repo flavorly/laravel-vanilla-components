@@ -2,6 +2,7 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
+use Flavorly\VanillaComponents\Core\Components\BaseComponent;
 use Flavorly\VanillaComponents\Datatables\Filters\Filter;
 use Illuminate\Support\Collection;
 
@@ -28,9 +29,14 @@ trait HasFilters
 
         return collect($this->filters)
             ->mapWithKeys(function ($filter) {
+
                 if (is_string($filter)) {
                     $filter = app($filter);
+                    return [$filter->getName() => $filter];
+                }
 
+                if(is_a($filter, BaseComponent::class)){
+                    $filter = Filter::fromComponent($filter);
                     return [$filter->getName() => $filter];
                 }
 

@@ -2,6 +2,8 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Filters;
 
+use Flavorly\VanillaComponents\Core\Components\BaseComponent;
+use Flavorly\VanillaComponents\Core\Components\Concerns\HasOptions;
 use Flavorly\VanillaComponents\Core\Concerns as CoreConcerns;
 use Flavorly\VanillaComponents\Core\Contracts as CoreContracts;
 use Flavorly\VanillaComponents\Datatables\Concerns as BaseConcerns;
@@ -21,7 +23,30 @@ class Filter implements CoreContracts\HasToArray
     use Concerns\HasComponentTypes;
     use Concerns\InteractsWithTableQuery;
     use Concerns\HasPlaceholder;
+    use Concerns\HasErrors;
+    use Concerns\HasFeedback;
     use Macroable;
+
+    public static function fromComponent(BaseComponent $baseComponent): static
+    {
+        $static = new static();
+        $static
+            ->name($baseComponent->getName())
+            ->label($baseComponent->getLabel())
+            ->component($baseComponent->getComponent())
+            ->placeholder($baseComponent->getPlaceholder())
+            ->attributes($baseComponent->getAttributes())
+            ->value($baseComponent->getValue())
+            ->feedback($baseComponent->getFeedback())
+            ->errors($baseComponent->getErrors())
+            ->defaultValue($baseComponent->getDefaultValue());
+
+        if(class_uses($baseComponent, HasOptions::class)){
+            $static->options($baseComponent->getOptions());
+        }
+
+        return $static;
+    }
 
     public function toArray(): array
     {
@@ -34,6 +59,8 @@ class Filter implements CoreContracts\HasToArray
             'value' => $this->getValue(),
             'defaultValue' => $this->getDefaultValue(),
             'options' => $this->getOptionsToArray(),
+            'feedback' => $this->getFeedback(),
+            'errors' => $this->getErrors(),
         ];
     }
 }

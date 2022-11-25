@@ -14,6 +14,8 @@ abstract class BaseComponent implements CoreContracts\HasToArray
     use Concerns\HasValueAndDefaultValue;
     use Concerns\HasComponentTypes;
     use Concerns\HasPlaceholder;
+    use Concerns\HasFeedback;
+    use Concerns\HasErrors;
     use CoreConcerns\EvaluatesClosures;
     use CoreConcerns\Makable;
     use Macroable;
@@ -32,6 +34,8 @@ abstract class BaseComponent implements CoreContracts\HasToArray
             'component' => $this->getComponent(),
             'placeholder' => $this->getPlaceholder(),
             'attributes' => $this->getAttributes(),
+            'feedback' => $this->getFeedback(),
+            'errors' => $this->getErrors(),
             'value' => $this->getValue(),
             'defaultValue' => $this->getDefaultValue(),
         ];

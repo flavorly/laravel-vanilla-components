@@ -8,7 +8,9 @@ use Flavorly\VanillaComponents\Datatables\Filters\Filter;
 use Flavorly\VanillaComponents\Datatables\Http\Payload\RequestPayload;
 use Flavorly\VanillaComponents\Datatables\Http\Resources\DatatableResource;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder as ScoutBuilder;
+use Laravel\Scout\Searchable;
 
 trait HasResponse
 {
@@ -36,7 +38,10 @@ trait HasResponse
         // Attempt to always get a query builder
         $baseQuery = $this->resolveQueryOrModel($queryOrModel);
 
-        $paginator = User::search(
+        /** @var Model|Searchable $model */
+        $model = $baseQuery->getModel();
+
+        $paginator = $model::search(
 
             $this->data->getSearch(),
             // We use scout for searching, the second argument we can modify the underlying query, so that we will be able to
