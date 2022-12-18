@@ -45,7 +45,11 @@ trait HasColumns
 
     protected function getColumnKeys(): Collection
     {
-        return collect($this->columns)->map(fn ($column) => $column->getName());
+        return collect($this->columns)
+            ->filter(fn (Column $column) => $column->selectable())
+            ->map(function (Column $column) {
+                return $column->getName();
+            });
     }
 
     public function getColumnByKey(string $columnKey): ?Column

@@ -2,6 +2,7 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Http\Resources;
 
+use Closure;
 use Flavorly\VanillaComponents\Core\Concerns\InteractsWithPagination;
 use Flavorly\VanillaComponents\Datatables\Paginator\PaginatedResourceResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -10,11 +11,32 @@ class DatatableResource extends ResourceCollection
 {
     use InteractsWithPagination;
 
-    public function toArray($request)
+    protected ?Closure $transformUsing = null;
+
+    public function toArray($request): array
     {
+        if (null !== $this->transformUsing) {
+            $this->collection = $this
+                ->collection
+                ->map($this->transformUsing)
+                ->map(function ($item) {
+                    return collect($item)->map(function ($value, $key) {
+                        return $value instanceof Closure ? $value() : $value;
+                    })
+                    ->toArray();
+                });
+        }
+
         return [
             'data' => $this->collection,
         ];
+    }
+
+    public function transformResponseUsing(Closure $callback)
+    {
+        $this->transformUsing = $callback;
+
+        return $this;
     }
 
     protected function preparePaginatedResponse($request)

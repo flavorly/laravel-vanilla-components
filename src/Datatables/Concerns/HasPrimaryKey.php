@@ -8,7 +8,7 @@ trait HasPrimaryKey
 
     public function primaryKey(): ?string
     {
-        return $this->query?->getModel()->getKeyName();
+        return $this->getQuery()?->getModel()->getKeyName();
     }
 
     public function setupPrimaryKey(): void
@@ -18,6 +18,6 @@ trait HasPrimaryKey
 
     public function getPrimaryKey(): string
     {
-        return $this->primaryKey ?? $this->query?->getModel()->getKeyName() ?? 'id';
+        return $this->primaryKey ?? $this->primaryKey() ?? 'id';
     }
 }

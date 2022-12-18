@@ -15,6 +15,7 @@ class Column implements CoreContracts\HasToArray
     use Concerns\CanBeHidden;
     use Concerns\CanBeSortable;
     use Concerns\CanBeRaw;
+    use Concerns\CanBeSelected;
     use Concerns\HasLabel;
     use Concerns\HasName;
     use Concerns\HasKey;

@@ -35,7 +35,11 @@ trait HasResponse
             ->fromRequest();
 
         // Attempt to always get a query builder
-        $baseQuery = $this->resolveQueryOrModel($queryOrModel);
+        if ($queryOrModel !== null) {
+            $this->withQuery($queryOrModel);
+        }
+
+        $baseQuery = $this->getQuery();
 
         /** @var Model|Searchable $model */
         $model = $baseQuery->getModel();
@@ -49,10 +53,12 @@ trait HasResponse
             function (Builder $query) use ($baseQuery) {
                 $query
                     // Select columns
-                    ->select($this->getColumnKeys()->toArray())
+                    // TODO: check if we can resolve columns to select in a smarter way
+                    //->select($this->getColumnKeys()->toArray())
 
                     // Merge previous query
                     ->mergeConstraintsFrom($baseQuery)
+                    ->setEagerLoads($baseQuery->getEagerLoads())
 
                     // Perform sorting
                     ->when($this->data->hasSorting(), function (Builder|ScoutBuilder $subQuery) {
@@ -100,6 +106,19 @@ trait HasResponse
         // Dispatch the action
         $this->dispatchAction();
 
-        return (new DatatableResource($paginator))->rightSideMaximumPages(3);
+        $response = (new DatatableResource($paginator));
+
+        // Ensure we can transform the data that is being displayed
+        if (method_exists($this, 'transform')) {
+            $response->transformResponseUsing(fn ($record) => $this->transform($record));
+        }
+
+        // Ensure we can transform the data that is being displayed
+        $pagination = 3;
+        if (property_exists($this, 'paginationItems')) {
+            $pagination = $this->paginationItems;
+        }
+
+        return $response->rightSideMaximumPages($pagination);
     }
 }
