@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 
 trait CanResetFilters
 {
-    public function clearFilters(bool | Closure $clear = false): static
+    public function clearFilters(bool|Closure $clear = false): static
     {
         $this->after['resetFilters'] = $this->evaluate($clear);
 

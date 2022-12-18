@@ -6,9 +6,9 @@ use Closure;
 
 trait HasHTMLAttributes
 {
-    protected Closure | array $attributes = [];
+    protected Closure|array $attributes = [];
 
-    public function attributes(array | Closure $attributes): static
+    public function attributes(array|Closure $attributes): static
     {
         $this->attributes = $attributes;
 

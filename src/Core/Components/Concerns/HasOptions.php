@@ -7,27 +7,27 @@ use Flavorly\VanillaComponents\Core\Option\Option;
 
 trait HasOptions
 {
-    protected array | Closure $options = [];
+    protected array|Closure $options = [];
 
-    protected string | Closure $optionTextAttribute = 'text';
+    protected string|Closure $optionTextAttribute = 'text';
 
-    protected string | Closure $optionLabelAttribute = 'value';
+    protected string|Closure $optionLabelAttribute = 'value';
 
-    public function options(array | Closure $optionsOrClosure): static
+    public function options(array|Closure $optionsOrClosure): static
     {
         $this->options = Option::make()->fromArray($this->evaluate($optionsOrClosure));
 
         return $this;
     }
 
-    public function optionTextAttribute(string | Closure $optionTextAttribute): static
+    public function optionTextAttribute(string|Closure $optionTextAttribute): static
     {
         $this->optionTextAttribute = $optionTextAttribute;
 
         return $this;
     }
 
-    public function optionLabelAttribute(string | Closure $optionLabelAttribute): static
+    public function optionLabelAttribute(string|Closure $optionLabelAttribute): static
     {
         $this->optionLabelAttribute = $optionLabelAttribute;
 

@@ -6,9 +6,9 @@ use Closure;
 
 trait CanBeStopped
 {
-    protected bool | Closure $stopWhenDataChanges = false;
+    protected bool|Closure $stopWhenDataChanges = false;
 
-    public function stopOnDataChange(bool | Closure $condition = true): static
+    public function stopOnDataChange(bool|Closure $condition = true): static
     {
         $this->stopWhenDataChanges = $condition;
 

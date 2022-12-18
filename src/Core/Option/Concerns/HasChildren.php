@@ -8,9 +8,9 @@ trait HasChildren
 {
     protected string $childrenKey = 'children';
 
-    protected array | Closure $children = [];
+    protected array|Closure $children = [];
 
-    public function children(array | Closure | null $options): static
+    public function children(array|Closure|null $options): static
     {
         $options = $this->evaluate($options);
         if (! is_array($options)) {

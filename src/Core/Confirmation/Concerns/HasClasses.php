@@ -6,13 +6,13 @@ use Closure;
 
 trait HasClasses
 {
-    protected array | Closure $classes = [
+    protected array|Closure $classes = [
         'title' => '',
         'subtitle' => '',
         'text' => '',
     ];
 
-    public function classes(array | Closure $classes): static
+    public function classes(array|Closure $classes): static
     {
         $this->classes = $classes;
 

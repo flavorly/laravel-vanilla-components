@@ -6,9 +6,9 @@ use Closure;
 
 trait CanBeRefreshable
 {
-    protected bool | Closure $isRefreshable = true;
+    protected bool|Closure $isRefreshable = true;
 
-    public function refreshable(bool | Closure $condition = true): static
+    public function refreshable(bool|Closure $condition = true): static
     {
         $this->isRefreshable = $condition;
 

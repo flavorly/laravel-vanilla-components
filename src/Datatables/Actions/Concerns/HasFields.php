@@ -6,7 +6,7 @@ use Closure;
 
 trait HasFields
 {
-    protected array| Closure $fields = [];
+    protected array|Closure $fields = [];
 
     public function fields(array $fields): static
     {

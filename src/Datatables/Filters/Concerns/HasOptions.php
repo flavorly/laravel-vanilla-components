@@ -7,9 +7,9 @@ use Flavorly\VanillaComponents\Core\Option\Option;
 
 trait HasOptions
 {
-    protected array | Closure $options = [];
+    protected array|Closure $options = [];
 
-    public function options(array | Closure $optionsOrClosure): static
+    public function options(array|Closure $optionsOrClosure): static
     {
         $this->options = Option::make()->fromArray($this->evaluate($optionsOrClosure));
 

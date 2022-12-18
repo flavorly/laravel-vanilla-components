@@ -6,7 +6,7 @@ use Closure;
 
 trait CanBeStriped
 {
-    protected bool | Closure $isStriped = false;
+    protected bool|Closure $isStriped = false;
 
     public function striped(bool|Closure $condition = true): static
     {

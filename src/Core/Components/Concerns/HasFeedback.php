@@ -6,9 +6,9 @@ use Closure;
 
 trait HasFeedback
 {
-    protected string | Closure | null $feedback = null;
+    protected string|Closure|null $feedback = null;
 
-    public function feedback(string | Closure | null $feedback): static
+    public function feedback(string|Closure|null $feedback): static
     {
         $this->feedback = $feedback;
 

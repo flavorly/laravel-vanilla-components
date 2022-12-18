@@ -10,14 +10,14 @@ trait HasInterval
 
     protected int|float $poolDuring = 120;
 
-    public function every(int | float | Closure $secondsOrClosure = 5): static
+    public function every(int|float|Closure $secondsOrClosure = 5): static
     {
         $this->poolEvery = $secondsOrClosure;
 
         return $this;
     }
 
-    public function during(int | float | Closure $secondsOrClosure = 120): static
+    public function during(int|float|Closure $secondsOrClosure = 120): static
     {
         $this->poolDuring = $secondsOrClosure;
 

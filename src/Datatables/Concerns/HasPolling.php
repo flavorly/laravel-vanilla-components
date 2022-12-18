@@ -9,7 +9,7 @@ trait HasPolling
     /** @var array */
     protected array $pollingOptions = [];
 
-    public function polling(): array | Polling
+    public function polling(): array|Polling
     {
         return Polling::make();
     }

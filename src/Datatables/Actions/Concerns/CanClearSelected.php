@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 
 trait CanClearSelected
 {
-    public function clearSelectionAfterAction(bool | Closure $clear = true): static
+    public function clearSelectionAfterAction(bool|Closure $clear = true): static
     {
         $this->after['clearSelected'] = $this->evaluate($clear);
 

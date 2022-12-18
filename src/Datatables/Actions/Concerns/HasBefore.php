@@ -6,7 +6,7 @@ use Closure;
 
 trait HasBefore
 {
-    protected array | Closure $before = [];
+    protected array|Closure $before = [];
 
     public function before(array|Closure $before = []): static
     {

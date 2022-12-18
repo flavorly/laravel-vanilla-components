@@ -6,9 +6,9 @@ use Closure;
 
 trait HasErrors
 {
-    protected string | Closure | null $errors = null;
+    protected string|Closure|null $errors = null;
 
-    public function errors(string | Closure | null $errors): static
+    public function errors(string|Closure|null $errors): static
     {
         $this->errors = $errors;
 

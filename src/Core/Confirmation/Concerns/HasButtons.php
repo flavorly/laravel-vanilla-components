@@ -6,9 +6,9 @@ use Closure;
 
 trait HasButtons
 {
-    protected null | string | Closure $confirmButtonLabel = 'Ok, got it';
+    protected null|string|Closure $confirmButtonLabel = 'Ok, got it';
 
-    protected null | string | Closure $cancelButtonLabel = 'Nah, cancel';
+    protected null|string|Closure $cancelButtonLabel = 'Nah, cancel';
 
     public function buttons(string|null|Closure $confirmButtonText = 'Ok, got it', string|null|Closure $cancelButtonText = 'Nah, cancel'): static
     {

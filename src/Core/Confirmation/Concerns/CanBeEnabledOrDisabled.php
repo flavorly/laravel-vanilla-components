@@ -6,9 +6,9 @@ use Closure;
 
 trait CanBeEnabledOrDisabled
 {
-    protected bool | Closure $isEnabled = true;
+    protected bool|Closure $isEnabled = true;
 
-    public function enabled(bool | Closure $condition = true): static
+    public function enabled(bool|Closure $condition = true): static
     {
         $this->isEnabled = $condition;
 

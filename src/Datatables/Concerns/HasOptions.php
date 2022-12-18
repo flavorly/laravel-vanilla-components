@@ -9,7 +9,7 @@ trait HasOptions
     /** @var array */
     protected array $options = [];
 
-    public function options(): array | Options
+    public function options(): array|Options
     {
         return Options::make()->toArray();
     }

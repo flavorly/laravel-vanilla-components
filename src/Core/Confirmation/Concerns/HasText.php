@@ -6,9 +6,9 @@ use Closure;
 
 trait HasText
 {
-    protected string | Closure $text = '';
+    protected string|Closure $text = '';
 
-    public function text(string | Closure $title): static
+    public function text(string|Closure $title): static
     {
         $this->text = $title;
 

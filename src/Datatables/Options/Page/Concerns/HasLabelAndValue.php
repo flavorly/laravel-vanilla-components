@@ -10,14 +10,14 @@ trait HasLabelAndValue
 
     protected int|null|Closure $value = 5;
 
-    public function label(string | Closure $condition = ''): static
+    public function label(string|Closure $condition = ''): static
     {
         $this->label = $condition;
 
         return $this;
     }
 
-    public function value(int  | Closure $condition = 5): static
+    public function value(int|Closure $condition = 5): static
     {
         $this->value = $condition;
 

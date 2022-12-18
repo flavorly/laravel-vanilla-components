@@ -6,9 +6,9 @@ use Closure;
 
 trait HasSubtitle
 {
-    protected string | Closure $subtitle = '';
+    protected string|Closure $subtitle = '';
 
-    public function subtitle(string | Closure $title): static
+    public function subtitle(string|Closure $title): static
     {
         $this->subtitle = $title;
 

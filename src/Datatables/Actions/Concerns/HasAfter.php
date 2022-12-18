@@ -6,7 +6,7 @@ use Closure;
 
 trait HasAfter
 {
-    protected array | Closure $after = [];
+    protected array|Closure $after = [];
 
     public function after(array|Closure $after = []): static
     {

@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 trait CanBeExecuted
 {
-    protected null | Closure | string $executeUsing = null;
+    protected null|Closure|string $executeUsing = null;
 
     protected ?string $executeUsingMethod = null;
 
@@ -24,7 +24,7 @@ trait CanBeExecuted
         return $this;
     }
 
-    protected function getExecuteUsing(): null | Closure | string
+    protected function getExecuteUsing(): null|Closure|string
     {
         return $this->executeUsing;
     }

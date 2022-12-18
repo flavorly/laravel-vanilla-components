@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 trait CanBeSortable
 {
-    protected bool | Closure $isSortable = false;
+    protected bool|Closure $isSortable = false;
 
     protected ?array $sortColumns = [];
 
@@ -15,7 +15,7 @@ trait CanBeSortable
 
     protected ?string $sortDirection = null;
 
-    public function sortable(bool | array $condition = true, ?Closure $query = null): static
+    public function sortable(bool|array $condition = true, ?Closure $query = null): static
     {
         if (is_array($condition)) {
             $this->isSortable = true;

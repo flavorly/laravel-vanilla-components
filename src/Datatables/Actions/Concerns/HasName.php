@@ -6,9 +6,9 @@ use Closure;
 
 trait HasName
 {
-    protected string | Closure | null $name = null;
+    protected string|Closure|null $name = null;
 
-    public function name(string | Closure $name): static
+    public function name(string|Closure $name): static
     {
         $this->name = $name;
 

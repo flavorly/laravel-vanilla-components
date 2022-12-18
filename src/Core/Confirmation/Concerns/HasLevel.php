@@ -6,9 +6,9 @@ use Closure;
 
 trait HasLevel
 {
-    protected string | Closure $level = 'info';
+    protected string|Closure $level = 'info';
 
-    public function level(string | Closure $level): static
+    public function level(string|Closure $level): static
     {
         $this->level = $level;
 

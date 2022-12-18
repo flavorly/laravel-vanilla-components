@@ -6,36 +6,36 @@ use Closure;
 
 trait CanBeHidden
 {
-    protected string | Closure | null $hiddenFrom = null;
+    protected string|Closure|null $hiddenFrom = null;
 
-    protected bool | Closure $isHidden = false;
+    protected bool|Closure $isHidden = false;
 
-    protected string | Closure | null $visibleFrom = null;
+    protected string|Closure|null $visibleFrom = null;
 
-    protected bool | Closure $isVisible = true;
+    protected bool|Closure $isVisible = true;
 
-    public function hidden(bool | Closure $condition = true): static
+    public function hidden(bool|Closure $condition = true): static
     {
         $this->isHidden = $condition;
 
         return $this;
     }
 
-    public function visible(bool | Closure $condition = true): static
+    public function visible(bool|Closure $condition = true): static
     {
         $this->isVisible = $condition;
 
         return $this;
     }
 
-    public function hiddenFrom(string | Closure | null $breakpoint): static
+    public function hiddenFrom(string|Closure|null $breakpoint): static
     {
         $this->hiddenFrom = $breakpoint;
 
         return $this;
     }
 
-    public function visibleFrom(string | Closure | null $breakpoint): static
+    public function visibleFrom(string|Closure|null $breakpoint): static
     {
         $this->visibleFrom = $breakpoint;
 

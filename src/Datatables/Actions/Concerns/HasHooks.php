@@ -6,13 +6,13 @@ use Closure;
 
 trait HasHooks
 {
-    protected null | Closure $onBefore = null;
+    protected null|Closure $onBefore = null;
 
-    protected null | Closure $onAfter = null;
+    protected null|Closure $onAfter = null;
 
-    protected null | Closure $onFinished = null;
+    protected null|Closure $onFinished = null;
 
-    protected null | Closure $onFailed = null;
+    protected null|Closure $onFailed = null;
 
     public function onBefore(Closure|null $closure = null): static
     {

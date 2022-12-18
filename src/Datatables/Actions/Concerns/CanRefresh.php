@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 
 trait CanRefresh
 {
-    public function refreshAfterExecuted(bool | Closure $refresh = false): static
+    public function refreshAfterExecuted(bool|Closure $refresh = false): static
     {
         $this->after['refresh'] = $this->evaluate($refresh);
 

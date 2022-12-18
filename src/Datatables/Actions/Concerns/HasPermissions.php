@@ -6,18 +6,18 @@ use Closure;
 
 trait HasPermissions
 {
-    protected bool | Closure $canSee = true;
+    protected bool|Closure $canSee = true;
 
-    protected bool | Closure $canExecute = true;
+    protected bool|Closure $canExecute = true;
 
-    public function canSee(bool | Closure $boolean = true): static
+    public function canSee(bool|Closure $boolean = true): static
     {
         $this->canSee = $boolean;
 
         return $this;
     }
 
-    public function canExecute(bool | Closure $boolean = true): static
+    public function canExecute(bool|Closure $boolean = true): static
     {
         $this->canExecute = $boolean;
 

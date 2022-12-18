@@ -6,9 +6,9 @@ use Closure;
 
 trait CanBeRaw
 {
-    protected bool | Closure $isRaw = false;
+    protected bool|Closure $isRaw = false;
 
-    public function raw(bool | Closure $condition = true): static
+    public function raw(bool|Closure $condition = true): static
     {
         $this->isRaw = $condition;
 

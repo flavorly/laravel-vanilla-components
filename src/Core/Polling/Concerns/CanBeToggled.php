@@ -6,9 +6,9 @@ use Closure;
 
 trait CanBeToggled
 {
-    protected bool | Closure $isEnabled = false;
+    protected bool|Closure $isEnabled = false;
 
-    public function enabled(bool | Closure $condition = true): static
+    public function enabled(bool|Closure $condition = true): static
     {
         $this->isEnabled = $condition;
 

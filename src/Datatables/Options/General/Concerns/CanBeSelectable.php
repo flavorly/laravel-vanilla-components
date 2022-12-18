@@ -10,7 +10,7 @@ trait CanBeSelectable
 
     protected bool $isAllSelectable = true;
 
-    public function selectable(bool | Closure $condition = true, bool | Closure $allowSelectAll = true): static
+    public function selectable(bool|Closure $condition = true, bool|Closure $allowSelectAll = true): static
     {
         $this->isSelectable = $condition;
         $this->isAllSelectable = $allowSelectAll;
@@ -18,7 +18,7 @@ trait CanBeSelectable
         return $this;
     }
 
-    public function canSelectAllMatching(bool | Closure $condition = true): static
+    public function canSelectAllMatching(bool|Closure $condition = true): static
     {
         $this->isAllSelectable = $condition;
 
