@@ -56,7 +56,7 @@ abstract class Datatable
             'actions' => $this->actionsToArray(),
             'columns' => $this->columnsToArray(),
             'filters' => $this->filtersToArray(),
-            'pageOptions' => $this->perPageOptionsToArray(),
+            'perPageOptions' => $this->perPageOptionsToArray(),
             'poolingOptions' => $this->pollingToArray(),
             'options' => $this->optionsToArray(),
             'translations' => $this->translationsToArray(),

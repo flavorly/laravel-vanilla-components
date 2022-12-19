@@ -20,7 +20,7 @@ trait HasPageOptions
         foreach ($this->perPageDefault as $index => $value) {
             $options[] = PerPageOption::make()
                 ->value($value)
-                ->label(trans(':count Item(s) p/ page', ['count' => $value]))
+                ->label(trans('vanilla-components::translations.datatables.settingsPerPage',['count' => $value]))
                 ->default(fn () => $index === 0);
         }
 
@@ -62,6 +62,6 @@ trait HasPageOptions
 
     protected function perPageOptionsToArray(): array
     {
-        return $this->getPerPageOptions()->map(fn ($option) => $option->toArray())->toArray();
+        return $this->getPerPageOptions()->map(fn ($option) => $option->toArray())->values()->toArray();
     }
 }
