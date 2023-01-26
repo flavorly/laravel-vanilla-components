@@ -63,7 +63,6 @@ trait HasTranslations
             'nextPage' => trans('vanilla-components::translations.datatables.nextPage'),
             'previousPage' => trans('vanilla-components::translations.datatables.previousPage'),
 
-
         ];
     }
 

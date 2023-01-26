@@ -1,4 +1,5 @@
 <?php
+
 return [
     'placeholder-select' => 'Select an option',
 

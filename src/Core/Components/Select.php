@@ -10,7 +10,7 @@ class Select extends BaseComponent
 
     public function toArray(): array
     {
-        if(empty($this->getPlaceholder())){
+        if (empty($this->getPlaceholder())) {
             $this->placeholder(trans('vanilla-components::translations.placeholder-select'));
         }
 

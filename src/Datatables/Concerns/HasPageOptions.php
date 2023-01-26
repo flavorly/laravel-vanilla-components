@@ -20,7 +20,7 @@ trait HasPageOptions
         foreach ($this->perPageDefault as $index => $value) {
             $options[] = PerPageOption::make()
                 ->value($value)
-                ->label(trans('vanilla-components::translations.datatables.settingsPerPage',['count' => $value]))
+                ->label(trans('vanilla-components::translations.datatables.settingsPerPage', ['count' => $value]))
                 ->default(fn () => $index === 0);
         }
 
