@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-vanilla-components` will be documented in this file.
 
+## Datatables Bugfixes - 2023-01-26
+
+Datatables : Fixed issue with Option for showing number of items not being passed
+Datatables: Fixed Paginator URL window for a better slider on smaller amount of pages
+
 ## Datatables : Closures for Query & Data Transform - 2022-12-18
 
 Datatables : Ability to Have closures Resolving Query, Fields on Transform and Also
