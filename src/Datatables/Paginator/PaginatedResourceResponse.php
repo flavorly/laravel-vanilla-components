@@ -31,7 +31,7 @@ class PaginatedResourceResponse extends BasePaginator
                 'next' => $paginator->nextPageUrl(),
                 'previous' => $paginator->previousPageUrl(),
             ],
-            'meta' => Arr::get($this->meta($paginated),'meta'),
+            'meta' => Arr::get($this->meta($paginated), 'meta'),
         ];
 
         if (method_exists($this->resource, 'paginationInformation')) {
@@ -50,7 +50,7 @@ class PaginatedResourceResponse extends BasePaginator
         $windowTruncated = $window;
 
         // First limit the items
-        if($isLongPagination){
+        if ($isLongPagination) {
             $windowTruncated = collect($window)
                 ->map(function ($item, $key) use ($isLongPagination) {
                     if ($key == 'first') {
