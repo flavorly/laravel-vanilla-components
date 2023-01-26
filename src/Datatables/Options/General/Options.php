@@ -31,6 +31,7 @@ class Options implements CoreContracts\HasToArray
             'refreshable' => $this->isRefreshable(),
             'manageSettings' => $this->isSettingsManageable(),
             'showTotalItems' => $this->isTotalNumberOfItemsVisible(),
+            'showPages' => $this->isShowingPages(),
             'compact' => $this->isCompact(),
             'striped' => $this->isStriped(),
         ];

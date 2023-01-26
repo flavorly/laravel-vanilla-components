@@ -16,6 +16,8 @@ trait InteractsWithPagination
 
     protected int $centerMaximumPagesOnLong = 3;
 
+    protected int $maximumPages = 5;
+
     public function rightSideMaximumPages(int $pages = 2, int $whenIsLongPaginated = 1): static
     {
         $this->rightSideMaximumPages = $pages;
@@ -36,6 +38,13 @@ trait InteractsWithPagination
     {
         $this->centerMaximumPages = $pages;
         $this->centerMaximumPagesOnLong = $whenIsLongPaginated;
+
+        return $this;
+    }
+
+    public function maximumPages(int $pages = 5): static
+    {
+        $this->maximumPages = $pages;
 
         return $this;
     }

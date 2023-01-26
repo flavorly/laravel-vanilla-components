@@ -31,7 +31,7 @@ class PaginatedResourceResponse extends BasePaginator
                 'next' => $paginator->nextPageUrl(),
                 'previous' => $paginator->previousPageUrl(),
             ],
-            'meta' => $this->meta($paginated),
+            'meta' => Arr::get($this->meta($paginated),'meta'),
         ];
 
         if (method_exists($this->resource, 'paginationInformation')) {
@@ -47,25 +47,28 @@ class PaginatedResourceResponse extends BasePaginator
         $window = UrlWindow::make($paginator);
 
         $isLongPagination = is_array($window['slider']);
+        $windowTruncated = $window;
 
         // First limit the items
-        $windowTruncated = collect($window)
-            ->map(function ($item, $key) use ($isLongPagination) {
-                if ($key == 'first') {
-                    return collect($item)->slice(0, $isLongPagination ? $this->leftSideMaximumPagesOnLong : $this->leftSideMaximumPages)->toArray();
-                }
+        if($isLongPagination){
+            $windowTruncated = collect($window)
+                ->map(function ($item, $key) use ($isLongPagination) {
+                    if ($key == 'first') {
+                        return collect($item)->slice(0, $isLongPagination ? $this->leftSideMaximumPagesOnLong : $this->leftSideMaximumPages)->toArray();
+                    }
 
-                if ($key === 'last') {
-                    return collect($item)->slice(0, $isLongPagination ? $this->rightSideMaximumPagesOnLong : $this->rightSideMaximumPages)->toArray();
-                }
+                    if ($key === 'last') {
+                        return collect($item)->slice(0, $isLongPagination ? $this->rightSideMaximumPagesOnLong : $this->rightSideMaximumPages)->toArray();
+                    }
 
-                if ($key === 'slider' && is_array($item)) {
-                    return collect($item)->slice(0, $isLongPagination ? $this->centerMaximumPagesOnLong : $this->centerMaximumPages)->toArray();
-                }
+                    if ($key === 'slider' && is_array($item)) {
+                        return collect($item)->slice(0, $isLongPagination ? $this->centerMaximumPagesOnLong : $this->centerMaximumPages)->toArray();
+                    }
 
-                return $item;
-            })
-            ->toArray();
+                    return $item;
+                })
+                ->toArray();
+        }
 
         $elements = array_filter([
             $windowTruncated['first'],
