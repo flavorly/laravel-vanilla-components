@@ -18,7 +18,6 @@ class VanillaComponentsServiceProvider extends PackageServiceProvider
         $package
             ->name('vanilla-components')
             ->hasConfigFile()
-            ->hasTranslations()
-            ->hasCommand(VanillaComponentsCommand::class);
+            ->hasTranslations();
     }
 }
