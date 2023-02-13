@@ -21,7 +21,6 @@ abstract class Datatable
     use Concerns\HasPrimaryKey;
     use Concerns\HasPageOptions;
     use Concerns\HasEndpoint;
-    use Concerns\HasResponse;
     use Concerns\HasOriginUrl;
     use Macroable;
 
