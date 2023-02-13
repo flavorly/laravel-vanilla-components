@@ -79,19 +79,20 @@ trait InteractsWithQueryBuilder
 
     protected function applyQueryFilters(Builder $query, RequestPayload $payload): Builder
     {
-        return $query->when($payload->hasFilters(), function (Builder $subQuery) use($payload){
+        return $query->when($payload->hasFilters(), function (Builder $subQuery) use ($payload) {
             // Each column that needs to be sorted
             $payload
                 ->getFilters()
                 // Apply Sorting
                 ->each(fn (Filter $filter) => $filter->apply($subQuery, $filter->getName(), $filter->getValue()));
+
             return $subQuery;
         });
     }
 
     protected function applyQuerySorting(Builder $query, RequestPayload $payload): Builder
     {
-        return $query->when($payload->hasSorting(), function (Builder $subQuery) use($payload) {
+        return $query->when($payload->hasSorting(), function (Builder $subQuery) use ($payload) {
             // Each column that needs to be sorted
             $payload
                 ->getSorting()
@@ -108,20 +109,22 @@ trait InteractsWithQueryBuilder
 
         return $query
             // Model is using Scout, we can use it.
-            ->when($usingScout && $payload->hasSearch(), function (Builder $subQuery) use($payload, $model) {
+            ->when($usingScout && $payload->hasSearch(), function (Builder $subQuery) use ($model) {
                 // Each column that needs to be sorted
                 /** @var Searchable $model */
                 $subQuery->whereIn('id', $model::search($this->data->getSearch())->keys());
+
                 return $subQuery;
             })
             // Without Scout
-            ->when(!$usingScout && $payload->hasSearch(), function (Builder $subQuery) use($payload) {
+            ->when(! $usingScout && $payload->hasSearch(), function (Builder $subQuery) use ($payload) {
                 // Each column that needs to be sorted
                 $subQuery
-                    ->where(fn($query) => $this
+                    ->where(fn ($query) => $this
                         ->getColumns()
                         ->each(fn (Column $column) => $query->orWhere($column->getName(), 'like', "%{$payload->getSearch()}%"))
                     );
+
                 return $subQuery;
             });
     }
@@ -139,9 +142,10 @@ trait InteractsWithQueryBuilder
             $this->withQuery($queryOrModel);
         }
 
-        $query = tap($this->getQuery(), function(Builder $query) {
+        $query = tap($this->getQuery(), function (Builder $query) {
             $query = $this->applyQueryFilters($query, $this->data);
             $query = $this->applyQuerySorting($query, $this->data);
+
             return $this->applySearch($query, $this->data);
         });
 
