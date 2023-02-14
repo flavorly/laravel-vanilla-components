@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-vanilla-components` will be documented in this file.
 
+## Datatables  : Query & Response - 2023-02-14
+
+Datatables : Refactor to response() method
+Datatables: Ability to override filters, sorting & search methods
+Datatables: Removed Json Resource in favor of a simple & easy approach
+
 ## Datatables Bugfixes - 2023-01-26
 
 Datatables : Fixed issue with Option for showing number of items not being passed
