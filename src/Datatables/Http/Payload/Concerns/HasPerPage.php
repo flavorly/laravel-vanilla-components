@@ -6,8 +6,6 @@ trait HasPerPage
 {
     /**
      * Stores the per page
-     *
-     * @var int
      */
     protected int $perPage = 10;
 

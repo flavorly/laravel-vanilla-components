@@ -6,7 +6,6 @@ use Flavorly\VanillaComponents\Datatables\Options\General\Options;
 
 trait HasOptions
 {
-    /** @var array */
     protected array $options = [];
 
     public function options(): array|Options

@@ -19,22 +19,16 @@ trait InteractsWithQueryBuilder
 {
     /**
      * Stores the query object
-     *
-     * @var Builder|ScoutBuilder|Closure|null
      */
     protected Builder|ScoutBuilder|null|Closure $query = null;
 
     /**
      * Stores the data comming from the client side
-     *
-     * @var RequestPayload
      */
     protected RequestPayload $data;
 
     /**
      * The actual query builder instance provided by the user.
-     *
-     * @return mixed
      */
     public function query(): mixed
     {
@@ -53,8 +47,6 @@ trait InteractsWithQueryBuilder
 
     /**
      * Boot the query and save it on the instance.
-     *
-     * @return void
      */
     public function setupQuery(): void
     {
@@ -81,9 +73,6 @@ trait InteractsWithQueryBuilder
 
     /**
      * Attempts to resolve the query from a string, class or a model
-     *
-     * @param  mixed|null  $queryOrModel
-     * @return Builder
      */
     protected function resolveQueryOrModel(mixed $queryOrModel = null): Builder
     {
@@ -107,10 +96,6 @@ trait InteractsWithQueryBuilder
 
     /**
      * Apply the user provided filters using the follow method
-     *
-     * @param  Builder  $query
-     * @param  RequestPayload  $payload
-     * @return Builder
      */
     protected function applyQueryFilters(Builder $query, RequestPayload $payload): Builder
     {
@@ -127,10 +112,6 @@ trait InteractsWithQueryBuilder
 
     /**
      * Apply the sorting using the following method
-     *
-     * @param  Builder  $query
-     * @param  RequestPayload  $payload
-     * @return Builder
      */
     protected function applyQuerySorting(Builder $query, RequestPayload $payload): Builder
     {
@@ -146,10 +127,6 @@ trait InteractsWithQueryBuilder
 
     /**
      * Apply the search using the following method, supporting scout if the class uses scout.
-     *
-     * @param  Builder  $query
-     * @param  RequestPayload  $payload
-     * @return Builder
      */
     protected function applySearch(Builder $query, RequestPayload $payload): Builder
     {
@@ -181,9 +158,6 @@ trait InteractsWithQueryBuilder
     /**
      * Transform the Laravel pagination with Vanilla Datatable Pagination structure
      * The ideia was origonally taken from Reink at PingCRM Demo
-     *
-     * @param  LengthAwarePaginator  $paginator
-     * @return array
      */
     protected function transformPagination(LengthAwarePaginator $paginator): array
     {
@@ -270,7 +244,6 @@ trait InteractsWithQueryBuilder
     /**
      * Process an action once is dispatched from the frontend to the backend
      *
-     * @return void
      *
      * @throws Exception
      */
@@ -290,8 +263,6 @@ trait InteractsWithQueryBuilder
      * otherwise we can inject the user provided query into the table.
      *
      *
-     * @param  Builder|null  $queryOrModel
-     * @return array|Collection
      *
      * @throws Exception
      */

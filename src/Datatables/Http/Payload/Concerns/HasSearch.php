@@ -6,8 +6,6 @@ trait HasSearch
 {
     /**
      * Stores the search query
-     *
-     * @var string
      */
     protected string $search = '';
 
