@@ -2,7 +2,6 @@
 
 namespace Flavorly\VanillaComponents;
 
-use Flavorly\VanillaComponents\Commands\VanillaComponentsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -18,7 +17,6 @@ class VanillaComponentsServiceProvider extends PackageServiceProvider
         $package
             ->name('vanilla-components')
             ->hasConfigFile()
-            ->hasTranslations()
-            ->hasCommand(VanillaComponentsCommand::class);
+            ->hasTranslations();
     }
 }
