@@ -114,12 +114,13 @@ trait InteractsWithQueryBuilder
      */
     protected function applyQueryFilters(Builder $query, RequestPayload $payload): Builder
     {
-        return $query->when($payload->hasFilters(), function (Builder $subQuery) use($payload){
+        return $query->when($payload->hasFilters(), function (Builder $subQuery) use ($payload) {
             // Each column that needs to be sorted
             $payload
                 ->getFilters()
                 // Apply Sorting
                 ->each(fn (Filter $filter) => $filter->apply($subQuery, $filter->getName(), $filter->getValue()));
+
             return $subQuery;
         });
     }
@@ -133,7 +134,7 @@ trait InteractsWithQueryBuilder
      */
     protected function applyQuerySorting(Builder $query, RequestPayload $payload): Builder
     {
-        return $query->when($payload->hasSorting(), function (Builder $subQuery) use($payload) {
+        return $query->when($payload->hasSorting(), function (Builder $subQuery) use ($payload) {
             // Each column that needs to be sorted
             $payload
                 ->getSorting()
@@ -153,24 +154,26 @@ trait InteractsWithQueryBuilder
     protected function applySearch(Builder $query, RequestPayload $payload): Builder
     {
         $model = $this->getQuery()->getModel();
-        $usingScout = in_array(Searchable::class,class_uses($model::class));
+        $usingScout = in_array(Searchable::class, class_uses($model::class));
 
         return $query
             // Model is using Scout, we can use it.
-            ->when($usingScout && $payload->hasSearch(), function (Builder $subQuery) use($payload, $model) {
+            ->when($usingScout && $payload->hasSearch(), function (Builder $subQuery) use ($model) {
                 // Each column that needs to be sorted
                 /** @var Searchable $model */
                 $subQuery->whereIn('id', $model::search($this->data->getSearch())->keys());
+
                 return $subQuery;
             })
             // Without Scout
-            ->when(!$usingScout && $payload->hasSearch(), function (Builder $subQuery) use($payload) {
+            ->when(! $usingScout && $payload->hasSearch(), function (Builder $subQuery) use ($payload) {
                 // Each column that needs to be sorted
                 $subQuery
-                    ->where(fn($query) => $this
+                    ->where(fn ($query) => $this
                         ->getColumns()
                         ->each(fn (Column $column) => $query->orWhere($column->getName(), 'like', "%{$payload->getSearch()}%"))
                     );
+
                 return $subQuery;
             });
     }
@@ -198,7 +201,7 @@ trait InteractsWithQueryBuilder
         // Here we can properly control how much pages on each side
         if ($isLongPagination) {
             $windowTruncated = collect($window)
-                ->map(function ($item, $key) use ($leftSideMaximumPages,$rightSideMaximumPages, $middleMaximumPages) {
+                ->map(function ($item, $key) use ($leftSideMaximumPages, $rightSideMaximumPages, $middleMaximumPages) {
                     if ($key == 'first') {
                         return collect($item)->slice(0, $leftSideMaximumPages)->toArray();
                     }
@@ -210,6 +213,7 @@ trait InteractsWithQueryBuilder
                     if ($key === 'slider' && is_array($item)) {
                         return collect($item)->slice(0, $middleMaximumPages)->toArray();
                     }
+
                     return $item;
                 })
                 ->toArray();
@@ -259,7 +263,7 @@ trait InteractsWithQueryBuilder
                 'per_page' => $paginator->perPage(),
                 'to' => $paginator->lastItem(),
                 'total' => $paginator->total(),
-            ]
+            ],
         ];
     }
 
@@ -267,6 +271,7 @@ trait InteractsWithQueryBuilder
      * Process an action once is dispatched from the frontend to the backend
      *
      * @return void
+     *
      * @throws Exception
      */
     protected function dispatchAction(): void
@@ -287,6 +292,7 @@ trait InteractsWithQueryBuilder
      *
      * @param  Builder|null  $queryOrModel
      * @return array|Collection
+     *
      * @throws Exception
      */
     public function response(?Builder $queryOrModel = null): array|Collection
@@ -304,7 +310,7 @@ trait InteractsWithQueryBuilder
 
         $query = $this->getQuery();
 
-        $this->query = tap($query,function() use(&$query) {
+        $this->query = tap($query, function () use (&$query) {
             $this->applyQueryFilters($query, $this->data);
             $this->applyQuerySorting($query, $this->data);
             $this->applySearch($query, $this->data);

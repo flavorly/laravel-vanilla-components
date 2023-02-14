@@ -2,7 +2,6 @@
 
 namespace Flavorly\VanillaComponents;
 
-use Flavorly\VanillaComponents\Commands\VanillaComponentsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
