@@ -34,6 +34,15 @@ trait HasAfter
 
                 return $value;
             })
+            ->when($this->getInertia() !== null, function ($collection) {
+                return $collection->put('inertia', $this->getInertia()->toArray());
+            })
+            ->when($this->getRedirectUrl() !== null, function ($collection) {
+                return $collection->put('redirect', [
+                    'url' => $this->getRedirectUrl(),
+                    'newTab' => $this->shouldRedirectToNewTab(),
+                ]);
+            })
             ->toArray();
     }
 }

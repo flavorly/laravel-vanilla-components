@@ -22,6 +22,7 @@ class Action implements CoreContracts\HasToArray
     use Concerns\HasPolling;
     use Concerns\HasPermissions;
     use Concerns\HasHooks;
+    use Concerns\HasRedirect;
     use Concerns\HasPayload;
     use Concerns\CanBeExecuted;
     use Concerns\CanClearSelected;
@@ -29,6 +30,8 @@ class Action implements CoreContracts\HasToArray
     use Concerns\CanResetFilters;
     use Concerns\CanBeConvertedToModels;
     use Concerns\CanRefresh;
+    use Concerns\HasInertiaAction;
+    use Concerns\HasHybridlyAction;
     use Macroable;
 
     public function __construct()
@@ -58,10 +61,12 @@ class Action implements CoreContracts\HasToArray
             ->title($this->getName())
             ->text(trans('laravel-vanilla-components::translations.confirmation.text'));
 
-        // Other stuff
+        // After: Hooks
         $this->after['clearSelected'] = $this->getShouldClearSelectionAfterAction() ?? true;
         $this->after['resetFilters'] = $this->getShouldClearFiltersAfterAction() ?? false;
         $this->after['polling'] = $this->getPolling() ?? $polling;
+
+        // Before: Hooks
         $this->before['confirm'] = $this->getConfirmation() ?? $confirmation;
         $this->before['refresh'] = $this->getShouldRefreshAfterExecuted() ?? true;
     }

@@ -2,13 +2,15 @@
 
 namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
+use ReflectionClass;
+
 trait HasName
 {
     protected ?string $name = null;
 
     public function name(): string
     {
-        return md5(static::class);
+        return (new ReflectionClass($this))->getShortName();
     }
 
     public function setupName(): void
