@@ -27,12 +27,12 @@ trait InteractsWithTableQuery
         $method = 'where';
         if (is_array($value) || Str::of($value)->contains(',')) {
             $method = 'whereIn';
-            if(is_string($value) && Str::of($value)->contains(',')){
+            if (is_string($value) && Str::of($value)->contains(',')) {
                 $value = array_values(array_filter(explode(',', $value)));
             }
         }
 
-        if(is_array($value) && empty($value)){
+        if (is_array($value) && empty($value)) {
             return $query;
         }
 
@@ -40,8 +40,8 @@ trait InteractsWithTableQuery
         if (Str::of($column)->contains('.')) {
             [$relation, $relationshipColumn] = Str::of($column)->explode('.');
             if (filled($relation) && filled($relationshipColumn)) {
-                return $query->whereHas($relation, function(Builder $query) use($value, $relationshipColumn, $method){
-                        return $query->{$method}($relationshipColumn,$value);
+                return $query->whereHas($relation, function (Builder $query) use ($value, $relationshipColumn, $method) {
+                    return $query->{$method}($relationshipColumn, $value);
                 });
             }
         }
