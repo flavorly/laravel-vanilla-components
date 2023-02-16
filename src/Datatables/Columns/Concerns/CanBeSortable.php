@@ -11,11 +11,9 @@ trait CanBeSortable
 
     protected ?array $sortColumns = [];
 
-    protected ?Closure $sortQuery = null;
-
     protected ?string $sortDirection = null;
 
-    public function sortable(bool|array $condition = true, ?Closure $query = null): static
+    public function sortable(bool|array $condition = true, ?Closure $applySortUsing = null): static
     {
         if (is_array($condition)) {
             $this->isSortable = true;
@@ -25,7 +23,9 @@ trait CanBeSortable
             $this->sortColumns = null;
         }
 
-        $this->sortQuery = $query;
+        if(null !== $applySortUsing){
+            $this->sortUsing($applySortUsing);
+        }
 
         return $this;
     }

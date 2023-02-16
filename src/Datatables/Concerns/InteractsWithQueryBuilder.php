@@ -8,10 +8,12 @@ use Flavorly\VanillaComponents\Datatables\Columns\Column;
 use Flavorly\VanillaComponents\Datatables\Filters\Filter;
 use Flavorly\VanillaComponents\Datatables\Http\Payload\RequestPayload;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\UrlWindow;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Searchable;
 
@@ -20,9 +22,9 @@ trait InteractsWithQueryBuilder
     /**
      * Stores the query object
      *
-     * @var Builder|ScoutBuilder|Closure|null
+     * @var Builder|ScoutBuilder|Closure|null|mixed
      */
-    protected Builder|ScoutBuilder|null|Closure $query = null;
+    protected mixed $query = null;
 
     /**
      * Stores the data comming from the client side
@@ -44,9 +46,9 @@ trait InteractsWithQueryBuilder
     /**
      * Return the query model/instance
      *
-     * @return Closure|Builder|ScoutBuilder|null
+     * @return Closure|Builder|ScoutBuilder|null|mixed
      */
-    protected function getQuery()
+    protected function getQuery(): mixed
     {
         return $this->query;
     }
@@ -110,16 +112,20 @@ trait InteractsWithQueryBuilder
      *
      * @param  Builder  $query
      * @param  RequestPayload  $payload
-     * @return Builder
+     * @return void
      */
-    protected function applyQueryFilters(Builder $query, RequestPayload $payload): Builder
+    protected function applyQueryFilters(Builder $query, RequestPayload $payload): void
     {
-        return $query->when($payload->hasFilters(), function (Builder $subQuery) use ($payload) {
+        $query->when($payload->hasFilters(), function (Builder $subQuery) use ($payload) {
             // Each column that needs to be sorted
             $payload
                 ->getFilters()
                 // Apply Sorting
-                ->each(fn (Filter $filter) => $filter->apply($subQuery, $filter->getName(), $filter->getValue()));
+                ->each(fn (Filter $filter) => $filter->apply(
+                    $subQuery,
+                    $filter->getName(),
+                    $filter->getValue()
+                ));
 
             return $subQuery;
         });
@@ -130,15 +136,15 @@ trait InteractsWithQueryBuilder
      *
      * @param  Builder  $query
      * @param  RequestPayload  $payload
-     * @return Builder
+     * @return void
      */
-    protected function applyQuerySorting(Builder $query, RequestPayload $payload): Builder
+    protected function applyQuerySorting(Builder $query, RequestPayload $payload): void
     {
-        return $query->when($payload->hasSorting(), function (Builder $subQuery) use ($payload) {
+        $query->when($payload->hasSorting(), function (Builder $subQuery) use ($payload) {
             // Each column that needs to be sorted
             $payload
                 ->getSorting()
-                ->each(fn (Column $column) => $subQuery->orderBy($column->getName(), $column->getSortDirection()));
+                ->each(fn (Column $column) => $column->applySort($subQuery, $column->getName(), $column->getSortDirection()));
 
             return $subQuery;
         });
@@ -149,19 +155,20 @@ trait InteractsWithQueryBuilder
      *
      * @param  Builder  $query
      * @param  RequestPayload  $payload
-     * @return Builder
+     * @return void
      */
-    protected function applySearch(Builder $query, RequestPayload $payload): Builder
+    protected function applySearch(Builder $query, RequestPayload $payload): void
     {
+        /** @var Model $model */
         $model = $this->getQuery()->getModel();
         $usingScout = in_array(Searchable::class, class_uses($model::class));
 
-        return $query
+        $query
             // Model is using Scout, we can use it.
             ->when($usingScout && $payload->hasSearch(), function (Builder $subQuery) use ($model) {
                 // Each column that needs to be sorted
-                /** @var Searchable $model */
-                $subQuery->whereIn('id', $model::search($this->data->getSearch())->keys());
+                /** @var Searchable|Model $model */
+                $subQuery->whereIn($model->getKeyName(), $model::search($this->data->getSearch())->keys());
 
                 return $subQuery;
             })
@@ -171,6 +178,7 @@ trait InteractsWithQueryBuilder
                 $subQuery
                     ->where(fn ($query) => $this
                         ->getColumns()
+                        ->filter(fn (Column $column) => !Str::of($column->getName())->contains('.'))
                         ->each(fn (Column $column) => $query->orWhere($column->getName(), 'like', "%{$payload->getSearch()}%"))
                     );
 
@@ -308,16 +316,14 @@ trait InteractsWithQueryBuilder
             $this->withQuery($queryOrModel);
         }
 
-        $query = $this->getQuery();
-
-        $this->query = tap($query, function () use (&$query) {
+        $this->query = tap($this->getQuery(), function ($query) {
             $this->applyQueryFilters($query, $this->data);
             $this->applyQuerySorting($query, $this->data);
             $this->applySearch($query, $this->data);
         });
 
         /** @var LengthAwarePaginator $collection */
-        $collection = $query->paginate($this->data->getPerPage());
+        $collection = $this->query->paginate($this->data->getPerPage());
 
         if (method_exists($this, 'transform')) {
             $collection->transform(fn ($record) => $this->transform($record));
