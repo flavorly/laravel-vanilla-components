@@ -7,6 +7,7 @@ class RichSelect extends BaseComponent
     use Concerns\CanBeSearchable;
     use Concerns\HasOptions;
     use Concerns\HasFetchOptions;
+    use Concerns\HasMultipleValues;
 
     protected string $component = 'VanillaRichSelect';
 
@@ -24,6 +25,9 @@ class RichSelect extends BaseComponent
         return array_merge(
             // Base
             parent::toArray(),
+            [
+                'multiple' => $this->getIsMultiple(),
+            ],
             // Options
             [
                 'options' => $this->getOptionsToArray(),
