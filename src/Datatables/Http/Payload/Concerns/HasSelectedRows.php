@@ -8,8 +8,6 @@ trait HasSelectedRows
 {
     /**
      * Stores the selected rows ids/primary keys
-     *
-     * @var Collection
      */
     protected Collection $selectedRowsIds;
 

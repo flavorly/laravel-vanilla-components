@@ -29,6 +29,7 @@ trait InteractsWithTableQuery
     public function sortUsing(?Closure $callback): static
     {
         $this->applySortingUsing = $callback;
+
         return $this;
     }
 }

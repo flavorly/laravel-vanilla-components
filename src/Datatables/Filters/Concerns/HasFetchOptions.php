@@ -7,7 +7,9 @@ use Closure;
 trait HasFetchOptions
 {
     protected string|Closure|null $fetchOptionsEndpoint = null;
+
     protected string|Closure|null $fetchOptionKey = null;
+
     protected string|Closure|null $fetchOptionLabel = null;
 
     public function fetchOptionsFrom(string|Closure|null $url, string|Closure $label, string|Closure|null $key = 'id'): static

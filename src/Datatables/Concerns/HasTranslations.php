@@ -4,7 +4,6 @@ namespace Flavorly\VanillaComponents\Datatables\Concerns;
 
 trait HasTranslations
 {
-    /** @var array */
     protected array $translations = [];
 
     protected function getDefaultTranslations(): array

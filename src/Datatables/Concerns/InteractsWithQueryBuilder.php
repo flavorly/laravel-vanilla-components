@@ -28,15 +28,11 @@ trait InteractsWithQueryBuilder
 
     /**
      * Stores the data comming from the client side
-     *
-     * @var RequestPayload
      */
     protected RequestPayload $data;
 
     /**
      * The actual query builder instance provided by the user.
-     *
-     * @return mixed
      */
     public function query(): mixed
     {
@@ -55,8 +51,6 @@ trait InteractsWithQueryBuilder
 
     /**
      * Boot the query and save it on the instance.
-     *
-     * @return void
      */
     public function setupQuery(): void
     {
@@ -83,9 +77,6 @@ trait InteractsWithQueryBuilder
 
     /**
      * Attempts to resolve the query from a string, class or a model
-     *
-     * @param  mixed|null  $queryOrModel
-     * @return Builder
      */
     protected function resolveQueryOrModel(mixed $queryOrModel = null): Builder
     {
@@ -109,10 +100,6 @@ trait InteractsWithQueryBuilder
 
     /**
      * Apply the user provided filters using the follow method
-     *
-     * @param  Builder  $query
-     * @param  RequestPayload  $payload
-     * @return void
      */
     protected function applyQueryFilters(Builder $query, RequestPayload $payload): void
     {
@@ -133,10 +120,6 @@ trait InteractsWithQueryBuilder
 
     /**
      * Apply the sorting using the following method
-     *
-     * @param  Builder  $query
-     * @param  RequestPayload  $payload
-     * @return void
      */
     protected function applyQuerySorting(Builder $query, RequestPayload $payload): void
     {
@@ -152,10 +135,6 @@ trait InteractsWithQueryBuilder
 
     /**
      * Apply the search using the following method, supporting scout if the class uses scout.
-     *
-     * @param  Builder  $query
-     * @param  RequestPayload  $payload
-     * @return void
      */
     protected function applySearch(Builder $query, RequestPayload $payload): void
     {
@@ -178,7 +157,7 @@ trait InteractsWithQueryBuilder
                 $subQuery
                     ->where(fn ($query) => $this
                         ->getColumns()
-                        ->filter(fn (Column $column) => !Str::of($column->getName())->contains('.'))
+                        ->filter(fn (Column $column) => ! Str::of($column->getName())->contains('.'))
                         ->each(fn (Column $column) => $query->orWhere($column->getName(), 'like', "%{$payload->getSearch()}%"))
                     );
 
@@ -189,9 +168,6 @@ trait InteractsWithQueryBuilder
     /**
      * Transform the Laravel pagination with Vanilla Datatable Pagination structure
      * The ideia was origonally taken from Reink at PingCRM Demo
-     *
-     * @param  LengthAwarePaginator  $paginator
-     * @return array
      */
     protected function transformPagination(LengthAwarePaginator $paginator): array
     {
@@ -278,7 +254,6 @@ trait InteractsWithQueryBuilder
     /**
      * Process an action once is dispatched from the frontend to the backend
      *
-     * @return void
      *
      * @throws Exception
      */
@@ -298,8 +273,6 @@ trait InteractsWithQueryBuilder
      * otherwise we can inject the user provided query into the table.
      *
      *
-     * @param  Builder|null  $queryOrModel
-     * @return array|Collection
      *
      * @throws Exception
      */

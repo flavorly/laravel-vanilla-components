@@ -6,7 +6,6 @@ use Flavorly\VanillaComponents\Core\Polling\Polling;
 
 trait HasPolling
 {
-    /** @var array */
     protected array $pollingOptions = [];
 
     public function polling(): array|Polling

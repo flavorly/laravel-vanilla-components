@@ -24,13 +24,12 @@ trait InteractsWithTableQuery
             ]);
         }
 
-        if(Str::of($column)->contains('.')) {
+        if (Str::of($column)->contains('.')) {
             [$relation, $relationshipColumn] = Str::of($column)->explode('.');
-            if(filled($relation) && filled($relationshipColumn)) {
-                return $query->whereHas($relation, fn(Builder $query) => $query->where($relationshipColumn, $value));
+            if (filled($relation) && filled($relationshipColumn)) {
+                return $query->whereHas($relation, fn (Builder $query) => $query->where($relationshipColumn, $value));
             }
         }
-
 
         return $query->where($column, $value);
     }

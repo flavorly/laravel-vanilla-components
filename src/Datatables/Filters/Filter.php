@@ -48,7 +48,7 @@ class Filter implements CoreContracts\HasToArray
         }
 
         if (in_array(HasFetchOptions::class, class_uses($baseComponent::class))) {
-            if($baseComponent->getFetchOptionsEndpoint() !== null){
+            if ($baseComponent->getFetchOptionsEndpoint() !== null) {
                 $static->fetchOptionsFrom(
                     $baseComponent->getFetchOptionsEndpoint(),
                     $baseComponent->getFetchOptionLabel(),

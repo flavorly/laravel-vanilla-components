@@ -6,8 +6,6 @@ trait CanSelectAllRows
 {
     /**
      * Checks if all is selected
-     *
-     * @var bool
      */
     protected bool $isAllSelected = false;
 

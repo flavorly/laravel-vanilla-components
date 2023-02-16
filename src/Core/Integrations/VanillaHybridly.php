@@ -15,7 +15,8 @@ class VanillaHybridly
         protected ?string $url = null,
         protected array $query = [],
         protected array $options = [],
-    ){}
+    ) {
+    }
 
     public function reload(bool|Closure $reload = true): static
     {
@@ -48,21 +49,24 @@ class VanillaHybridly
     public function replace(bool|Closure $replace = true): static
     {
         $this->options['replace'] = $this->evaluate($replace);
+
         return $this;
     }
 
     public function method(string|Closure $method = 'POST'): static
     {
         $this->options['method'] = $this->evaluate($method);
+
         return $this;
     }
 
     public function post(array|Closure $data = []): static
     {
         $data = $this->evaluate($data);
-        if(!empty($data)){
+        if (! empty($data)) {
             $this->data($data);
         }
+
         return $this->method();
     }
 
@@ -94,6 +98,7 @@ class VanillaHybridly
                 $this->evaluate($keys)
             )
         );
+
         return $this;
     }
 
@@ -105,6 +110,7 @@ class VanillaHybridly
                 $this->evaluate($keys)
             )
         );
+
         return $this;
     }
 
@@ -116,6 +122,7 @@ class VanillaHybridly
                 $this->evaluate($headers)
             )
         );
+
         return $this;
     }
 
@@ -125,6 +132,7 @@ class VanillaHybridly
             Arr::get($this->options, 'data', []),
             $this->evaluate($data)
         );
+
         return $this;
     }
 
@@ -136,6 +144,7 @@ class VanillaHybridly
                 $params
             )
         );
+
         return $this;
     }
 
@@ -147,6 +156,7 @@ class VanillaHybridly
                 $this->evaluate($options)
             )
         );
+
         return $this;
     }
 

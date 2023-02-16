@@ -23,7 +23,7 @@ trait CanBeSortable
             $this->sortColumns = null;
         }
 
-        if(null !== $applySortUsing){
+        if (null !== $applySortUsing) {
             $this->sortUsing($applySortUsing);
         }
 
