@@ -6,6 +6,8 @@ class RichSelect extends BaseComponent
 {
     use Concerns\CanBeSearchable;
     use Concerns\HasOptions;
+    use Concerns\HasFetchOptions;
+    use Concerns\HasMultipleValues;
 
     protected string $component = 'VanillaRichSelect';
 
@@ -20,8 +22,22 @@ class RichSelect extends BaseComponent
             'loadingMoreResultsText' => trans('laravel-vanilla-components::translations.select.loadingMoreResultsText'),
         ]);
 
-        return array_merge(parent::toArray(), [
-            'options' => $this->getOptionsToArray(),
-        ]);
+        return array_merge(
+            // Base
+            parent::toArray(),
+            [
+                'multiple' => $this->getIsMultiple(),
+            ],
+            // Options
+            [
+                'options' => $this->getOptionsToArray(),
+            ],
+            // Fetch Stuff
+            $this->getFetchOptionsEndpoint() !== null ? [
+                'fetchEndpoint' => $this->getFetchOptionsEndpoint(),
+                'valueAttribute' => $this->getFetchOptionKey(),
+                'textAttribute' => $this->getFetchOptionLabel(),
+            ] : []
+        );
     }
 }

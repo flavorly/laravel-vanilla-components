@@ -19,6 +19,7 @@ class Column implements CoreContracts\HasToArray
     use Concerns\HasLabel;
     use Concerns\HasName;
     use Concerns\HasKey;
+    use Concerns\InteractsWithTableQuery;
     use Macroable;
 
     public function toArray(): array
